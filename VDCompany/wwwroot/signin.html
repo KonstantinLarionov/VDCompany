@@ -3,33 +3,6 @@
 
 <head>
 
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Twitter -->
-  <meta name="twitter:site" content="@themepixels">
-  <meta name="twitter:creator" content="@themepixels">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DashForge">
-  <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
-  <meta name="twitter:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
-
-  <!-- Facebook -->
-  <meta property="og:url" content="http://themepixels.me/dashforge">
-  <meta property="og:title" content="DashForge">
-  <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
-
-  <meta property="og:image" content="http://themepixels.me/dashforge/img/dashforge-social.png">
-  <meta property="og:image:secure_url" content="http://themepixels.me/dashforge/img/dashforge-social.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="600">
-
-  <!-- Meta -->
-  <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
-  <meta name="author" content="ThemePixels">
-
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="space/assets/img/favicon.png">
 
@@ -91,12 +64,12 @@
               <div class="d-flex justify-content-between mg-b-5">
                 <label class="mg-b-0-f" style="color: whitesmoke;">Пароль</label>
               </div>
-              <input type="password" class="form-control" placeholder="Enter your password">
+              <input type="password" id="password" class="form-control" placeholder="Enter your password">
             </div>
-            <button class="btn btn-brand-02 btn-block">Войти</button>
-            <div class="divider-text">ИЛИ</div>
-            <button class="btn btn-outline-facebook btn-block">Войти с Facebook</button>
-            <button class="btn btn-outline-twitter btn-block">Войти с VK</button>
+            <button class="btn btn-brand-02 btn-block" onclick="GoLog()">Войти</button>
+            <!--<div class="divider-text">ИЛИ</div>-->
+            <!--<button class="btn btn-outline-facebook btn-block">Войти с Facebook</button>
+            <button class="btn btn-outline-twitter btn-block">Войти с VK</button>-->
             <div class="tx-13 mg-t-20 tx-center" style="color: whitesmoke;">У вас нет аккаунта? <a
                 href="page-signup.html">Создать аккаунт</a>
             </div>
@@ -117,7 +90,18 @@
   <script src="space/lib/js-cookie/js.cookie.js"></script>
   <script src="assets/js/dashforge.settings.js"></script>
   <script>
-     
+      function GoLog() {
+          var email = document.getElementById("email");
+          var pass = document.getElementById("password");
+          fetch('/Auth/Login', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json;charset=utf-8'
+              },
+              body: JSON.stringify({ Login: email.value, Password: pass.value })
+          }).then(response => response.text())
+              .then(result => alert(result));
+      }
   </script>
 </body>
 

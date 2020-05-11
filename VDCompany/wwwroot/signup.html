@@ -93,9 +93,9 @@
             </div><!-- form-group -->
 
             <button class="btn btn-brand-02 btn-block" onclick="Goreg();">Создать аккаунт</button>
-            <div class="divider-text">or</div>
-            <button class="btn btn-outline-facebook btn-block">Регистрация с Facebook</button>
-            <button class="btn btn-outline-twitter btn-block">Регистрация с VK</button>
+            <!--<div class="divider-text">or</div>-->
+            <!--<button class="btn btn-outline-facebook btn-block">Регистрация с Facebook</button>
+            <button class="btn btn-outline-twitter btn-block">Регистрация с VK</button>-->
             <div class="tx-13 mg-t-20 tx-center">У вас уже есть аккаунт? <a href="page-signin.html">Войти</a></div>
           </div>
         </div><!-- sign-wrapper -->
@@ -128,14 +128,14 @@
           var email = document.getElementById("email");
           var pass = document.getElementById("password");
           var name = document.getElementById("name");
-             $.ajax({
-                 type: "POST",
-                 url: "/Auth/Reg",
-                 data: "Email=" + email.value + "&Name=" + name.value,
-                 success: function (data) {
-                     alert(data);
-                 }
-             });
+             fetch('/Auth/Reg', {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json;charset=utf-8'
+                 },
+                 body: JSON.stringify({ Email: email.value , Name: name.value })
+             }).then(response => response.text())
+                 .then(result => alert(result));
       }
     </script>
 </body>

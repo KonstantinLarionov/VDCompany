@@ -10,96 +10,137 @@ namespace VDCompany.Models.Secur
 {
     public class Coder
     {
-        private const int Keysize = 256;
-        private const int DerivationIterations = 1000;
-        private string passPhrase;
+        private static readonly byte[] Salt = Encoding.ASCII.GetBytes("asd121dgrthtyh31e1");
 
-        public Coder(string pass)
+        /// <summary>
+        /// Encrypt the given string using AES.  The string can be decrypted using 
+        /// DecryptStringAES().  The sharedSecret parameters must match.
+        /// </summary>
+        /// <param name="plainText">The text to encrypt.</param>
+        /// <param name="sharedSecret">A password used to generate a key for encryption.</param>
+        public static string EncryptAES(string plainText, string sharedSecret)
         {
-            passPhrase = pass;
-        }
+            if (string.IsNullOrEmpty(plainText))
+                throw new ArgumentNullException("plainText");
+            if (string.IsNullOrEmpty(sharedSecret))
+                throw new ArgumentNullException("sharedSecret");
 
-        public string Encrypt(string plainText)
-        {
-            var saltStringBytes = Generate256BitsOfRandomEntropy();
-            var ivStringBytes = Generate256BitsOfRandomEntropy();
-            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-            using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
-            {
-                var keyBytes = password.GetBytes(Keysize / 8);
-                using (var symmetricKey = new RijndaelManaged())
-                {
-                    symmetricKey.BlockSize = 256;
-                    symmetricKey.Mode = CipherMode.CBC;
-                    symmetricKey.Padding = PaddingMode.PKCS7;
-                    using (var encryptor = symmetricKey.CreateEncryptor(keyBytes, ivStringBytes))
-                    {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
-                            {
-                                cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
-                                cryptoStream.FlushFinalBlock();
+            string outStr;                       // Encrypted string to return
+            RijndaelManaged aesAlg = null;              // RijndaelManaged object used to encrypt the data.
 
-                                var cipherTextBytes = saltStringBytes;
-                                cipherTextBytes = cipherTextBytes.Concat(ivStringBytes).ToArray();
-                                cipherTextBytes = cipherTextBytes.Concat(memoryStream.ToArray()).ToArray();
-                                memoryStream.Close();
-                                cryptoStream.Close();
-                                return Convert.ToBase64String(cipherTextBytes);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        public string Decrypt(string cipherText)
-        {
             try
             {
-                var cipherTextBytesWithSaltAndIv = Convert.FromBase64String(cipherText);
-                var saltStringBytes = cipherTextBytesWithSaltAndIv.Take(Keysize / 8).ToArray();
-                var ivStringBytes = cipherTextBytesWithSaltAndIv.Skip(Keysize / 8).Take(Keysize / 8).ToArray();
-                var cipherTextBytes = cipherTextBytesWithSaltAndIv.Skip((Keysize / 8) * 2).Take(cipherTextBytesWithSaltAndIv.Length - ((Keysize / 8) * 2)).ToArray();
+                // generate the key from the shared secret and the salt
+                var key = new Rfc2898DeriveBytes(sharedSecret, Salt);
 
-                using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
+                // Create a RijndaelManaged object
+                aesAlg = new RijndaelManaged();
+                aesAlg.Key = key.GetBytes(aesAlg.KeySize / 8);
+
+                // Create a decryptor to perform the stream transform.
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for encryption.
+                using (var msEncrypt = new MemoryStream())
                 {
-                    var keyBytes = password.GetBytes(Keysize / 8);
-                    using (var symmetricKey = new RijndaelManaged())
+                    // prepend the IV
+                    msEncrypt.Write(BitConverter.GetBytes(aesAlg.IV.Length), 0, sizeof(int));
+                    msEncrypt.Write(aesAlg.IV, 0, aesAlg.IV.Length);
+                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
                     {
-                        symmetricKey.BlockSize = 256;
-                        symmetricKey.Mode = CipherMode.CBC;
-                        symmetricKey.Padding = PaddingMode.PKCS7;
-                        using (var decryptor = symmetricKey.CreateDecryptor(keyBytes, ivStringBytes))
+                        using (var swEncrypt = new StreamWriter(csEncrypt))
                         {
-                            using (var memoryStream = new MemoryStream(cipherTextBytes))
-                            {
-                                using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
-                                {
-                                    var plainTextBytes = new byte[cipherTextBytes.Length];
-                                    var decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
-                                    memoryStream.Close();
-                                    cryptoStream.Close();
-                                    return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
-                                }
-                            }
+                            //Write all data to the stream.
+                            swEncrypt.Write(plainText);
                         }
+                    }
+                    outStr = Convert.ToBase64String(msEncrypt.ToArray());
+                }
+            }
+            finally
+            {
+                // Clear the RijndaelManaged object.
+                if (aesAlg != null)
+                    aesAlg.Clear();
+            }
+
+            // Return the encrypted bytes from the memory stream.
+            return outStr;
+        }
+
+        /// <summary>
+        /// Decrypt the given string.  Assumes the string was encrypted using 
+        /// EncryptStringAES(), using an identical sharedSecret.
+        /// </summary>
+        /// <param name="cipherText">The text to decrypt.</param>
+        /// <param name="sharedSecret">A password used to generate a key for decryption.</param>
+        public static string DecryptAES(string cipherText, string sharedSecret)
+        {
+            if (string.IsNullOrEmpty(cipherText))
+                throw new ArgumentNullException("cipherText");
+            if (string.IsNullOrEmpty(sharedSecret))
+                throw new ArgumentNullException("sharedSecret");
+
+            // Declare the RijndaelManaged object
+            // used to decrypt the data.
+            RijndaelManaged aesAlg = null;
+
+            // Declare the string used to hold
+            // the decrypted text.
+            string plaintext;
+
+            try
+            {
+                // generate the key from the shared secret and the salt
+                var key = new Rfc2898DeriveBytes(sharedSecret, Salt);
+
+                // Create the streams used for decryption.                
+                byte[] bytes = Convert.FromBase64String(cipherText);
+                using (var msDecrypt = new MemoryStream(bytes))
+                {
+                    // Create a RijndaelManaged object
+                    // with the specified key and IV.
+                    aesAlg = new RijndaelManaged();
+                    aesAlg.Key = key.GetBytes(aesAlg.KeySize / 8);
+                    // Get the initialization vector from the encrypted stream
+                    aesAlg.IV = ReadByteArray(msDecrypt);
+                    // Create a decrytor to perform the stream transform.
+                    ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+                    using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (var srDecrypt = new StreamReader(csDecrypt))
+
+                            // Read the decrypted bytes from the decrypting stream
+                            // and place them in a string.
+                            plaintext = srDecrypt.ReadToEnd();
                     }
                 }
             }
-            catch { return null; }
+            finally
+            {
+                // Clear the RijndaelManaged object.
+                if (aesAlg != null)
+                    aesAlg.Clear();
+            }
 
+            return plaintext;
         }
 
-        private static byte[] Generate256BitsOfRandomEntropy()
+        private static byte[] ReadByteArray(Stream s)
         {
-            var randomBytes = new byte[32];
-            using (var rngCsp = new RNGCryptoServiceProvider())
+            var rawLength = new byte[sizeof(int)];
+            if (s.Read(rawLength, 0, rawLength.Length) == rawLength.Length)
             {
-                rngCsp.GetBytes(randomBytes);
+                var buffer = new byte[BitConverter.ToInt32(rawLength, 0)];
+                if (s.Read(buffer, 0, buffer.Length) != buffer.Length)
+                {
+                    throw new SystemException("Did not read byte array properly");
+                }
+
+                return buffer;
             }
-            return randomBytes;
+
+            throw new SystemException("Stream did not contain properly formatted byte array");
         }
     }
 }

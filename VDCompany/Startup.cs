@@ -36,7 +36,13 @@ namespace VDCompany
                        mySqlOptions.ServerVersion(new Version(5, 6, 45), ServerType.MySql);
                    }
            ));
-           
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(100000);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             //services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
@@ -50,7 +56,7 @@ namespace VDCompany
             {
                 app.UseHsts();
             }
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();

@@ -14,6 +14,8 @@ namespace VDCompany.Models.Objects
         public string RefCode { get; set; }
         public string FromeRef { get; set; }
         public string Email { get; set; }
+        public string LASTIP { get; set; }
+        public DateTime LASTLOGIN { get; set; }
         public DateTime DateReg { get; set; }
         public string Password { get; set; }
         public List<Case> Cases { get; set; }
