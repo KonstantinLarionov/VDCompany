@@ -29,7 +29,7 @@ namespace VDCompany.Controllers
             else
             {
                 Random rnd0 = new Random();
-                string hashPassword = Coder.EncryptAES(userDTO.Name + userDTO.Email + rnd0.Next(0, 10000000).ToString() +  DateTime.Now.ToString() + "solty256" , "TrashINCODEJUSTUNOTSEEthisn0w").Substring(6,16);
+                string hashPassword = Coder.EncryptAES(userDTO.Name + userDTO.Email + rnd0.Next(0, 10000000).ToString() + DateTime.Now.ToString() + "solty256", "TrashINCODEJUSTUNOTSEEthisn0w").Substring(6, 16);
                 User user = new User();
                 user.Email = userDTO.Email;
                 user.DateReg = DateTime.Now;
@@ -47,7 +47,7 @@ namespace VDCompany.Controllers
                 user.Password = hashPassword;
                 db.Users.Add(user);
                 db.SaveChanges();
-                Mailler.SendEmailAsync(userDTO.Email, "VDCOMPANY", "Регистрация на сервисе", "Добро пожаловать в VDCompany! <br> Ваш логин: <strong>"+ userDTO.Email + "</strong> <br> Ваш пароль: <strong>"+user.Password+"</strong>").GetAwaiter().GetResult();
+                Mailler.SendEmailAsync(userDTO.Email, "VDCOMPANY", "Регистрация на сервисе", "Добро пожаловать в VDCompany! <br> Ваш логин: <strong>" + userDTO.Email + "</strong> <br> Ваш пароль: <strong>" + user.Password + "</strong>").GetAwaiter().GetResult();
 
                 return "Пользователь успешно зарегистрирован на сервисе. Проверьте вашу почту";
             }
@@ -75,6 +75,23 @@ namespace VDCompany.Controllers
             else
             {
                 return false;
+            }
+        }
+
+        [HttpPost(Name = "Reset")]
+        [Route("Reset")]
+        public string Reset([FromBody] RegDTO userDTO)
+        {
+            if (db.Users.Any(x => x.Email == userDTO.Email))
+            {
+                var user = db.Users.Where(x => x.Email == userDTO.Email).FirstOrDefault();
+                Mailler.SendEmailAsync(userDTO.Email, "VDCOMPANY", "Забыли пароль?", "Ваш пароль на сервисе VDCompany: <strong>" + user.Password + "</strong>").GetAwaiter().GetResult();
+
+                return "Пароль успешно восстановлен. Проверьте вашу почту";
+            }
+            else
+            {
+                return "Данный Email не был зарегистрирован ранее. Пройдите процедуру регистрации.";
             }
         }
     }
