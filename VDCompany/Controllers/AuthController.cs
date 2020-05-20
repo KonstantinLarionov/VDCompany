@@ -76,5 +76,22 @@ namespace VDCompany.Controllers
                 return false;
             }
         }
+
+        [HttpPost(Name = "Reset")]
+        [Route("Reset")]
+        public string Reset([FromBody] RegDTO userDTO)
+        {
+            if (db.Users.Any(x => x.Email == userDTO.Email))
+            {
+                var user = db.Users.Where(x => x.Email == userDTO.Email).FirstOrDefault();
+                Mailler.SendEmailAsync(userDTO.Email, "VDCOMPANY", "Забыли пароль?", "Ваш пароль на сервисе VDCompany: <strong>" + user.Password + "</strong>").GetAwaiter().GetResult();
+
+                return "Пароль успешно восстановлен. Проверьте вашу почту";
+            }
+            else
+            {
+                return "Данный Email не был зарегистрирован ранее. Пройдите процедуру регистрации.";
+            }
+        }
     }
 }
