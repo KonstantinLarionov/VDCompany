@@ -62,7 +62,6 @@ namespace VDCompany.Controllers
                 loginDTO.Login = HttpContext.Session.GetString("login");
                 loginDTO.Password = HttpContext.Session.GetString("password");
             }
-
             var user = db.Users.Where(u => u.Email == loginDTO.Login && u.Password == loginDTO.Password).FirstOrDefault();
             if (user != null)
             {
@@ -75,23 +74,6 @@ namespace VDCompany.Controllers
             else
             {
                 return false;
-            }
-        }
-
-        [HttpPost(Name = "Reset")]
-        [Route("Reset")]
-        public string Reset([FromBody] RegDTO userDTO)
-        {
-            if (db.Users.Any(x => x.Email == userDTO.Email))
-            {
-                var user = db.Users.Where(x => x.Email == userDTO.Email).FirstOrDefault();
-                Mailler.SendEmailAsync(userDTO.Email, "VDCOMPANY", "Забыли пароль?", "Ваш пароль на сервисе VDCompany: <strong>" + user.Password + "</strong>").GetAwaiter().GetResult();
-
-                return "Пароль успешно восстановлен. Проверьте вашу почту";
-            }
-            else
-            {
-                return "Данный Email не был зарегистрирован ранее. Пройдите процедуру регистрации.";
             }
         }
     }
