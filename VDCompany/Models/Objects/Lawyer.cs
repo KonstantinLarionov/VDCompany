@@ -13,6 +13,8 @@ namespace VDCompany.Models.Objects
         public string Phone { get; set; }
         public string Email { get; set; }
         public string PersonalCode { get; set; }
+        public List<Image> Image { get; set; }
+        public DateTime DateCreate { get; set; }
         public List<User> Users { get; set; }
     }
 }

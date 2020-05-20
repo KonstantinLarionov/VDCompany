@@ -62,7 +62,6 @@ namespace VDCompany.Controllers
                 loginDTO.Login = HttpContext.Session.GetString("login");
                 loginDTO.Password = HttpContext.Session.GetString("password");
             }
-
             var user = db.Users.Where(u => u.Email == loginDTO.Login && u.Password == loginDTO.Password).FirstOrDefault();
             if (user != null)
             {
