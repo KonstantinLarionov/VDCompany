@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -92,8 +92,10 @@
                     <h4 class="mg-b-0 tx-spacing--1">Открытие нового дела</h4>
                 </div>
                 <div class="d-none d-md-block">
-                    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="list"
-                            class="wd-10 mg-r-5"></i> Мои дела</button>
+                    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
+                        <i data-feather="list"
+                           class="wd-10 mg-r-5"></i> Мои дела
+                    </button>
                 </div>
             </div>
 
@@ -106,13 +108,13 @@
                     <div class="pd-t-20 wd-100p">
                         <div class="form-group">
                             <label>Как к вам обращаться?</label>
-                            <input type="text" class="form-control" placeholder="Введите имя или ник">
+                            <input type="text" class="form-control" placeholder="Введите имя или ник" id="name">
                         </div>
                         <div class="form-group">
                             <div class="d-flex justify-content-between mg-b-5">
                                 <label class="mg-b-0-f">Выберите тип вашего дела</label>
                             </div>
-                            <select class="custom-select">
+                            <select class="custom-select" id="type">
                                 <option selected>Откройте выбор</option>
                                 <option value="1">Уголовное дело</option>
                                 <option value="2">Дело военнослужащих</option>
@@ -123,9 +125,9 @@
                         </div>
                         <div class="form-group">
                             <label>Краткое описание</label>
-                            <textarea class="form-control" rows="2"
-                                placeholder="Напишите кратко о вашем деле, чтобы мы могли найти нужного специалиста.."
-                                required></textarea>
+                            <textarea class="form-control" rows="2" id="dialog"
+                                      placeholder="Напишите кратко о вашем деле, чтобы мы могли найти нужного специалиста.."
+                                      required></textarea>
                         </div>
 
                         <div class="form-group tx-12">
@@ -133,7 +135,7 @@
                             <strong>СЧЕТ ДЛЯ ОПЛАТЫ выставляется в процессе обсуждения открытого дела.</strong>
                         </div><!-- form-group -->
 
-                        <button class="btn btn-brand-02 btn-block">Открыть новое дело</button>
+                        <button class="btn btn-brand-02 btn-block" onclick="Create();">Открыть новое дело</button>
                     </div>
 
                 </div>
@@ -160,6 +162,21 @@
         <!-- append theme customizer -->
         <script src="lib/js-cookie/js.cookie.js"></script>
         <script src="assets/js/dashforge.settings.js"></script>
+        <script>
+            function Create() {
+                var name = document.getElementById("name");
+                var type = document.getElementById("type");
+                var dialog = document.getElementById("dialog");
+                fetch('/User/Create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({ Type: type.value, Name: name.value, Dialog: dialog.value, })
+                }).then(response => response.text())
+                    .then(result => alert(result));
+            }
+        </script>
 
 </body>
 
