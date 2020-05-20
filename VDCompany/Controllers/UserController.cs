@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using VDCompany.Models.Objects;
+using VDCompany.Models.DTO;
+using VDCompany.Models.Entitys;
+using Microsoft.EntityFrameworkCore;
+using VDCompany.Models.Secur;
+using System.Data.Entity.Validation;
 
 namespace VDCompany.Controllers
 {
-    [Route("server/[controller]")]
+
+    [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
+        private static StartContext db = new StartContext(new DbContextOptions<StartContext>());
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -40,6 +48,20 @@ namespace VDCompany.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+        [HttpPost(Name = "Create")]
+        [Route("Create")]
+        public string Create([FromBody] Create newcase)
+        {
+
+            Create create = new Create();
+            create.Name = newcase.Name;
+            create.Type = newcase.Type;
+            create.Dialog = newcase.Dialog;
+            create.DateStart = DateTime.Now;
+            db.Creates.Add(create);
+            db.SaveChanges();
+            return "Ваше дело передано на рассмотрение. Мы свяжемся с Вами в ближайшее время";
         }
     }
 }
