@@ -12,7 +12,6 @@ namespace VDCompany.Models.Entitys
 
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Case> Cases { get; set; }
-        public DbSet<Create> Creates { get; set; }
         public DbSet<Doc> Docs { get; set; }
         public DbSet<Dialog> Dialogs { get; set; }
         public DbSet<Lawyer> Lawyers { get; set; }

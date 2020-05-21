@@ -12,6 +12,9 @@ namespace VDCompany.Models.Objects
     public class Case
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Type { get; set; }
         public List<Doc> Docs { get; set; }
         public List<Lawyer> Lawyers { get; set; }
         public Dialog Dialog { get; set; }
