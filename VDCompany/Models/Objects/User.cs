@@ -19,5 +19,6 @@ namespace VDCompany.Models.Objects
         public DateTime DateReg { get; set; }
         public string Password { get; set; }
         public List<Case> Cases { get; set; }
+        public List<Bill> Bills { get; set; }
     }
 }

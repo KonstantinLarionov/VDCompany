@@ -28,6 +28,7 @@ namespace VDCompany
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddControllers();
             services.AddDbContextPool<StartContext>(
                options => options.UseMySql(Conf.ConnectDb,

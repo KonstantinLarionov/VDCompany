@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -105,18 +105,20 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Дело</th>
+                                <th scope="col">Сумма</th>
+                                <th scope="col">Реквизит</th>
                                 <th scope="col">Дата выставления</th>
                                 <th scope="col">Дата оплаты</th>
                                 <th scope="col">Действие</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="TableBody">
+                            <!--<tr>
                                 <th scope="row">1</th>
                                 <td>Adrian Monino</td>
                                 <td>Front-End Engineer</td>
                                 <td>Computer Science</td>
-                                <td><button type="button" class="btn btn-block btn-success">Оплатить</button></td>
+                                <td><a class="btn btn-block btn-success">Оплатил</a></td>
                             </tr>
                             <tr>
                                 <th scope="row">1</th>
@@ -127,7 +129,7 @@
                                     <a href="#modal6" class="btn btn-primary btn-block" data-toggle="modal"
                                         data-animation="effect-flip-horizontal">Посмотреть</a>
                                 </td>
-                            </tr>
+                            </tr>-->
 
                         </tbody>
                     </table>
@@ -212,7 +214,83 @@
         <!-- append theme customizer -->
         <script src="lib/js-cookie/js.cookie.js"></script>
         <script src="assets/js/dashforge.settings.js"></script>
+        <script>
+            window.onload = function GetBills() {
 
+                fetch('/User/GetBills', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                }).then(response => response.json())
+                    .then(result => ShowBills(result));
+            }
+            function ShowBills(resResponse) {
+                console.log(resResponse);
+                for (var i = 0; i < resResponse.length; i++) {
+                    CreateRow(resResponse[i]);
+                }
+            }
+
+            function CreateRow(object) {
+                let table = document.getElementById("TableBody");
+                let row = document.createElement("TR");
+
+                let dateF = object["dateCreate"].split("T")[0];  
+                let dateFP = object["datePay"].split("T")[0];
+
+                let idBill   = document.createElement("TD"); idBill.innerHTML = object["id"];
+                let caseName = document.createElement("TD"); caseName.innerHTML = object["nameCase"];
+                let amount   = document.createElement("TD"); amount.innerHTML = object["amount"];
+                let requizit = document.createElement("TD"); requizit.innerHTML = object["requizit"];
+                let date = document.createElement("TD"); date.innerHTML = dateF;
+                let datePay  = document.createElement("TD"); datePay.innerHTML = dateFP;
+                let button   = document.createElement("A");
+                let doSome   = document.createElement("TD"); 
+
+
+                if (object["status"] == 1) {
+                    button.id = idBill;
+                    button.setAttribute("class", "btn btn-primary btn-block");
+                    button.innerHTML = "Посмотреть";
+                    button.addEventListener('onclick', ChangeStatus(button.id));
+                } else if (object["status"] == 2) {
+                    button.setAttribute("class", "btn btn-primary btn-block");
+                    button.innerHTML = "На проверке";
+                }else if (object["status"] == 0) {
+                    button.setAttribute("class", "btn btn-block btn-danger");
+                    button.innerHTML = "Не оплачено";
+                }
+
+                doSome.append(button);
+                row.append(idBill, caseName, amount, requizit, date, datePay, doSome);
+                console.log(doSome);
+                table.appendChild(row);
+            }
+
+            function ChangeStatus(id) {
+                fetch('/User/ChangeStatus', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                }).then(response => response.json())
+                    .then(result => ShowStatus(result));
+            }
+            function ShowStatus(res) {
+                if (res["state"] === "True") {
+                    let button = document.getElementById(res["id"])
+                    button.setAttribute("class", "btn btn-primary btn-block");
+                    button.innerHTML = "На проверке";
+                }
+                else {
+                    let button = document.getElementById(res["id"])
+                    button.setAttribute("class", "btn btn-primary btn-block");
+                    button.innerHTML = "Ошибка!";
+                    alert("Произошла ошибка! обновите страницу позже");
+                }
+            }
+        </script>
 </body>
 
 </html>

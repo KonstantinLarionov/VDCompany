@@ -9,6 +9,8 @@ using VDCompany.Models.Entitys;
 using Microsoft.EntityFrameworkCore;
 using VDCompany.Models.Secur;
 using System.Data.Entity.Validation;
+using Microsoft.AspNetCore.Http;
+using VDCompany.Testings;
 
 namespace VDCompany.Controllers
 {
@@ -17,7 +19,12 @@ namespace VDCompany.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private static StartContext db = new StartContext(new DbContextOptions<StartContext>());
+        UserCore.UserDispatcher user;
+        public UserController()
+        {
+            user = new UserCore.UserDispatcher(HttpContext);
+        }
+       
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -63,5 +70,34 @@ namespace VDCompany.Controllers
             db.SaveChanges();
             return "Ваше дело передано на рассмотрение. Мы свяжемся с Вами в ближайшее время";
         }
+        [HttpPost(Name = "GetBills")]
+        [Route("GetBills")]
+        public List<Bill> GetBills()
+        {
+            /*if (Auth())
+            {*/
+            UserDBBuilder.HttpContext = HttpContext;
+            UserDBBuilder.Build("cookies");
+            
+            var userWithBills = GetUser().Include(x => x.Bills).FirstOrDefault();
+            return userWithBills.Bills;
+            /*}
+            else 
+            {
+                return null;
+            }*/
+        }
+
+        [HttpPost(Name = "ChangeStatus")]
+        [Route("ChangeStatus")]
+        public object[] ChangeStatus([FromBody] int id )
+        {
+            user.GetUser().Include(x => x.Bills).FirstOrDefault();
+            user.Bills.Where(x => x.Id == id).FirstOrDefault().Status = StatusBill.InProcess;
+            return new object[] { true, id };
+        }
+
+       
+
     }
 }

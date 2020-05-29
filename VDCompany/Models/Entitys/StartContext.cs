@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VDCompany.Models.Interfaces;
 using VDCompany.Models.Objects;
 
 namespace VDCompany.Models.Entitys
