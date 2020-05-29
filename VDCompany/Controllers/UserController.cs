@@ -58,15 +58,15 @@ namespace VDCompany.Controllers
         }
         [HttpPost(Name = "Create")]
         [Route("Create")]
-        public string Create([FromBody] Create newcase)
+        public string Create([FromBody] Case newcase)
         {
 
-            Create create = new Create();
+            Case create = new Case();
             create.Name = newcase.Name;
             create.Type = newcase.Type;
-            create.Dialog = newcase.Dialog;
+            create.Description = newcase.Description;
             create.DateStart = DateTime.Now;
-            db.Creates.Add(create);
+            db.Cases.Add(create);
             db.SaveChanges();
             return "Ваше дело передано на рассмотрение. Мы свяжемся с Вами в ближайшее время";
         }
