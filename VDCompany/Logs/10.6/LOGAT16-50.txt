@@ -1,0 +1,13 @@
+System.InvalidCastException: Unable to convert MySQL date/time to System.DateTime, set AllowZeroDateTime=True or ConvertZeroDateTime=True in the connection string. See https://mysqlconnector.net/connection-options/
+   at MySqlConnector.Core.TextRow.ParseDateTime(ReadOnlySpan`1 value) in C:\projects\mysqlconnector\src\MySqlConnector\Core\TextRow.cs:line 163
+   at MySqlConnector.Core.TextRow.GetValueCore(ReadOnlySpan`1 data, ColumnDefinitionPayload columnDefinition) in C:\projects\mysqlconnector\src\MySqlConnector\Core\TextRow.cs:line 87
+   at MySqlConnector.Core.Row.GetValue(Int32 ordinal) in C:\projects\mysqlconnector\src\MySqlConnector\Core\Row.cs:line 40
+   at MySqlConnector.Core.Row.GetDateTime(Int32 ordinal) in C:\projects\mysqlconnector\src\MySqlConnector\Core\Row.cs:line 328
+   at MySql.Data.MySqlClient.MySqlDataReader.GetDateTime(Int32 ordinal) in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlDataReader.cs:line 251
+   at lambda_method(Closure , QueryContext , DbDataReader , ResultContext , Int32[] , ResultCoordinator )
+   at Microsoft.EntityFrameworkCore.Query.RelationalShapedQueryCompilingExpressionVisitor.QueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.SingleOrDefault[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at VDCompany.Controllers.Core.UserCore.UserDigger.CreateCase(CaseDTO caseDTO) in D:\repos\DavidovFront\VDCompany\VDCompany\Controllers\Core\UserCore\UserDigger.cs:line 105

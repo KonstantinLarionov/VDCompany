@@ -46,7 +46,7 @@ namespace VDCompany.Testings
         {
             try
             {
-                var user = new User() { Email = TESTEMAIL, Password = TESTEPASSWORD };
+                var user = new User() { Email = TESTEMAIL, Password = TESTEPASSWORD, DateReg = DateTime.Now, LASTLOGIN = DateTime.Now };
                 entity.Users.Add(user);
                 entity.SaveChanges();
                 return ResultState.OK;
