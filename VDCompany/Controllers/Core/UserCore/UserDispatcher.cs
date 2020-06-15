@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VDCompany.Models.DTO;
 using VDCompany.Models.Objects;
+using VDCompany.Models.Secur;
 
 namespace VDCompany.Controllers.Core.UserCore
 {
@@ -76,7 +77,15 @@ namespace VDCompany.Controllers.Core.UserCore
         public bool CreateCase(CaseDTO caseDTO)
         {
             var result = digger.CreateCase(caseDTO);
-            return result == ResultState.Ok ? true : false;
+            if (result == ResultState.Ok)
+            {
+                Mailler.SendEmailAsync(HttpContext.Session.GetString("login"), "VDCOMPANY", "Создание нового дела", $"Вы создали новое дело на сервисе VDCOMPANY! <br><br> Наименование вашего дела: {caseDTO.Name} <br> Тип вашего дела: {caseDTO.Type} <br> Дата создания: {DateTime.Now} <br><br> После регистрации, дело появится в вашем личном кабинете в списке дел и вам будет назначен подходящий специалист.<br><br> <span style=\"color:red;\">По всем вопросам: companyvd@yandex.ru</span>");
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
         }
         #endregion
     }

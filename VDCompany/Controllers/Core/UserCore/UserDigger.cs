@@ -74,6 +74,21 @@ namespace VDCompany.Controllers.Core.UserCore
                 return null;
             }*/
         }
+        public List<Case> GetCases()
+        {
+            /*if (Auth())
+            {*/
+            UserDBBuilder.HttpContext = http;
+            UserDBBuilder.Build("cookies");
+
+            var userWithBills = GetUser().Include(x => x.Cases).FirstOrDefault();
+            return userWithBills.Cases;
+            /*}
+            else 
+            {
+                return null;
+            }*/
+        }
         #endregion
         #region UserInfoSetter
         public ResultState ChangeStatusBill(int id)
