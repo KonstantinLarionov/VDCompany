@@ -42,7 +42,20 @@ namespace VDCompany.Controllers
         {
             return new object[] { HttpContext.SendToUser(u => u.ChangeStateBill(CBD.Id)), CBD.Id };
         }
-   
+
+        [HttpPost(Name = "GetCases")]
+        [Route("GetCases")]
+        public List<Models.Objects.Case> GetCases()
+        {
+            return HttpContext.SendToUser(u => u.GetCases());
+        }
+
+        [HttpPost(Name = "GetLawyers")]
+        [Route("GetLawyers")]
+        public List<Models.Objects.Lawyer> GetLawyers()
+        {
+            return HttpContext.SendToUser(u => u.GetLawyers());
+        }
 
     }
 }

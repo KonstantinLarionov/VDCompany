@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using VDCompany.Hubs;
 using VDCompany.Models;
 using VDCompany.Models.Entitys;
 
@@ -95,6 +96,8 @@ namespace VDCompany
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+            services.AddDistributedMemoryCache();
             services.AddHttpContextAccessor();
             services.AddControllers();
             services.AddDbContextPool<StartContext>(
@@ -130,11 +133,10 @@ namespace VDCompany
             app.UseRouting();
             app.UseEndpoints(endpoint =>
             {
+                endpoint.MapHub<CaseHub>("/caseHub");
                 endpoint.MapControllers();
             });
         }
-        
-       
         public void Loger(string message)
         {
             var main_path = Environment.CurrentDirectory + @"\Logs\" + DateTime.Now.Date.Day.ToString() + "." + DateTime.Now.Date.Month.ToString() + @"\";

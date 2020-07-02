@@ -11,5 +11,7 @@ namespace VDCompany.Models.Objects
         public string Text { get; set; }
         public DateTime Date { get; set; }
         public User User { get; set; }
+        public Admin Admin { get; set; }
+        public Lawyer Lawyer { get; set; }
     }
 }

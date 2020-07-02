@@ -12,6 +12,8 @@ namespace VDCompany.Models.Objects
         public string Password { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public string About { get; set; }
+        public string Speciality { get; set; }
         public string PersonalCode { get; set; }
         public List<Image> Image { get; set; }
         public DateTime DateCreate { get; set; }

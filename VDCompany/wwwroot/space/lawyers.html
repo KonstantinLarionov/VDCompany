@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="assets/css/dashforge.contacts.css">
 </head>
 
-<body class="page-profile">
+<body class="page-profile" id="body">
 
     <header class="navbar navbar-header navbar-header-fixed">
         <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
@@ -50,10 +50,15 @@
                 <li class="nav-item">
                     <a href="" class="nav-link"><i data-feather="layers"></i> Контакты</a>
                 </li>
-                <li class="nav-item"><a href="../../components/" class="nav-link"><i data-feather="box"></i> Юристы</a>
+                <li class="nav-item">
+                    <a href="../../components/" class="nav-link"><i data-feather="box"></i> Юристы</a>
                 </li>
-                <li class="nav-item"><a href="../../collections/" class="nav-link"><i data-feather="archive"></i>
-                        Политика ПДН</a></li>
+                <li class="nav-item">
+                    <a href="../../collections/" class="nav-link">
+                        <i data-feather="archive"></i>
+                        Политика ПДН
+                    </a>
+                </li>
             </ul>
         </div><!-- navbar-menu-wrapper -->
         <div class="navbar-right">
@@ -92,22 +97,38 @@
                     <h4 class="mg-b-0 tx-spacing--1">Просмотр всех контактов компании</h4>
                 </div>
                 <div class="d-none d-md-block">
-                    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="clipboard"
-                            class="wd-10 mg-r-5"></i> Мои дела</button>
+                    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
+                        <i data-feather="clipboard"
+                           class="wd-10 mg-r-5"></i> Мои дела
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
+    <div id="laws">
+
     </div>
     <!--MAINPAGE-->
-    <div class="content content-fixed content-auth-alt">
+    <!--<div class="content content-fixed content-auth-alt">
         <div class="container d-flex justify-content-center ht-100p">
             <div class="card wd-sm-50p wd-md-40p">
+                <img src="assets/img/placehold.jpg" style="height:147px;" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" id="name">Card title</h5>
+                    <p class="card-text" id="about"></p>
+                    <a href="#" class="btn btn-primary" id="button">Go somewhere</a>
+                </div>
+            </div>
+
+            <div class="card wd-sm-50p wd-md-40p">
                 <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the bulk of the
                         card's
-                        content.</p>
+                        content.
+                    </p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
@@ -115,9 +136,11 @@
                 <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the bulk of the
                         card's
-                        content.</p>
+                        content.
+                    </p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
@@ -125,112 +148,17 @@
                 <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the bulk of the
                         card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card wd-sm-50p wd-md-40p">
-                <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
+                        content.
+                    </p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="content content-fixed content-auth-alt">
-        <div class="container d-flex justify-content-center ht-100p">
-            <div class="card wd-sm-50p wd-md-40p">
-                <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card wd-sm-50p wd-md-40p">
-                <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card wd-sm-50p wd-md-40p">
-                <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card wd-sm-50p wd-md-40p">
-                <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="content content-fixed content-auth-alt">
-        <div class="container d-flex justify-content-center ht-100p">
-            <div class="card wd-sm-50p wd-md-40p">
-                <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card wd-sm-50p wd-md-40p">
-                <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card wd-sm-50p wd-md-40p">
-                <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card wd-sm-50p wd-md-40p">
-                <img src="assets/img/placehold.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </div>-->
+
     <script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="lib/feather-icons/feather.min.js"></script>
@@ -248,7 +176,92 @@
     <!-- append theme customizer -->
     <script src="lib/js-cookie/js.cookie.js"></script>
     <script src="assets/js/dashforge.settings.js"></script>
+    <script>
+        window.onload = function GetLawyers() {
+            fetch('/User/GetLawyers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            }).then(response => response.json())
+                .then(result => ShowLawyers(result));
+        }
+        function ShowLawyers(resResponse) {
+            for (var i = 4; i < resResponse.length + 4; i = i + 4) {
+                document.getElementById('laws').append(InsertBlocks(resResponse, i, resResponse.length));
+            }
+        }
+        function InsertBlocks(data, i, lenght) {
+            console.log(i);
+            console.log(lenght);
+            console.log(data[i]);
+            var wrapperMain = CreateWrapp();
+            var wrapper = CreateContainer();
+            if (i - 4 < lenght) {
+                var element2 = CreateElements(data[i - 4]);
+                wrapper.append(element2);
+            } 
+           if (i - 3 < lenght) {
+                var element3 = CreateElements(data[i - 3]);
+                wrapper.append(element3);
+            }
+            if (i - 2 < lenght) {
+                var element4 = CreateElements(data[i - 2]);
+                wrapper.append(element4);
+            }
+           if (i - 1 < lenght) {
+                var element5 = CreateElements(data[i - 1]);
+                wrapper.append(element5);
+            }
+            wrapperMain.append(wrapper);
+            return wrapperMain;
+        }
+        function CreateWrapp() {
+            var mainWrapper = document.createElement("div");
+            mainWrapper.setAttribute('class', 'content content-fixed content-auth-alt');
+            return mainWrapper;
+        }
+        function CreateContainer() {
+            var mainContainer = document.createElement("div");
+            mainContainer.setAttribute('class', 'container d-flex justify-content-center ht-100p');
+            return mainContainer;
+        }
+        function CreateElements(object) {
+            var mainBlock = document.createElement("div");
+            mainBlock.setAttribute('class', 'card wd-sm-50p wd-md-40p');
+            var mainBlockImg = document.createElement("img");
+            try {
+                mainBlockImg.setAttribute('src', '../assets/images/lawyers/' + object["image"][0]["url"]);
+            }
+            catch {
+                 mainBlockImg.setAttribute('src', 'assets/img/placehold.jpg');
+            }
+            mainBlockImg.setAttribute('style', 'height:50%;');
+            mainBlockImg.setAttribute('class', 'card-img-top');
 
+            var mainBlockBody = document.createElement('div');
+            mainBlockBody.setAttribute('class', 'card-body');
+
+            var mainBlockBodyName = document.createElement('h5');
+            mainBlockBodyName.setAttribute('class', 'card-title');
+            mainBlockBodyName.innerHTML = object["email"];
+
+            var mainBlockBodyAbout = document.createElement('p');
+            mainBlockBodyAbout.setAttribute('class', 'card-text');
+            mainBlockBodyAbout.innerHTML = object["about"];
+
+            var mainBlockBodyButton = document.createElement('a');
+            mainBlockBodyButton.setAttribute('class', 'btn btn-primary');
+            mainBlockBodyButton.innerHTML = object["speciality"];
+
+            mainBlockBody.append(
+                mainBlockBodyName, mainBlockBodyAbout, mainBlockBodyButton
+            );
+           
+            mainBlock.append(mainBlockImg, mainBlockBody)           
+            return mainBlock;
+        }
+    </script>
 </body>
 
 </html>

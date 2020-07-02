@@ -89,6 +89,23 @@ namespace VDCompany.Controllers.Core.UserCore
                 return null;
             }*/
         }
+
+        public List<Lawyer> GetLawyers()
+        {
+            /*if (Auth())
+            {*/
+            UserDBBuilder.HttpContext = http;
+            UserDBBuilder.Build("cookies");
+
+            var lawyers = db.Lawyers.Include(x=>x.Image).ToList();
+            return lawyers;
+            /*}
+            else 
+            {
+                return null;
+            }*/
+
+        }
         #endregion
         #region UserInfoSetter
         public ResultState ChangeStatusBill(int id)
@@ -114,11 +131,12 @@ namespace VDCompany.Controllers.Core.UserCore
                 UserDBBuilder.Build("user");
                 UserDBBuilder.Build("cookies");
                 Case new_case = new Case();
+                var user = GetUser().Include(x => x.Cases).FirstOrDefault();
                 new_case.Name = caseDTO.Name;
                 new_case.Type = caseDTO.Type;
+                new_case.Dialog = new Dialog() { DateCreate = DateTime.Now, Admins = new List<Admin>(), Lawyers = new List<Lawyer>(), Messages = new List<Message>(), Users = new List<User>() { user } };
                 new_case.Description = caseDTO.Description;
                 new_case.DateStart = DateTime.Now;
-                var user = GetUser().Include(x=>x.Cases).FirstOrDefault();
                 user.Cases.Add(new_case);
                 Save();
                 return ResultState.Ok;

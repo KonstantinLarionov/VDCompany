@@ -17,6 +17,7 @@ namespace VDCompany.Models.Entitys
         public DbSet<Dialog> Dialogs { get; set; }
         public DbSet<Lawyer> Lawyers { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<ImageAdmin> ImageAdmins { get; set; }
         public DbSet<Message> Messages { get; set; }
         public StartContext(DbContextOptions options) : base(options)
         {

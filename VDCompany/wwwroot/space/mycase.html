@@ -107,39 +107,20 @@
                                 <th scope="col">Имя/Ник</th>
                                 <th scope="col">Тип дела</th>
                                 <th scope="col">Статус дела</th>
+                                <th scope="col">Дата открытия</th>
                                 <th scope="col">Действие</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="TableBody">
                             <tr>
                                 <th scope="row">1</th>
                                 <td>Adrian Monino</td>
                                 <td>Front-End Engineer</td>
                                 <td>Computer Science</td>
-                                <td><button onclick="document.location='case.html?id=188'" type="button" class="btn btn-primary">Посмотреть</button></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Макс</td>
-                                <td>Front-End Engineer</td>
                                 <td>Computer Science</td>
-                                <td><button onclick="document.location='case.html?id=188'" type="button" class="btn btn-primary">Посмотреть</button></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Миша</td>
-                                <td>Front-End Engineer</td>
-                                <td>Computer Science</td>
-                                <td><button onclick="document.location='case.html?id=188'" type="button" class="btn btn-primary">Посмотреть</button></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Костя</td>
-                                <td>Front-End Engineer</td>
-                                <td>Computer Science</td>
-                                <td><button onclick="document.location='case.html?id=188'" type="button" class="btn btn-primary">Посмотреть</button></td>
-                            </tr>
 
+                                <td><a onclick="document.location='case.html?id=188'" href="" class="btn btn-primary">Посмотреть</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -165,7 +146,52 @@
         <!-- append theme customizer -->
         <script src="lib/js-cookie/js.cookie.js"></script>
         <script src="assets/js/dashforge.settings.js"></script>
+        <script>
+             window.onload = function GetCases() {
+                fetch('/User/GetCases', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                }).then(response => response.json())
+                    .then(result => ShowBills(result));
+             }
+            function ShowBills(resResponse) {
+                for (var i = 0; i < resResponse.length; i++) {
+                    console.log(resResponse[i]);
+                    InsertInTable(resResponse[i]);
+                }
+            }
+              function InsertInTable(object) {
+                let row = CreateNewRow(object);
+                let table = document.getElementById("TableBody");
+                
+                table.appendChild(row);
+            }
+           
+            function CreateNewRow(object) {
+                let button = CreateButtonWithState(object["id"], object["status"]);
+                let row = document.createElement("TR");
 
+                let idBill = document.createElement("TD"); idBill.innerHTML = object["id"];
+                let name = document.createElement("TD"); name.innerHTML = object["name"];
+                let type = document.createElement("TD"); type.innerHTML = object["type"];
+                let status = document.createElement("TD"); status.innerHTML = object["status"];
+                let dateStart = document.createElement("TD"); dateStart.innerHTML = object["dateStart"].split("T")[0];
+                let doSome = document.createElement("TD");
+                doSome.append(button);
+                row.append(idBill, name, type, status, dateStart, doSome);
+                return row;
+            }
+              function CreateButtonWithState(idBill,status) {
+                  var button = document.createElement("A");
+                  button.setAttribute('href', 'case.html?id=' + idBill);
+                  button.setAttribute('class', 'btn btn-primary');
+                  button.innerHTML = "Просмотреть";
+                  button.id = idBill;
+                return button;
+            }
+        </script>
 </body>
 
 </html>

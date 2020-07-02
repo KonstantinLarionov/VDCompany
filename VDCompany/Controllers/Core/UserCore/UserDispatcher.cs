@@ -25,13 +25,19 @@ namespace VDCompany.Controllers.Core.UserCore
         {
             return func(Instance(httpcon));
         }
+        public static List<Case> SendToUser(this HttpContext httpcon, Func<UserDispatcher, List<Case>> func)
+        {
+            return func(Instance(httpcon));
+        }
+        public static List<Lawyer> SendToUser(this HttpContext httpcon, Func<UserDispatcher, List<Lawyer>> func)
+        {
+            return func(Instance(httpcon));
+        }
         public static bool SendToUser(this HttpContext httpcon, Func<UserDispatcher, bool> func)
         {
             return func(Instance(httpcon));
         }
         #endregion
-
-
     }
     public class UserDispatcher
     {
@@ -64,10 +70,19 @@ namespace VDCompany.Controllers.Core.UserCore
             return user_dispatcher;
         }
         #endregion
+
         #region PublicMethods
         public List<Bill> GetBills()
         {
             return digger?.GetBills();
+        }
+        public List<Case> GetCases()
+        {
+            return digger?.GetCases();
+        }
+        public List<Lawyer> GetLawyers()
+        {
+            return digger?.GetLawyers();
         }
         public bool ChangeStateBill(int id)
         {
@@ -77,16 +92,22 @@ namespace VDCompany.Controllers.Core.UserCore
         public bool CreateCase(CaseDTO caseDTO)
         {
             var result = digger.CreateCase(caseDTO);
+            return SendEmail(caseDTO, result);
+        }
+
+        #endregion
+
+        private bool SendEmail(CaseDTO caseDTO, ResultState result)
+        {
             if (result == ResultState.Ok)
             {
                 Mailler.SendEmailAsync(HttpContext.Session.GetString("login"), "VDCOMPANY", "Создание нового дела", $"Вы создали новое дело на сервисе VDCOMPANY! <br><br> Наименование вашего дела: {caseDTO.Name} <br> Тип вашего дела: {caseDTO.Type} <br> Дата создания: {DateTime.Now} <br><br> После регистрации, дело появится в вашем личном кабинете в списке дел и вам будет назначен подходящий специалист.<br><br> <span style=\"color:red;\">По всем вопросам: companyvd@yandex.ru</span>");
                 return true;
             }
-            else 
+            else
             {
                 return false;
             }
         }
-        #endregion
     }
 }
