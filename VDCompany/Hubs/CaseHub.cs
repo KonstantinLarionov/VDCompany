@@ -51,12 +51,46 @@ namespace VDCompany.Hubs
             else if (adminRes.Item2)
             {
                 var admin = adminRes.Item1;
+                var adminCase = database.Cases.Where(@case => @case.Id == idCase).FirstOrDefault();
+                //Наличие дела у пользователя
+                if (adminCase != null)
+                {
+                    //Если подключенного пользователя нет в списке пиров по делу добавляем его в список
+                    AddHubConnectToCase(adminCase);
+                    string urlImage = string.Empty;
+                    urlImage = LoadingFileReturnFirstImage(files, adminCase);
+                    if (message != string.Empty)
+                    {
+                        adminCase.Dialog.Messages.Add(new Message() { Date = DateTime.Now, Text = message, Admin = admin });
+                    }
+                    var clientsHub = adminCase.ClientsHub.Select(ch => ch.ConnectionId).ToList();
+                    database.SaveChanges();
+                    await Clients.Clients(clientsHub)
+                        .SendAsync("TriggerHandle", JsonSerializer.Serialize(new TriggerHandleDTO(null, admin, null, message, urlImage, DateTime.Now)));
+                }
             }
             #endregion
             #region IfLawyerAuth
             else if (lawyerRes.Item2)
             {
                 var lawyer = lawyerRes.Item1;
+                var lawyerCase = database.Cases.Where(@case => @case.Id == idCase).FirstOrDefault();
+                //Наличие дела у пользователя
+                if (lawyerCase != null)
+                {
+                    //Если подключенного пользователя нет в списке пиров по делу добавляем его в список
+                    AddHubConnectToCase(lawyerCase);
+                    string urlImage = string.Empty;
+                    urlImage = LoadingFileReturnFirstImage(files, lawyerCase);
+                    if (message != string.Empty)
+                    {
+                        lawyerCase.Dialog.Messages.Add(new Message() { Date = DateTime.Now, Text = message, Lawyer = lawyer });
+                    }
+                    var clientsHub = lawyerCase.ClientsHub.Select(ch => ch.ConnectionId).ToList();
+                    database.SaveChanges();
+                    await Clients.Clients(clientsHub)
+                        .SendAsync("TriggerHandle", JsonSerializer.Serialize(new TriggerHandleDTO(null, null, lawyer, message, urlImage, DateTime.Now)));
+                }
             }
             #endregion
             else { return; }

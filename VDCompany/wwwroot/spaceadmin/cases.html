@@ -20,6 +20,7 @@
 
     <!-- DashForge CSS -->
     <link rel="stylesheet" href="assets/css/dashforge.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/dashforge.dashboard.css">
 </head>
 
@@ -83,16 +84,19 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                             <li class="breadcrumb-item"><a href="#">Главная страница</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Контакты компании</li>
+                            <li class="breadcrumb-item active" aria-current="page">Мониторинг юристов</li>
                         </ol>
                     </nav>
-                    <h4 class="mg-b-0 tx-spacing--1">Контакты VDCompany</h4>
+                    <h4 class="mg-b-0 tx-spacing--1">Все дела компании</h4>
                 </div>
                 <div class="d-none d-md-block">
                     <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="check"
-                            class="wd-10 mg-r-5"></i> Посмотреть пользователей</button>
+                            class="wd-10 mg-r-5"></i> Добавить нового юриста</button>
                 </div>
             </div>
+
+            <div class="space1row"></div>
+            <h4 class="mg-b-0 tx-spacing--1">Таблица всех дел</h4>
             <div class="row row-xs">
                 <div class="col-lg">
                     <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
@@ -100,75 +104,120 @@
                             <table class="table table-primary table-hover table-striped mg-b-0">
                                 <thead>
                                     <tr>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Название</th>
-                                        <th scope="col">Значение</th>
-
+                                        <th scope="col">Тип дела</th>
+                                        <th scope="col">Дата старта</th>
+                                        <th scope="col">Юрист</th>
+                                        <th scope="col">Статус</th>
+                                        <th scope="col">Действия</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">Фамилия Директора</th>
-                                        <td><input type="text" class="form-input" /></td>
+                                        <th scope="row">1</th>
+                                        <td>Adrian Monino</td>
+                                        <td>Front-End Engineer</td>
+                                        <td>Computer Science</td>
+                                        <td>sdfsdjif@sjkdjfksdjf</td>
+                                        <td>Активно</td>
+                                        <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button
+                                                type="button" class="btn  btn-danger">Назначить</button></Td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Имя Директора</th>
-                                        <td><input type="text" class="form-input" /></td>
+                                        <th scope="row">1</th>
+                                        <td>Adrian Monino</td>
+                                        <td>Front-End Engineer</td>
+                                        <td>Computer Science</td>
+                                        <td>sdfsdjif@sjkdjfksdjf</td>
+                                        <td>Активно</td>
+                                        <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button
+                                                type="button" class="btn  btn-danger">Назначить</button></Td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Отчество Директора</th>
-                                        <td><input type="text" class="form-input" /></td>
+                                        <th scope="row">1</th>
+                                        <td>Adrian Monino</td>
+                                        <td>Front-End Engineer</td>
+                                        <td>Computer Science</td>
+                                        <td>sdfsdjif@sjkdjfksdjf</td>
+                                        <td>Активно</td>
+                                        <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button
+                                                type="button" class="btn  btn-danger">Назначить</button></Td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Описание Директора</th>
-                                        <td><input type="text" class="form-input" /></td>
+                                        <th scope="row">1</th>
+                                        <td>Adrian Monino</td>
+                                        <td>Front-End Engineer</td>
+                                        <td>Computer Science</td>
+                                        <td>sdfsdjif@sjkdjfksdjf</td>
+                                        <td>Активно</td>
+                                        <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button
+                                                type="button" class="btn  btn-danger">Назначить</button></Td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Почта директора</th>
-                                        <td><input type="text" class="form-input" /></td>
+                                        <th scope="row">1</th>
+                                        <td>Adrian Monino</td>
+                                        <td>Front-End Engineer</td>
+                                        <td>Computer Science</td>
+                                        <td>sdfsdjif@sjkdjfksdjf</td>
+                                        <td>Активно</td>
+                                        <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button
+                                                type="button" class="btn  btn-danger">Назначить</button></Td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Телефон директора</th>
-                                        <td><input type="text" class="form-input" /></td>
+                                        <th scope="row">1</th>
+                                        <td>Adrian Monino</td>
+                                        <td>Front-End Engineer</td>
+                                        <td>Computer Science</td>
+                                        <td>sdfsdjif@sjkdjfksdjf</td>
+                                        <td>Активно</td>
+                                        <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button
+                                                type="button" class="btn  btn-danger">Назначить</button></Td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Почта поддержки компании</th>
-                                        <td><input type="text" class="form-input" /></td>
+                                        <th scope="row">1</th>
+                                        <td>Adrian Monino</td>
+                                        <td>Front-End Engineer</td>
+                                        <td>Computer Science</td>
+                                        <td>sdfsdjif@sjkdjfksdjf</td>
+                                        <td>Активно</td>
+                                        <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button
+                                                type="button" class="btn  btn-danger">Назначить</button></Td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Телефон поддержки компании</th>
-                                        <td><input type="text" class="form-input" /></td>
+                                        <th scope="row">1</th>
+                                        <td>Adrian Monino</td>
+                                        <td>Front-End Engineer</td>
+                                        <td>Computer Science</td>
+                                        <td>sdfsdjif@sjkdjfksdjf</td>
+                                        <td>Активно</td>
+                                        <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button
+                                                type="button" class="btn  btn-danger">Назначить</button></Td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Фактический адресс компании</th>
-                                        <td><input type="text" class="form-input" /></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Фактический адресс поддержки</th>
-                                        <td><input type="text" class="form-input" /></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Ссылка вконтакте</th>
-                                        <td><input type="text" class="form-input" /></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Ссылка фейсбук</th>
-                                        <td><input type="text" class="form-input" /></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Ссылка инстаграмм</th>
-                                        <td><input type="text" class="form-input" /></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Ссылка твиттер</th>
-                                        <td><input type="text" class="form-input" /></td>
+                                        <th scope="row">1</th>
+                                        <td>Adrian Monino</td>
+                                        <td>Front-End Engineer</td>
+                                        <td>Computer Science</td>
+                                        <td>sdfsdjif@sjkdjfksdjf</td>
+                                        <td>Активно</td>
+                                        <Td><button type="button" class="btn  btn-primary">Посмотреть</button><a
+                                                href="#modal7" type="button" class="btn  btn-danger" data-toggle="modal"
+                                                data-animation="effect-flip-horizontal">Назначить</a></Td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <button type="button" class="btn  btn-primary">Сохранить</button>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination mg-b-0">
+                                    <li class="page-item disabled"><a class="page-link page-link-icon" href="#"><i
+                                                data-feather="chevron-left"></i></a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link page-link-icon" href="#"><i
+                                                data-feather="chevron-right"></i></a></li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -177,6 +226,90 @@
     </div><!-- content -->
 
 
+    <div class="modal fade" id="modal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel7"
+        style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content tx-14">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel7">Выставить счет</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-dark table-hover table-striped mg-b-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Название</th>
+                                <th scope="col">Значение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Адвокат 1</td>
+                                <td>
+                                    <select class="custom-select">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Адвокат 2</td>
+                                <td>
+                                    <select class="custom-select">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Адвокат 3</td>
+                                <td>
+                                    <select class="custom-select">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Адвокат 4</td>
+                                <td>
+                                    <select class="custom-select">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Адвокат 5</td>
+                                <td>
+                                    <select class="custom-select">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm tx-13" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary tx-13" data-dismiss="modal">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>

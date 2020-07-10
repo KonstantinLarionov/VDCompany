@@ -59,6 +59,43 @@ namespace VDCompany.Controllers.Core.UserCore
         }
         #endregion
         #region UserInfoTaker
+        public Dialog GetDialog(int IdCase)
+        {
+            UserDBBuilder.HttpContext = http;
+            UserDBBuilder.Build("cookies");
+
+            var user = GetUser().Include(x => x.Cases).FirstOrDefault();
+            var userCase = db.Cases.Where(x => x.Id == IdCase).Include(x => x.Dialog).FirstOrDefault();
+            if (user.Cases.Any(x => x.Id == userCase.Id))
+            {
+                var dialog = db.Dialogs
+                    .Where(x => x.Id == userCase.Dialog.Id)
+                    .Include(x => x.Messages)
+                    .Include(x=>x.Users)
+                    .Include(x=>x.Admins)
+                    .Include(x=>x.Lawyers)
+                    .FirstOrDefault();
+                return dialog;
+            }
+            else 
+            {
+                return null;
+            }
+
+        }
+        public List<Doc> GetDocs(int IdCase)
+        {
+            var user = GetUser().Include(x => x.Cases).FirstOrDefault();
+            var userCase = db.Cases.Where(x => x.Id == IdCase).Include(x => x.Docs).FirstOrDefault();
+            if (user.Cases.Any(x => x.Id == userCase.Id))
+            {
+                return userCase.Docs;
+            }
+            else 
+            {
+                return null;
+            }
+        }
         public List<Bill> GetBills()
         {
             /*if (Auth())
@@ -89,7 +126,6 @@ namespace VDCompany.Controllers.Core.UserCore
                 return null;
             }*/
         }
-
         public List<Lawyer> GetLawyers()
         {
             /*if (Auth())

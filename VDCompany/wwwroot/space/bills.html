@@ -113,8 +113,10 @@
                             </tr>
                         </thead>
                         <tbody id="TableBody">
-                            <!--<tr>
+                            <tr>
                                 <th scope="row">1</th>
+                                <td>Adrian Monino</td>
+                                <td>Front-End Engineer</td>
                                 <td>Adrian Monino</td>
                                 <td>Front-End Engineer</td>
                                 <td>Computer Science</td>
@@ -124,12 +126,14 @@
                                 <th scope="row">1</th>
                                 <td>Adrian Monino</td>
                                 <td>Front-End Engineer</td>
+                                <td>Adrian Monino</td>
+                                <td>Front-End Engineer</td>
                                 <td>Computer Science</td>
                                 <td>
                                     <a href="#modal6" class="btn btn-primary btn-block" data-toggle="modal"
                                         data-animation="effect-flip-horizontal">Посмотреть</a>
                                 </td>
-                            </tr>-->
+                            </tr>
 
                         </tbody>
                     </table>
@@ -234,14 +238,14 @@
             function InsertInTable(object) {
                 let row = CreateNewRow(object);
                 let table = document.getElementById("TableBody");
-                
+
                 table.appendChild(row);
             }
 
             function ChangeStatus(id) {
                 fetch('/User/ChangeStatus', {
                     method: 'POST',
-                    body:  JSON.stringify({ Id : id}),
+                    body: JSON.stringify({ Id: id }),
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
                     },
@@ -265,9 +269,9 @@
             }
 
             //#region Helpers
-            function CreateButtonWithState(idBill,status) {
+            function CreateButtonWithState(idBill, status) {
                 var button = document.createElement("A");
-                    button.id = idBill;
+                button.id = idBill;
                 if (status == 1) {
                     button.setAttribute("class", "btn btn-primary btn-block");
                     button.innerHTML = "Оплачено";

@@ -37,6 +37,14 @@ namespace VDCompany.Controllers.Core.UserCore
         {
             return func(Instance(httpcon));
         }
+        public static Dialog SendToUser(this HttpContext httpcon, Func<UserDispatcher, Dialog> func)
+        {
+            return func(Instance(httpcon));
+        }
+        public static List<Doc> SendToUser(this HttpContext httpcon, Func<UserDispatcher, List<Doc>> func)
+        {
+            return func(Instance(httpcon));
+        }
         #endregion
     }
     public class UserDispatcher
@@ -74,15 +82,15 @@ namespace VDCompany.Controllers.Core.UserCore
         #region PublicMethods
         public List<Bill> GetBills()
         {
-            return digger?.GetBills();
+            return digger?.GetBills().OrderByDescending(x=>x.Id).ToList();
         }
         public List<Case> GetCases()
         {
-            return digger?.GetCases();
+            return digger?.GetCases().OrderByDescending(x=>x.Id).ToList();
         }
         public List<Lawyer> GetLawyers()
         {
-            return digger?.GetLawyers();
+            return digger?.GetLawyers().OrderByDescending(x => x.Id).ToList();
         }
         public bool ChangeStateBill(int id)
         {
