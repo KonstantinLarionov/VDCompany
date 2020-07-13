@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VDCompany.Models.DTO;
 using VDCompany.Models.Objects;
 
 namespace VDCompany.Controllers.Core.AdminCore
@@ -43,6 +44,10 @@ namespace VDCompany.Controllers.Core.AdminCore
         {
             return func(Instance(httpcon));
         }
+        public static IndexDTO SendToAdmin(this HttpContext httpcon, Func<AdminDispatcher, IndexDTO> func)
+        {
+            return func(Instance(httpcon));
+        }
         #endregion
     }
     public class AdminDispatcher
@@ -77,7 +82,15 @@ namespace VDCompany.Controllers.Core.AdminCore
             return admin_dispatcher;
         }
         #endregion
-
+        #region InfoTakers
+        public IndexDTO GetIndexDTO()
+        {
+            int cu = digger.GetUsersCount();
+            int cugf = cu > 4 ? cu - 3 : cu;
+            IndexDTO indexDTO = new IndexDTO(digger?.GetUsers(20), digger?.GetCases(20),cu,92,digger.GetCasesCount(), cugf);
+            return indexDTO;
+        }
+        #endregion
 
     }
 }

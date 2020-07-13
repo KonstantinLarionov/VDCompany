@@ -56,6 +56,22 @@ namespace VDCompany.Controllers.Core.AdminCore
             var users = db.Users.ToList();
             return users;
         }
+        public int GetUsersCount()
+        {
+            var users = db.Users.ToList().Count;
+            return users;
+        }
+
+        public int GetCasesCount()
+        {
+            var users = db.Cases.ToList().Count;
+            return users;
+        }
+        public List<User> GetUsers(int count)
+        {
+            var users = db.Users.Include(x=>x.Cases).OrderByDescending(x=>x.Id).Take(count).ToList();
+            return users;
+        }
         public List<Lawyer> GetLawyers()
         {
             var lawyers = db.Lawyers.ToList();
@@ -73,7 +89,12 @@ namespace VDCompany.Controllers.Core.AdminCore
         }
         public List<Case> GetCases()
         {
-            var cases = db.Cases.Include(x=>x.Lawyers).ToList();
+            var cases = db.Cases.Include(x => x.Lawyers).ToList();
+            return cases;
+        }
+        public List<Case> GetCases(int count)
+        {
+            var cases = db.Cases.Include(x => x.Lawyers).OrderByDescending(x => x.Id).Take(count).ToList();
             return cases;
         }
         public Case GetCase(int id)

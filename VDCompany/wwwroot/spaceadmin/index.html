@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -100,8 +100,8 @@
           <div class="card card-body">
             <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Успешные дела</h6>
             <div class="d-flex d-lg-block d-xl-flex align-items-end">
-              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">91%</h3>
-              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">1.2% <i
+              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1"  id="percent_case"></h3>
+              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success"> <i
                     class="icon ion-md-arrow-up"></i></span> за последнюю неделю</p>
             </div>
             <div class="chart-three">
@@ -113,8 +113,8 @@
           <div class="card card-body">
             <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Уникальных пользователей</h6>
             <div class="d-flex d-lg-block d-xl-flex align-items-end">
-              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">30 137</h3>
-              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">70 <i
+              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" id="count_user"></h3>
+              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success" > <i
                     class="icon ion-md-arrow-up"></i></span> за последнюю неделю</p>
             </div>
             <div class="chart-three">
@@ -126,8 +126,8 @@
           <div class="card card-body">
             <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Всего дел</h6>
             <div class="d-flex d-lg-block d-xl-flex align-items-end">
-              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">20 632</h3>
-              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">30 <i
+              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" id="count_case"></h3>
+              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success" ><i
                     class="icon ion-md-arrow-up"></i></span> за последнюю неделю</p>
             </div>
             <div class="chart-three">
@@ -139,8 +139,8 @@
           <div class="card card-body">
             <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Положительных отзывов</h6>
             <div class="d-flex d-lg-block d-xl-flex align-items-end">
-              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1">15 650</h3>
-              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success">21 <i
+              <h3 class="tx-normal tx-rubik mg-b-0 mg-r-5 lh-1" id="count_feed"></h3>
+              <p class="tx-11 tx-color-03 mg-b-0"><span class="tx-medium tx-success"><i
                     class="icon ion-md-arrow-up"></i></span> за последнюю неделю</p>
             </div>
             <div class="chart-three">
@@ -167,111 +167,22 @@
 
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="userTable">
                   <tr>
                     <th scope="row">1</th>
                     <td>Adrian Monino</td>
                     <td>Front-End Engineer</td>
                     <td>Computer Science</td>
                     <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><button type="button" class="btn  btn-primary">Выставить счет</button><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
-                    </Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><button type="button" class="btn  btn-primary">Выставить счет</button><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
-                    </Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><button type="button" class="btn  btn-primary">Выставить счет</button><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
-                    </Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><button type="button" class="btn  btn-primary">Выставить счет</button><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
-                    </Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><button type="button" class="btn  btn-primary">Выставить счет</button><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
-                    </Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><button type="button" class="btn  btn-primary">Выставить счет</button><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
-                    </Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><button type="button" class="btn  btn-primary">Выставить счет</button><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
-                    </Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><button type="button" class="btn  btn-primary">Выставить счет</button><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
-                    </Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><button type="button" class="btn  btn-primary">Выставить счет</button><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
-                    </Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <Td><a href="#modal6" type="button" class="btn  btn-primary" data-toggle="modal"
-                        data-animation="effect-flip-horizontal">Выставить счет</a><button type="button"
-                        class="btn  btn-primary">Дела</button><button type="button" class="btn  btn-danger">ЧС</button>
+                    <Td>
+                        <a class="btn  btn-primary">Выставить счет</a>
+                        <a class="btn  btn-primary">Дела</a>
+                        <a class="btn  btn-danger">ЧС</a>
                     </Td>
                   </tr>
                 </tbody>
               </table>
-              <nav aria-label="Page navigation example">
+              <!--<nav aria-label="Page navigation example">
                 <ul class="pagination mg-b-0">
                   <li class="page-item disabled"><a class="page-link page-link-icon" href="#"><i
                         data-feather="chevron-left"></i></a></li>
@@ -281,7 +192,7 @@
                   <li class="page-item"><a class="page-link page-link-icon" href="#"><i
                         data-feather="chevron-right"></i></a></li>
                 </ul>
-              </nav>
+              </nav>-->
             </div>
           </div>
         </div>
@@ -304,7 +215,7 @@
                     <th scope="col">Действия</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="caseTable">
                   <tr>
                     <th scope="row">1</th>
                     <td>Adrian Monino</td>
@@ -315,56 +226,6 @@
                     <Td><button type="button" class="btn  btn-primary">Посмотреть</button><a href="#modal7"
                         type="button" class="btn  btn-danger" data-toggle="modal"
                         data-animation="effect-flip-horizontal">Назначить</a></Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <td>Активно</td>
-                    <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button type="button"
-                        class="btn  btn-danger">Назначить</button></Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <td>Активно</td>
-                    <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button type="button"
-                        class="btn  btn-danger">Назначить</button></Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <td>Активно</td>
-                    <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button type="button"
-                        class="btn  btn-danger">Назначить</button></Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <td>Активно</td>
-                    <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button type="button"
-                        class="btn  btn-danger">Назначить</button></Td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Adrian Monino</td>
-                    <td>Front-End Engineer</td>
-                    <td>Computer Science</td>
-                    <td>sdfsdjif@sjkdjfksdjf</td>
-                    <td>Активно</td>
-                    <Td><button type="button" class="btn  btn-primary">Посмотреть</button><button type="button"
-                        class="btn  btn-danger">Назначить</button></Td>
                   </tr>
                 </tbody>
               </table>
@@ -539,7 +400,46 @@
   <!-- append theme customizer -->
   <script src="lib/js-cookie/js.cookie.js"></script>
   <script src="assets/js/dashforge.settings.js"></script>
+<script>
+      window.onload = function GetCases() {
+                fetch('/Admin/GetIndexDTO', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                }).then(response => response.json())
+                    .then(result => ShowIndex(result));
+    }
+    function ShowIndex(res)
+    {
+        document.getElementById("percent_case").innerHTML = res["persentUpCases"] + "%";
+        document.getElementById("count_user").innerHTML = res["countUsers"];
+        document.getElementById("count_case").innerHTML = res["countCases"];
+        document.getElementById("count_feed").innerHTML = res["goodFeedBack"];
+        var userTable = document.getElementById("userTable");
+        for (var i = 0; i < res["users"].length; i++) {
+            userTable.append(addRowUser(res["users"][i]));
+            
+        }
+        var caseTable = document.getElementById("caseTable");
+    }
 
+    function addRowUser(user)
+    {
+        var row = document.createElement("tr")
+        var td1 = document.createElement("td"); td1.innerText = user["id"];
+        var td2 = document.createElement("td"); td2.innerText = user["name"];
+        var td3 = document.createElement("td"); td3.innerText = user["dateReg"];
+        var td4 = document.createElement("td"); td4.innerText = user["cases"].length;
+        var td5 = document.createElement("td"); td5.innerText = user["email"];
+        var td6 = document.createElement("td");
+        row.append(td1, td2, td3, td4, td5, td6);
+        return row;
+    }
+    function addRowCase()
+    { }
+
+</script>
   <script>
     $(function () {
       'use strict'
