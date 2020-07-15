@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Home\" />
-    <Folder Include="wwwroot\spaceuser\" />
     <Folder Include="wwwroot\spacelaw\" />
   </ItemGroup>
 

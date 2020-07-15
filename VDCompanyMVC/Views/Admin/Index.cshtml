@@ -106,6 +106,10 @@
                                 </tr>
                             </thead>
                             <tbody id="userTable">
+                                @if (Model.Users.Count != 0)
+                                {
+
+
                                 @for (int i = 0; i < Model.Users.Count; i++)
                                 {
                                     <tr>
@@ -115,13 +119,13 @@
                                         <td>@Model.Users[i].Cases.Count</td>
                                         <td>@Model.Users[i].Email</td>
                                         <Td>
-                                            <a href='#@Model.Users[i].Id' data-toggle="modal" class="btn  btn-primary">Выставить счет</a>
+                                            <a href='#modal_@Model.Users[i].Id' onclick="ShowModal('modal_@Model.Users[i].Id')" data-toggle="modal" class="btn  btn-primary">Выставить счет</a>
                                             <a class="btn  btn-primary">Дела</a>
                                             <a class="btn  btn-danger">ЧС</a>
                                         </Td>
                                     </tr>
                                 }
-
+                                }
                             </tbody>
                         </table>
                         <!--<nav aria-label="Page navigation example">
@@ -158,6 +162,10 @@
                                 </tr>
                             </thead>
                             <tbody id="caseTable">
+                                @if (Model.Cases.Count != 0)
+                                {
+
+
                                 @for (int i = 0; i < Model.Cases.Count; i++)
                                 {
                                     <tr>
@@ -165,7 +173,7 @@
                                         <td>@Model.Cases[i].Name</td>
                                         <td>@Model.Cases[i].Type</td>
                                         <td>@Model.Cases[i].DateStart</td>
-                                        <td>@Model.Cases[i].Lawyers[0].Login</td>
+                                        <td>@if (Model.Cases[i].Lawyers.Count != 0) { @Model.Cases[i].Lawyers[0].Login; }</td>
                                         <td>
                                             @switch (@Model.Cases[i].Status)
                                             {
@@ -191,6 +199,7 @@
                                         </Td>
                                     </tr>
                                 }
+                                }
 
                             </tbody>
                         </table>
@@ -200,11 +209,14 @@
         </div>
     </div><!-- container -->
 </div><!-- content -->
+@if (Model.Users.Count != 0)
+{
+
 
 @for (int i = 0; i < Model.Users.Count; i++)
 {
 
-    <div class="modal fade" id="@Model.Users[i].Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_@Model.Users[i].Id"
+    <div class="modal fade" id="modal_@Model.Users[i].Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_@Model.Users[i].Id"
          style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content tx-14">
@@ -214,7 +226,8 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="Admin/CreateBill">
+                <form action="/Admin/SetBill" method="post">
+                    <input type="hidden" name="iduser" value="@Model.Users[i].Id">
                     <div class="modal-body">
                         <table class="table table-dark table-hover table-striped mg-b-0">
                             <thead>
@@ -226,41 +239,45 @@
                             <tbody>
                                 <tr>
                                     <td>Наименование дела</td>
-                                    <td><input type="text" class="form-control" placeholder="Input box"></td>
+                                    <td><input type="text" name="nameCase" class="form-control" placeholder="Input box"></td>
                                 </tr>
                                 <tr>
                                     <td>Дата выставления</td>
-                                    <td><input type="text" class="form-control" placeholder="Input box"></td>
+                                    <td><input type="date" name="datePut" class="form-control"></td>
                                 </tr>
                                 <tr>
                                     <td>Конечная дата оплаты</td>
-                                    <td><input type="text" class="form-control" placeholder="Input box"></td>
+                                    <td><input type="date" name="dateEnd" class="form-control"></td>
                                 </tr>
                                 <tr>
                                     <td>Кем выставлен</td>
-                                    <td><input type="text" class="form-control" placeholder="Input box"></td>
+                                    <td><input type="text" name="whoPut" class="form-control" placeholder="Input box"></td>
                                 </tr>
                                 <tr>
                                     <td>Кому выставлен</td>
-                                    <td><input type="text" class="form-control" placeholder="Input box"></td>
+                                    <td><input type="text" name="whoTake" class="form-control" placeholder="Input box"></td>
                                 </tr>
                                 <tr>
                                     <td>Сумма счета</td>
-                                    <td><input type="text" class="form-control" placeholder="Input box"></td>
+                                    <td><input type="text" name="sum" class="form-control" placeholder="Input box"></td>
                                 </tr>
                                 <tr>
                                     <td>Дополнительные расходы</td>
-                                    <td><input type="text" class="form-control" placeholder="Input box"></td>
+                                    <td><input type="text" name="dopSum" class="form-control" placeholder="Input box"></td>
                                 </tr>
                                 <tr>
                                     <td>Итого </td>
-                                    <td><input type="text" class="form-control" placeholder="Input box"></td>
+                                    <td><input type="text" name="itogo" class="form-control" placeholder="Input box"></td>
+                                </tr>
+                                <tr>
+                                    <td>Реквизит оплаты </td>
+                                    <td><input type="text" name="requisit" class="form-control" placeholder="Input box"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary tx-13" data-dismiss="modal">Выставить</button>
+                        <button type="submit" class="btn btn-primary tx-13">Выставить</button>
                         <button type="button" class="btn btn-sm tx-13" data-dismiss="modal">Закрыть</button>
                     </div>
                 </form>
@@ -268,6 +285,11 @@
         </div>
     </div>
 }
+}
+
+@if (Model.Cases.Count != 0)
+{
+
 
 @for (int j = 0; j < Model.Cases.Count; j++)
 {
@@ -281,128 +303,172 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <table class="table table-dark table-hover table-striped mg-b-0">
-                        <thead>
-                            <tr>
-                                <th scope="col">Название</th>
-                                <th scope="col">Значение</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Адвокат 1</td>
-                                <td>
-                                    @for (int i = 0; i < Model.Lawyers.Count; i++)
-                                    {
-                                        <select class="custom-select">
-                                            @if (i == 0)
+                <form action="/Admin/SetLaw" method="post">
+                    <input type="hidden" value="@Model.Cases[j].Id" name="idcase" />
+                    <div class="modal-body">
+                        <table class="table table-dark table-hover table-striped mg-b-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Название</th>
+                                    <th scope="col">Значение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Адвокат 1</td>
+                                    <td>
+
+                                        <select class="custom-select" name="law1">
+                                            @if (Model.Lawyers.Count != 0)
                                             {
 
 
-                                                <option selected value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
-
-                                            }
-                                        </select>
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Адвокат 2</td>
-                                <td>
-                                    @for (int i = 0; i < Model.Lawyers.Count; i++)
-                                    {
-                                        <select class="custom-select">
-                                            @if (i == 0)
-                                            {
+                                                @for (int i = 0; i < Model.Lawyers.Count; i++)
+                                                {
+                                                    @if (i == 0)
+                                                    {
 
 
-                                                <option selected value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
+                                                        <option selected value="-1">Выберите Адвоката</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
 
+                                                    }
+                                                }
                                             }
                                         </select>
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Адвокат 3</td>
-                                <td>
-                                    @for (int i = 0; i < Model.Lawyers.Count; i++)
-                                    {
-                                        <select class="custom-select">
-                                            @if (i == 0)
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Адвокат 2</td>
+                                    <td>
+
+                                        <select class="custom-select" name="law2">
+
+                                            @if (Model.Lawyers.Count != 0)
                                             {
 
-
-                                                <option selected value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
-
-                                            }
-                                        </select>
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Адвокат 4</td>
-                                <td>
-                                    @for (int i = 0; i < Model.Lawyers.Count; i++)
-                                    {
-                                        <select class="custom-select">
-                                            @if (i == 0)
-                                            {
+                                                @for (int i = 0; i < Model.Lawyers.Count; i++)
+                                                {
+                                                    @if (i == 0)
+                                                    {
 
 
-                                                <option selected value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
+                                                        <option selected value="-1">Выберите Адвоката</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
 
+                                                    }
+                                                }
                                             }
                                         </select>
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Адвокат 5</td>
-                                <td>
-                                    @for (int i = 0; i < Model.Lawyers.Count; i++)
-                                    {
-                                        <select class="custom-select">
-                                            @if (i == 0)
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Адвокат 3</td>
+                                    <td>
+
+
+                                        <select class="custom-select" name="law3">
+                                            @if (Model.Lawyers.Count != 0)
                                             {
 
+                                                @for (int i = 0; i < Model.Lawyers.Count; i++)
+                                                {
+                                                    @if (i == 0)
+                                                    {
 
-                                                <option selected value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
+                                                        <option selected value="-1">Выберите Адвоката</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
 
+                                                    }
+                                                }
                                             }
                                         </select>
-                                    }
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm tx-13" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary tx-13" data-dismiss="modal">Сохранить</button>
-                </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Адвокат 4</td>
+                                    <td>
+
+
+                                        <select class="custom-select" name="law4">
+                                            @if (Model.Lawyers.Count != 0)
+                                            {
+
+                                                @for (int i = 0; i < Model.Lawyers.Count; i++)
+                                                {
+                                                    @if (i == 0)
+                                                    {
+
+                                                        <option selected value="-1">Выберите Адвоката</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
+
+                                                    }
+                                                }
+                                            }
+                                        </select>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Адвокат 5</td>
+                                    <td>
+
+
+                                        <select class="custom-select" name="law5">
+                                            @if (Model.Lawyers.Count != 0)
+                                            {
+
+                                                @for (int i = 0; i < Model.Lawyers.Count; i++)
+                                                {
+                                                    @if (i == 0)
+                                                    {
+
+
+                                                        <option selected value="-1">Выберите Адвоката</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@Model.Lawyers[i].Id">@Model.Lawyers[i].Login</option>
+
+                                                    }
+                                                }
+                                            }
+                                        </select>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm tx-13" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary tx-13">Сохранить</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 }
+}
+<script>
+    function ShowModal(modalId)
+    {
+        var modal = document.getElementById(modalId);
+        modal.style.display = "block";
+    }
+</script>

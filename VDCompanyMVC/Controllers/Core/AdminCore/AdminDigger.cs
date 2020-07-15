@@ -114,10 +114,28 @@ namespace VDCompany.Controllers.Core.AdminCore
         }
         #endregion
         #region PublicSetterInfo
+        public void SetBill(int idUser, Bill bill)
+        {
+            var user = db.Users.Where(x => x.Id == idUser).FirstOrDefault();
+            user.Bills.Add(bill);
+            db.SaveChanges();
+        }
         public void SetLawyer(Lawyer lawyer)
         {
             db.Lawyers.Add(lawyer);
             Save();
+        }
+        public void SetLawyer(int idcase,Lawyer lawyer)
+        {
+            var @case = db.Cases.Where(x => x.Id == idcase).FirstOrDefault();
+            if (@case != null)
+            {
+                if (lawyer != null)
+                {
+                    @case.Lawyers.Add(lawyer);
+                    Save();
+                }
+            }
         }
         public void SetUser(User user)
         {

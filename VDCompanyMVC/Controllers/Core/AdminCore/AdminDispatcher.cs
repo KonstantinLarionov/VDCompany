@@ -48,6 +48,10 @@ namespace VDCompany.Controllers.Core.AdminCore
         {
             return func(Instance(httpcon));
         }
+        public static void SendToAdmin(this HttpContext httpcon, Action<AdminDispatcher> func)
+        {
+            func(Instance(httpcon));
+        }
         #endregion
     }
     public class AdminDispatcher
@@ -98,6 +102,33 @@ namespace VDCompany.Controllers.Core.AdminCore
                     cugf
                 );
             return indexDTO;
+        }
+        public void SetBillToUser(int idUser, string nameCase, DateTime datePut, DateTime dateEnd, string whoPut, string whoTake, string sum, string dopSum, string itogo, string requisit)
+        {
+            digger?.SetBill(idUser, new Bill()
+            {
+                Amount = Convert.ToDouble(itogo.Replace(".", ",")),
+                DateCreate = datePut,
+                DatePay = dateEnd,
+                WhoPut = whoPut,
+                NameCase = nameCase,
+                Status = StatusBill.InProcess,
+                Requizit = requisit
+            });
+        }
+
+        public void SetLaws(int idcase, int law1,int law2, int law3, int law4, int law5)
+        {
+            var law_form_db1 = digger?.GetLawyer(law1);
+            digger?.SetLawyer(idcase, law_form_db1);
+            var law_form_db2 = digger?.GetLawyer(law2);
+            digger?.SetLawyer(idcase, law_form_db2);
+            var law_form_db3 = digger?.GetLawyer(law3);
+            digger?.SetLawyer(idcase, law_form_db3);
+            var law_form_db4 = digger?.GetLawyer(law4);
+            digger?.SetLawyer(idcase, law_form_db4);
+            var law_form_db5 = digger?.GetLawyer(law5);
+            digger?.SetLawyer(idcase, law_form_db5);
         }
         #endregion
 
