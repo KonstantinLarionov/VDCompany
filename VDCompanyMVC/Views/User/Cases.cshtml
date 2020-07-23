@@ -1,0 +1,76 @@
+﻿@{ Layout = "_LayoutUser";}
+@model VDCompany.Models.DTO.UserCasesDTO
+<div class="content content-fixed">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">Личный кабинет</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Мои дела</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">Просмотр всех дел аккаунта</h4>
+            </div>
+            <div class="d-none d-md-block">
+                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
+                    <i data-feather="clipboard"
+                       class="wd-10 mg-r-5"></i> Мои счета
+                </button>
+            </div>
+        </div>
+
+
+        <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
+            <div class="table-responsive">
+                <table class="table table-primary table-hover table-striped mg-b-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Имя/Ник</th>
+                            <th scope="col">Тип дела</th>
+                            <th scope="col">Статус дела</th>
+                            <th scope="col">Дата открытия</th>
+                            <th scope="col">Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody id="TableBody">
+                        @if (Model.Cases != null && Model.Cases.Count != 0)
+                        {
+
+                            @for (int i = 0; i < Model.Cases.Count; i++)
+                            {
+                                <tr>
+                                    <th scope="row">@Model.Cases[i].Id</th>
+                                    <td>@Model.Cases[i].Name</td>
+                                    <td>@Model.Cases[i].Type</td>
+                                    <td>@{ string state = "Закрыто"; }
+                                    @if (Model.Cases[i].Status == VDCompany.Models.Objects.TypeCase.Close)
+                                    {
+                                        @state
+                                    }
+                                    else if(Model.Cases[i].Status == VDCompany.Models.Objects.TypeCase.InProcess)
+                                    {
+                                        state = "В процессе";
+                                        @state;
+                                    }
+                                    else if (Model.Cases[i].Status == VDCompany.Models.Objects.TypeCase.Open)
+                                    {
+                                        state = "Открыто";
+                                        @state;
+                                    }
+                                    </td>
+                                    <td>@Model.Cases[i].DateStart</td>
+
+                                    <td><a  href="/User/Case?id=@Model.Cases[i].Id" class="btn btn-primary">Посмотреть</a></td>
+                                </tr>
+
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

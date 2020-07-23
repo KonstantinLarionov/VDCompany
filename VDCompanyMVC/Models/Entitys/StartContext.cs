@@ -19,6 +19,7 @@ namespace VDCompany.Models.Entitys
         public DbSet<User> Users { get; set; }
         public DbSet<ImageAdmin> ImageAdmins { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<ServiceVDContacts> Contacts { get; set; }
         public StartContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();

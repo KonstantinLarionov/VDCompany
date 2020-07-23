@@ -60,6 +60,13 @@ namespace VDCompany.Controllers.Core.UserCore
         }
         #endregion
         #region UserInfoTaker
+        public ServiceVDContacts GetContacts()
+        {
+            UserDBBuilder.HttpContext = http;
+            UserDBBuilder.Build("cookies");
+            var c = db.Contacts.FirstOrDefault();
+            return c;
+        }
         public Dialog GetDialog(int IdCase)
         {
             UserDBBuilder.HttpContext = http;
@@ -111,6 +118,27 @@ namespace VDCompany.Controllers.Core.UserCore
             {
                 return null;
             }*/
+        }
+        public Case GetCase(int id)
+        {
+            UserDBBuilder.HttpContext = http;
+            UserDBBuilder.Build("cookies");
+
+            var cases = GetUser().Include(x => x.Cases).FirstOrDefault();
+            var idc = cases.Cases.Where(x => x.Id == id).FirstOrDefault();
+            if (idc != null)
+            {
+                return db.Cases.Where(x => x.Id == id).Include(x => x.Lawyers).Include(x => x.Docs).Include(x => x.ClientsHub).Include(x => x.Dialog).FirstOrDefault();
+            }
+            else { return null; }
+        }
+
+        public User GetMe()
+        {
+            UserDBBuilder.HttpContext = http;
+            UserDBBuilder.Build("cookies");
+            var user = GetUser().FirstOrDefault();
+            return user;
         }
         public List<Case> GetCases()
         {

@@ -27,6 +27,37 @@ namespace VDCompany.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Lawyers()
+        {
+            return View(HttpContext.SendToUser(u => u.GetLawyers()));
+        }
+        [HttpGet]
+        public IActionResult Contacts()
+        {
+            ContactsDTO contacts = new ContactsDTO
+                (
+                    HttpContext.SendToUser(u => u.GetLawyers()),
+                    HttpContext.SendToUser(u => u.GetContacts())
+                );
+            return View(contacts);
+        }
+        [HttpGet]
+        public IActionResult PDN()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult MyCase(int idCase)
+        {
+            MyCaseDTO myCaseDTO = new MyCaseDTO
+                (
+                    HttpContext.SendToUser(u => u.GetCase(idCase)),
+                    HttpContext.SendToUser(u => u.GetMe())
+                );
+            return View(myCaseDTO);
+        }
+
 
         [HttpPost]
       

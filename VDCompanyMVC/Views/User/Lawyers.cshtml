@@ -1,0 +1,20 @@
+﻿@{Layout = "_LayoutUser";}
+@model List<VDCompany.Models.Objects.Lawyer>
+<div class="content content-fixed content-auth-alt">
+    <div class="container d-flex justify-content-center ht-100p">
+        @*@if (Model.Count != 0)
+        {*@
+            @for (int i = 0; Model.Count != 0 && i < Model.Count; i++)
+            {
+                <div class="card wd-sm-50p wd-md-40p">
+                    <img src="~/spaceuser/lawyersImg/@Model[i].Image[0].URL" style="height:147px;" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" id="name">@Model[i].Email</h5>
+                        <p class="card-text" id="about">@Model[i].About</p>
+                        <a href="#" class="btn btn-primary" id="button">Связаться</a>
+                    </div>
+                </div>
+            }
+       @*}*@
+    </div>
+</div>

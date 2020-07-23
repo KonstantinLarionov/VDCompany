@@ -45,6 +45,18 @@ namespace VDCompany.Controllers.Core.UserCore
         {
             return func(Instance(httpcon));
         }
+        public static ServiceVDContacts SendToUser(this HttpContext httpcon, Func<UserDispatcher, ServiceVDContacts> func)
+        {
+            return func(Instance(httpcon));
+        }
+        public static Case SendToUser(this HttpContext httpcon, Func<UserDispatcher, Case> func)
+        {
+            return func(Instance(httpcon));
+        }
+        public static User SendToUser(this HttpContext httpcon, Func<UserDispatcher, User> func)
+        {
+            return func(Instance(httpcon));
+        }
         #endregion
     }
     public class UserDispatcher
@@ -80,6 +92,10 @@ namespace VDCompany.Controllers.Core.UserCore
         #endregion
 
         #region PublicMethods
+        public ServiceVDContacts GetContacts()
+        {
+            return digger?.GetContacts();
+        }
         public List<Bill> GetBills()
         {
             return digger?.GetBills().OrderByDescending(x=>x.Id).ToList();
@@ -101,6 +117,14 @@ namespace VDCompany.Controllers.Core.UserCore
         {
             var result = digger.CreateCase(caseDTO);
             return SendEmail(caseDTO, result);
+        }
+        public Case GetCase(int id)
+        {
+            return digger?.GetCase(id);
+        }
+        public User GetMe()
+        {
+            return digger?.GetMe();
         }
 
         #endregion
