@@ -17,6 +17,11 @@ namespace VDCompany.Controllers
     public class UserController : Controller
     {
         [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpGet]
         public IActionResult CreateCase()
         {
             return View();
