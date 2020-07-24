@@ -103,6 +103,16 @@ namespace VDCompany.Controllers.Core.AdminCore
                 );
             return indexDTO;
         }
+
+        public List<Lawyer> GetLawyers()
+        {
+            return digger?.GetLawyers();
+        }
+
+        public List<Case> GetCases()
+        {
+            return digger?.GetCases();
+        }
         public void SetBillToUser(int idUser, string nameCase, DateTime datePut, DateTime dateEnd, string whoPut, string whoTake, string sum, string dopSum, string itogo, string requisit)
         {
             digger?.SetBill(idUser, new Bill()

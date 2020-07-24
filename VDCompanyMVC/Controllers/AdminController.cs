@@ -14,6 +14,17 @@ namespace VDCompany.Controllers
         {
             return View(HttpContext.SendToAdmin(x => x.GetIndexDTO()));
         }
+        public IActionResult Lawyers()
+        {
+            AdminLawyersDTO dTO = new AdminLawyersDTO
+                (
+                    HttpContext.SendToAdmin(x => x.GetLawyers()),
+                    HttpContext.SendToAdmin(x => x.GetCases())
+                );
+            return View(dTO);
+        }
+
+        #region POST
         [HttpPost]
         public IActionResult SetBill(int iduser, string nameCase, DateTime datePut, DateTime dateEnd, string whoPut, string whoTake, string sum, string dopSum, string itogo, string requisit)
         {
@@ -37,5 +48,6 @@ namespace VDCompany.Controllers
             HttpContext.SendToAdmin(x=>x.SetLaws(idcase,law1,law2,law3,law4,law5));
             return View("Index", HttpContext.SendToAdmin(x => x.GetIndexDTO()));
         }
+        #endregion
     }
 }
