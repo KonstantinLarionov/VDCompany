@@ -48,6 +48,10 @@ namespace VDCompany.Controllers.Core.AdminCore
         {
             return func(Instance(httpcon));
         }
+        public static ServiceVDContacts SendToAdmin(this HttpContext httpcon, Func<AdminDispatcher, ServiceVDContacts> func)
+        {
+            return func(Instance(httpcon));
+        }
         public static void SendToAdmin(this HttpContext httpcon, Action<AdminDispatcher> func)
         {
             func(Instance(httpcon));
@@ -112,6 +116,16 @@ namespace VDCompany.Controllers.Core.AdminCore
         public List<Case> GetCases()
         {
             return digger?.GetCases();
+        }
+
+        public void SetContacts(ServiceVDContacts contacts)
+        {
+            digger?.SetContacts(contacts);
+        }
+
+        public ServiceVDContacts GetContacts()
+        {
+            return digger?.GetContacts();
         }
         public void SetBillToUser(int idUser, string nameCase, DateTime datePut, DateTime dateEnd, string whoPut, string whoTake, string sum, string dopSum, string itogo, string requisit)
         {

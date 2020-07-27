@@ -7,20 +7,20 @@ namespace VDCompany.Models.Objects
 {
     public class ServiceVDContacts
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Familio { get; set; }
-        public string Otch { get; set; }
-        public string About { get; set; }
-        public string PhoneAdmin { get; set; }
-        public string PhoneSupport { get; set; }
-        public string EmailAdmin { get; set; }
-        public string EmailSupport { get; set; }
-        public string Address { get; set; }
-        public string AddressSupport { get; set; }
-        public string LinkVK { get; set; }
-        public string LinkFace { get; set; }
-        public string LinkOK { get; set; }
-        public string Site { get; set; }
+        public int Id { get; set; } 
+        public string Name { get; set; } = string.Empty;
+        public string Familio { get; set; } = string.Empty;
+        public string Otch { get; set; } = string.Empty;
+        public string About { get; set; } = string.Empty;
+        public string PhoneAdmin { get; set; } = string.Empty;
+        public string PhoneSupport { get; set; } = string.Empty;
+        public string EmailAdmin { get; set; } = string.Empty;
+        public string EmailSupport { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
+        public string AddressSupport { get; set; } = string.Empty;
+        public string LinkVK { get; set; } = string.Empty;
+        public string LinkFace { get; set; } = string.Empty;
+        public string LinkOK { get; set; } = string.Empty;
+        public string Site { get; set; } = string.Empty;
     }
 }

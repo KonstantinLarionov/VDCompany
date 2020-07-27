@@ -1,0 +1,103 @@
+﻿ @{Layout = "_LayoutAdmin";} 
+@model VDCompany.Models.Objects.ServiceVDContacts
+  <!--MAINPAGE-->
+<div class="content content-fixed">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">Главная страница</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Контакты компании</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">Контакты VDCompany</h4>
+            </div>
+            <div class="d-none d-md-block">
+                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
+                    <i data-feather="check"
+                       class="wd-10 mg-r-5"></i> Посмотреть пользователей
+                </button>
+            </div>
+        </div>
+        <form action="/Admin/SetContacts" method="post">
+            <div class="row row-xs">
+                <div class="col-lg">
+                    <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
+                        <div class="table-responsive">
+                            <table class="table table-primary table-hover table-striped mg-b-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Название</th>
+                                        <th scope="col">Значение</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Фамилия Директора</th>
+                                        <td><input value="@Model.Familio" name="Familio" type="text" class="form-input" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Имя Директора</th>
+                                        <td><input value="@Model.Name" name="Name" type="text" class="form-input" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Отчество Директора</th>
+                                        <td><input value="@Model.Otch" name="Otch" type="text" class="form-input" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Описание Директора</th>
+                                        <td><input value="@Model.About" type="text" name="About" class="form-input" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Почта директора</th>
+                                        <td><input value="@Model.EmailAdmin" name="EmailAdmin" type="text" class="form-input" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Телефон директора</th>
+                                        <td><input value="@Model.PhoneAdmin" name="PhoneAdmin" type="text" class="form-input" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Почта поддержки компании</th>
+                                        <td><input  value="@Model.EmailSupport" name="EmailSupport" type="text" class="form-input" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Телефон поддержки компании</th>
+                                        <td><input  value="@Model.PhoneSupport" name="PhoneSupport" type="text" class="form-input" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Фактический адресс компании</th>
+                                        <td><input  value="@Model.Address" name="Address" type="text" class="form-input" /></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Фактический адресс поддержки</th>
+                                        <td><input value="@Model.AddressSupport" name="AddressSupport" type="text" class="form-input" /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Ссылка вконтакте</th>
+                                        <td><input value="@Model.LinkVK" name="LinkVK" type="text" class="form-input" /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Ссылка фейсбук</th>
+                                        <td><input  value="@Model.LinkFace" name="LinkFace" type="text" class="form-input" /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Ссылка одноклассники</th>
+                                        <td><input  value="@Model.LinkOK" name="LinkOK" type="text" class="form-input" /></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn  btn-primary">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div><!-- container -->
+</div><!-- content -->

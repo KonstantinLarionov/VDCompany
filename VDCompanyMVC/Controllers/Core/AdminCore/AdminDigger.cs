@@ -114,6 +114,17 @@ namespace VDCompany.Controllers.Core.AdminCore
         }
         #endregion
         #region PublicSetterInfo
+        public ServiceVDContacts GetContacts()
+        {
+            var c = db.Contacts.FirstOrDefault();
+            return c ?? new ServiceVDContacts();
+        }
+
+        public void SetContacts(ServiceVDContacts contacts)
+        {
+            db.Contacts.Add(contacts);
+            Save();
+        }
         public void SetBill(int idUser, Bill bill)
         {
             var user = db.Users.Where(x => x.Id == idUser).FirstOrDefault();

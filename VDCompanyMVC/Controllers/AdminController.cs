@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VDCompany.Controllers.Core.AdminCore;
 using VDCompany.Models.DTO;
+using VDCompany.Models.Objects;
 
 namespace VDCompany.Controllers
 {
@@ -13,6 +14,10 @@ namespace VDCompany.Controllers
         public IActionResult Index()
         {
             return View(HttpContext.SendToAdmin(x => x.GetIndexDTO()));
+        }
+        public IActionResult Contacts()
+        {
+            return View(HttpContext.SendToAdmin(x => x.GetContacts()));
         }
         public IActionResult Lawyers()
         {
@@ -47,6 +52,13 @@ namespace VDCompany.Controllers
         {
             HttpContext.SendToAdmin(x=>x.SetLaws(idcase,law1,law2,law3,law4,law5));
             return View("Index", HttpContext.SendToAdmin(x => x.GetIndexDTO()));
+        }
+
+        [HttpPost]
+        public IActionResult SetContacts(ServiceVDContacts contacts)
+        {
+            HttpContext.SendToAdmin(x=>x.SetContacts(contacts));
+            return View("Contacts", HttpContext.SendToAdmin(x=>x.GetContacts()));
         }
         #endregion
     }
