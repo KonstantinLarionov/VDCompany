@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
+
+    <title>Личный кабинет | Пользователя</title>
+
+    <!-- vendor css -->
+    <link href="lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="lib/jqvmap/jqvmap.min.css" rel="stylesheet">
+
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="assets/css/dashforge.css">
+    <link rel="stylesheet" href="assets/css/dashforge.dashboard.css">
+</head>
+
+<body class="page-profile">
+
+    <header class="navbar navbar-header navbar-header-fixed">
+        <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+        <div class="navbar-brand">
+            <a href="../../index.html" class="df-logo">VD<span>Company</span></a>
+        </div><!-- navbar-brand -->
+        <div id="navbarMenu" class="navbar-menu-wrapper">
+            <div class="navbar-menu-header">
+                <a href="../../index.html" class="df-logo">VD<span>Company</span></a>
+                <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
+            </div><!-- navbar-menu-header -->
+            <ul class="nav navbar-menu">
+                <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Меню</li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link"> Открыть дело</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link"> Мои дела</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link"> Мои счета</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link"><i data-feather="layers"></i> Контакты</a>
+                </li>
+                <li class="nav-item"><a href="../../components/" class="nav-link"><i data-feather="box"></i> Юристы</a>
+                </li>
+                <li class="nav-item"><a href="../../collections/" class="nav-link"><i data-feather="archive"></i>
+                        Политика ПДН</a></li>
+            </ul>
+        </div><!-- navbar-menu-wrapper -->
+        <div class="navbar-right">
+            <div class="dropdown dropdown-message">
+                <a href="" class="dropdown-link new-indicator" data-toggle="dropdown">
+                    <i data-feather="message-square"></i>
+                    <span>5</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header">Уведомления</div>
+                    <a href="" class="dropdown-item">
+                        <div class="media">
+
+                            <div class="media-body mg-l-15">
+                                <strong>Socrates Itumay</strong>
+                                <p>nam libero tempore cum so...</p>
+                                <span>Mar 15 12:32pm</span>
+                            </div><!-- media-body -->
+                        </div><!-- media -->
+                    </a>
+                </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+
+        </div><!-- navbar-right -->
+    </header><!-- navbar -->
+
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Личный кабинет</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Открыть дело</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-0 tx-spacing--1">Открытие нового дела</h4>
+                </div>
+                <div class="d-none d-md-block">
+                    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
+                        <i data-feather="list"
+                           class="wd-10 mg-r-5"></i> Мои дела
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="container d-flex justify-content-center ht-100p">
+                <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
+
+                    <h4 class="tx-20 tx-sm-24">Здравствуйте!</h4>
+                    <p class="tx-color-03 mg-b-30">Откройте новое дело используя форму ниже</p>
+                    <div class="pd-t-20 wd-100p">
+                        <div class="form-group">
+                            <label>Как к вам обращаться?</label>
+                            <input type="text" class="form-control" placeholder="Введите имя или ник" id="name">
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between mg-b-5">
+                                <label class="mg-b-0-f">Выберите тип вашего дела</label>
+                            </div>
+                            <select class="custom-select" id="type">
+                                <option selected>Откройте выбор</option>
+                                <option value="Уголовное дело">Уголовное дело</option>
+                                <option value="Дело военнослужащих">Дело военнослужащих</option>
+                                <option value="Общая практика">Общая практика</option>
+                                <option value="Проверки">Проверки</option>
+                                <option value="Правовой аутсорсинг">Правовой аутсорсинг</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Краткое описание</label>
+                            <textarea class="form-control" rows="2" id="description"
+                                      placeholder="Напишите кратко о вашем деле, чтобы мы могли найти нужного специалиста.."
+                                      required></textarea>
+                        </div>
+
+                        <div class="form-group tx-12">
+                            Открытие дела означает начало деятельности фирмы относительно лица открывшего дело<br>
+                            <strong>СЧЕТ ДЛЯ ОПЛАТЫ выставляется в процессе обсуждения открытого дела.</strong>
+                        </div><!-- form-group -->
+
+                        <button class="btn btn-brand-02 btn-block" onclick="Create();">Открыть новое дело</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/feather-icons/feather.min.js"></script>
+        <script src="lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script src="lib/jquery.flot/jquery.flot.js"></script>
+        <script src="lib/jquery.flot/jquery.flot.stack.js"></script>
+        <script src="lib/jquery.flot/jquery.flot.resize.js"></script>
+        <script src="lib/chart.js/Chart.bundle.min.js"></script>
+        <script src="lib/jqvmap/jquery.vmap.min.js"></script>
+        <script src="lib/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+        <script src="assets/js/dashforge.js"></script>
+        <script src="assets/js/dashforge.sampledata.js"></script>
+
+        <!-- append theme customizer -->
+        <script src="lib/js-cookie/js.cookie.js"></script>
+        <script src="assets/js/dashforge.settings.js"></script>
+        <script>
+            function Create() {
+                var name = document.getElementById("name");
+                var type = document.getElementById("type");
+                var dialog = document.getElementById("dialog");
+                fetch('/User/CreateCase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({ Type: type.value, Name: name.value, Description: description.value, })
+                }).then(response => response.text())
+                    .then(result => alert(result));
+            }
+        </script>
+
+
+        </body>
+
+</html>

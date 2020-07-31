@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VDCompany.Models.DTO;
 using VDCompany.Models.Objects;
 
 namespace VDCompany.Controllers.Core.LawyerCore
@@ -32,6 +33,10 @@ namespace VDCompany.Controllers.Core.LawyerCore
             return func(Instance(httpcon));
         }
         public static Lawyer SendToLaw(this HttpContext httpcon, Func<LawyerDispatcher, Lawyer> func)
+        {
+            return func(Instance(httpcon));
+        }
+        public static IndexLawDTO SendToLaw(this HttpContext httpcon, Func<LawyerDispatcher, IndexLawDTO> func)
         {
             return func(Instance(httpcon));
         }
@@ -69,6 +74,13 @@ namespace VDCompany.Controllers.Core.LawyerCore
             return user_dispatcher;
         }
         #endregion
-
+        public IndexLawDTO GetIndexDTO()
+        {
+            var cases = digger?.GetCasesLaw();
+            int cu = digger.GetUsersCount();
+            int cc = digger.GetCountCases();
+            int cugf = cu > 4 ? cu - 3 : cu;
+            return new IndexLawDTO(cu,91, cc, cugf, cases);
+        }
     }
 }

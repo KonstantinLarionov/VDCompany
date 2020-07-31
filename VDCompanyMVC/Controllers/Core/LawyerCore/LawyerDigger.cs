@@ -64,6 +64,15 @@ namespace VDCompany.Controllers.Core.LawyerCore
             var lawCases = db.Cases.Where(x => x.Lawyers.Any(x => x.Id == law.Id)).ToList();
             return lawCases;
         }
+        public int GetCountCases()
+        {
+            return db.Cases.ToList().Count;
+        }
+        public int GetUsersCount()
+        {
+            var users = db.Users.ToList().Count;
+            return users;
+        }
         public Case GetCase(int id)
         {
             var @case = db.Cases

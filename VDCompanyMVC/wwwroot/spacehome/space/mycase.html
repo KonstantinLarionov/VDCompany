@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
+
+    <title>Личный кабинет | Пользователя</title>
+
+    <!-- vendor css -->
+    <link href="lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="lib/jqvmap/jqvmap.min.css" rel="stylesheet">
+
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="assets/css/dashforge.css">
+    <link rel="stylesheet" href="assets/css/dashforge.dashboard.css">
+</head>
+
+<body class="page-profile">
+
+    <header class="navbar navbar-header navbar-header-fixed">
+        <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+        <div class="navbar-brand">
+            <a href="../../index.html" class="df-logo">VD<span>Company</span></a>
+        </div><!-- navbar-brand -->
+        <div id="navbarMenu" class="navbar-menu-wrapper">
+            <div class="navbar-menu-header">
+                <a href="../../index.html" class="df-logo">VD<span>Company</span></a>
+                <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
+            </div><!-- navbar-menu-header -->
+            <ul class="nav navbar-menu">
+                <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Меню</li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link"> Открыть дело</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link"> Мои дела</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link"> Мои счета</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link"><i data-feather="layers"></i> Контакты</a>
+                </li>
+                <li class="nav-item"><a href="../../components/" class="nav-link"><i data-feather="box"></i> Юристы</a>
+                </li>
+                <li class="nav-item"><a href="../../collections/" class="nav-link"><i data-feather="archive"></i>
+                        Политика ПДН</a></li>
+            </ul>
+        </div><!-- navbar-menu-wrapper -->
+        <div class="navbar-right">
+            <div class="dropdown dropdown-message">
+                <a href="" class="dropdown-link new-indicator" data-toggle="dropdown">
+                    <i data-feather="message-square"></i>
+                    <span>5</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header">Уведомления</div>
+                    <a href="" class="dropdown-item">
+                        <div class="media">
+
+                            <div class="media-body mg-l-15">
+                                <strong>Socrates Itumay</strong>
+                                <p>nam libero tempore cum so...</p>
+                                <span>Mar 15 12:32pm</span>
+                            </div><!-- media-body -->
+                        </div><!-- media -->
+                    </a>
+                </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+
+        </div><!-- navbar-right -->
+    </header><!-- navbar -->
+
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Личный кабинет</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Мои дела</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-0 tx-spacing--1">Просмотр всех дел аккаунта</h4>
+                </div>
+                <div class="d-none d-md-block">
+                    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="clipboard"
+                            class="wd-10 mg-r-5"></i> Мои счета</button>
+                </div>
+            </div>
+
+
+            <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
+                <div class="table-responsive">
+                    <table class="table table-primary table-hover table-striped mg-b-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Имя/Ник</th>
+                                <th scope="col">Тип дела</th>
+                                <th scope="col">Статус дела</th>
+                                <th scope="col">Дата открытия</th>
+                                <th scope="col">Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody id="TableBody">
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Adrian Monino</td>
+                                <td>Front-End Engineer</td>
+                                <td>Computer Science</td>
+                                <td>Computer Science</td>
+
+                                <td><a onclick="document.location='case.html?id=188'" href="" class="btn btn-primary">Посмотреть</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/feather-icons/feather.min.js"></script>
+        <script src="lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script src="lib/jquery.flot/jquery.flot.js"></script>
+        <script src="lib/jquery.flot/jquery.flot.stack.js"></script>
+        <script src="lib/jquery.flot/jquery.flot.resize.js"></script>
+        <script src="lib/chart.js/Chart.bundle.min.js"></script>
+        <script src="lib/jqvmap/jquery.vmap.min.js"></script>
+        <script src="lib/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+        <script src="assets/js/dashforge.js"></script>
+        <script src="assets/js/dashforge.sampledata.js"></script>
+
+        <!-- append theme customizer -->
+        <script src="lib/js-cookie/js.cookie.js"></script>
+        <script src="assets/js/dashforge.settings.js"></script>
+        <script>
+             window.onload = function GetCases() {
+                fetch('/User/GetCases', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                }).then(response => response.json())
+                    .then(result => ShowBills(result));
+             }
+            function ShowBills(resResponse) {
+                for (var i = 0; i < resResponse.length; i++) {
+                    console.log(resResponse[i]);
+                    InsertInTable(resResponse[i]);
+                }
+            }
+              function InsertInTable(object) {
+                let row = CreateNewRow(object);
+                let table = document.getElementById("TableBody");
+                
+                table.appendChild(row);
+            }
+           
+            function CreateNewRow(object) {
+                let button = CreateButtonWithState(object["id"], object["status"]);
+                let row = document.createElement("TR");
+
+                let idBill = document.createElement("TD"); idBill.innerHTML = object["id"];
+                let name = document.createElement("TD"); name.innerHTML = object["name"];
+                let type = document.createElement("TD"); type.innerHTML = object["type"];
+                let status = document.createElement("TD"); status.innerHTML = object["status"];
+                let dateStart = document.createElement("TD"); dateStart.innerHTML = object["dateStart"].split("T")[0];
+                let doSome = document.createElement("TD");
+                doSome.append(button);
+                row.append(idBill, name, type, status, dateStart, doSome);
+                return row;
+            }
+              function CreateButtonWithState(idBill,status) {
+                  var button = document.createElement("A");
+                  button.setAttribute('href', 'case.html?id=' + idBill);
+                  button.setAttribute('class', 'btn btn-primary');
+                  button.innerHTML = "Просмотреть";
+                  button.id = idBill;
+                return button;
+            }
+        </script>
+</body>
+
+</html>

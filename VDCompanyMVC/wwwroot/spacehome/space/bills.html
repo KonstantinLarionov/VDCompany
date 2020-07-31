@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
+
+    <title>Личный кабинет | Пользователя</title>
+
+    <!-- vendor css -->
+    <link href="lib/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="lib/jqvmap/jqvmap.min.css" rel="stylesheet">
+
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="assets/css/dashforge.css">
+    <link rel="stylesheet" href="assets/css/dashforge.dashboard.css">
+</head>
+
+<body class="page-profile">
+
+    <header class="navbar navbar-header navbar-header-fixed">
+        <a href="" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+        <div class="navbar-brand">
+            <a href="../../index.html" class="df-logo">VD<span>Company</span></a>
+        </div><!-- navbar-brand -->
+        <div id="navbarMenu" class="navbar-menu-wrapper">
+            <div class="navbar-menu-header">
+                <a href="../../index.html" class="df-logo">VD<span>Company</span></a>
+                <a id="mainMenuClose" href=""><i data-feather="x"></i></a>
+            </div><!-- navbar-menu-header -->
+            <ul class="nav navbar-menu">
+                <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Меню</li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link"> Открыть дело</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link"> Мои дела</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link"> Мои счета</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link"><i data-feather="layers"></i> Контакты</a>
+                </li>
+                <li class="nav-item"><a href="../../components/" class="nav-link"><i data-feather="box"></i> Юристы</a>
+                </li>
+                <li class="nav-item"><a href="../../collections/" class="nav-link"><i data-feather="archive"></i>
+                        Политика ПДН</a></li>
+            </ul>
+        </div><!-- navbar-menu-wrapper -->
+        <div class="navbar-right">
+            <div class="dropdown dropdown-message">
+                <a href="" class="dropdown-link new-indicator" data-toggle="dropdown">
+                    <i data-feather="message-square"></i>
+                    <span>5</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header">Уведомления</div>
+                    <a href="" class="dropdown-item">
+                        <div class="media">
+
+                            <div class="media-body mg-l-15">
+                                <strong>Socrates Itumay</strong>
+                                <p>nam libero tempore cum so...</p>
+                                <span>Mar 15 12:32pm</span>
+                            </div><!-- media-body -->
+                        </div><!-- media -->
+                    </a>
+                </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+
+        </div><!-- navbar-right -->
+    </header><!-- navbar -->
+
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Личный кабинет</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Мои счета</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-0 tx-spacing--1">Просмотр счетов и чеков</h4>
+                </div>
+                <div class="d-none d-md-block">
+                    <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5"><i data-feather="clipboard"
+                            class="wd-10 mg-r-5"></i> Мои дела</button>
+                </div>
+            </div>
+
+
+            <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
+                <div class="table-responsive">
+                    <table class="table table-primary table-hover table-striped mg-b-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Дело</th>
+                                <th scope="col">Сумма</th>
+                                <th scope="col">Реквизит</th>
+                                <th scope="col">Дата выставления</th>
+                                <th scope="col">Дата оплаты</th>
+                                <th scope="col">Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody id="TableBody">
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Adrian Monino</td>
+                                <td>Front-End Engineer</td>
+                                <td>Adrian Monino</td>
+                                <td>Front-End Engineer</td>
+                                <td>Computer Science</td>
+                                <td><a class="btn btn-block btn-success">Оплатил</a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Adrian Monino</td>
+                                <td>Front-End Engineer</td>
+                                <td>Adrian Monino</td>
+                                <td>Front-End Engineer</td>
+                                <td>Computer Science</td>
+                                <td>
+                                    <a href="#modal6" data-toggle="modal" data-animation="effect-flip-horizontal" class="btn btn-primary btn-block" 
+                                        >Посмотреть</a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel6"
+            style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content tx-14">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="exampleModalLabel6">Чек по делу</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-dark table-hover table-striped mg-b-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Название</th>
+                                    <th scope="col">Значение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Тип дела</td>
+                                    <td>$120,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Дата выставления</td>
+                                    <td>Software Engineer</td>
+                                </tr>
+                                <tr>
+                                    <td>Дата оплаты</td>
+                                    <td>Product Manager</td>
+                                </tr>
+                                <tr>
+                                    <td>Кем выставлен</td>
+                                    <td>Product Manager</td>
+                                </tr>
+                                <tr>
+                                    <td>Кому выставлен</td>
+                                    <td>Product Manager</td>
+                                </tr>
+                                <tr>
+                                    <td>Сумма по делу</td>
+                                    <td>Product Manager</td>
+                                </tr>
+                                <tr>
+                                    <td>Дополнительные расходы</td>
+                                    <td>Product Manager</td>
+                                </tr>
+                                <tr>
+                                    <td>Итого </td>
+                                    <td>Product Manager</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary tx-13" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/feather-icons/feather.min.js"></script>
+        <script src="lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script src="lib/jquery.flot/jquery.flot.js"></script>
+        <script src="lib/jquery.flot/jquery.flot.stack.js"></script>
+        <script src="lib/jquery.flot/jquery.flot.resize.js"></script>
+        <script src="lib/chart.js/Chart.bundle.min.js"></script>
+        <script src="lib/jqvmap/jquery.vmap.min.js"></script>
+        <script src="lib/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+        <script src="assets/js/dashforge.js"></script>
+        <script src="assets/js/dashforge.sampledata.js"></script>
+
+        <!-- append theme customizer -->
+        <script src="lib/js-cookie/js.cookie.js"></script>
+        <script src="assets/js/dashforge.settings.js"></script>
+        <script>
+            window.onload = function GetBills() {
+
+                fetch('/User/GetBills', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                }).then(response => response.json())
+                    .then(result => ShowBills(result));
+            }
+            function ShowBills(resResponse) {
+                for (var i = 0; i < resResponse.length; i++) {
+                    InsertInTable(resResponse[i]);
+                }
+            }
+
+            function InsertInTable(object) {
+                let row = CreateNewRow(object);
+                let table = document.getElementById("TableBody");
+
+                table.appendChild(row);
+            }
+
+            function ChangeStatus(id) {
+                fetch('/User/ChangeStatus', {
+                    method: 'POST',
+                    body: JSON.stringify({ Id: id }),
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                }).then(response => response.json())
+                    .then(result => ShowStatus(result));
+            }
+            function ShowStatus(res) {
+                if (res[0] === true) {
+                    let button = document.getElementById(res[1])
+                    button.setAttribute("class", "btn btn-primary btn-block");
+                    button.innerHTML = "На проверке";
+                    alert("Спасибо! через пару минут мы проверим ваш платеж и подтвердим статус.");
+
+                }
+                else {
+                    let button = document.getElementById(res[1])
+                    button.setAttribute("class", "btn btn-primary btn-block");
+                    button.innerHTML = "Ошибка!";
+                    alert("Произошла ошибка! обновите страницу позже..");
+                }
+            }
+
+            //#region Helpers
+            function CreateButtonWithState(idBill, status) {
+                var button = document.createElement("A");
+                button.id = idBill;
+                if (status == 1) {
+                    button.setAttribute("class", "btn btn-primary btn-block");
+                    button.innerHTML = "Оплачено";
+                } else if (status == 2) {
+                    button.setAttribute("class", "btn btn-primary btn-block");
+                    button.innerHTML = "На проверке";
+                } else if (status == 0) {
+                    button.setAttribute("class", "btn btn-block btn-danger");
+                    button.setAttribute("onclick", "ChangeStatus(" + button.id + ")");
+                    button.innerHTML = "Я оплатил";
+                }
+                return button;
+            }
+            function CreateNewRow(object) {
+                let button = CreateButtonWithState(object["id"], object["status"]);
+                let row = document.createElement("TR");
+                let dateF = object["dateCreate"].split("T")[0];
+                let dateFP = object["datePay"].split("T")[0];
+                let idBill = document.createElement("TD"); idBill.innerHTML = object["id"];
+                let caseName = document.createElement("TD"); caseName.innerHTML = object["nameCase"];
+                let amount = document.createElement("TD"); amount.innerHTML = object["amount"];
+                let requizit = document.createElement("TD"); requizit.innerHTML = object["requizit"];
+                let date = document.createElement("TD"); date.innerHTML = dateF;
+                let datePay = document.createElement("TD"); datePay.innerHTML = dateFP;
+                let doSome = document.createElement("TD");
+                doSome.append(button);
+                row.append(idBill, caseName, amount, requizit, date, datePay, doSome);
+                return row;
+            }
+            //#endregion
+        </script>
+</body>
+
+</html>

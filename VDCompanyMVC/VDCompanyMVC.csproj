@@ -6,12 +6,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Views\Home\" />
-    <Folder Include="wwwroot\spacelaw\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.3.0" />
     <PackageReference Include="MailKit" Version="2.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
