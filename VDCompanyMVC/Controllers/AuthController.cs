@@ -12,14 +12,10 @@ using VDCompany.Models.Secur;
 
 namespace VDCompany.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : Controller
     {
         private static StartContext db = new StartContext(new DbContextOptions<StartContext>());
 
-        [HttpPost(Name = "Reg")]
-        [Route("Reg")]
         public string Reg([FromBody] RegDTO userDTO)
         {
             if (db.Users.Any(x => x.Email == userDTO.Email))
@@ -53,9 +49,7 @@ namespace VDCompany.Controllers
             }
         }
 
-        [HttpPost(Name = "Login")]
-        [Route("Login")]
-        public bool Login([FromBody] LoginDTO loginDTO = null)
+        public IActionResult Login(LoginDTO loginDTO = null)
         {
             if (loginDTO == null)
             {
@@ -69,16 +63,14 @@ namespace VDCompany.Controllers
                 HttpContext.Request.Cookies.Append(new KeyValuePair<string, string>("password", loginDTO.Password));
                 HttpContext.Session.SetString("login", loginDTO.Login);
                 HttpContext.Session.SetString("password", loginDTO.Password);
-                return true;
+                return View("/User/Index");
             }
             else
             {
-                return false;
+                return View("/Home/Login");
             }
         }
 
-        [HttpPost(Name = "Reset")]
-        [Route("Reset")]
         public string Reset([FromBody] RegDTO userDTO)
         {
             if (db.Users.Any(x => x.Email == userDTO.Email))
