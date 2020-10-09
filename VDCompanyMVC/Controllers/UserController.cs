@@ -100,7 +100,7 @@ namespace VDCompany.Controllers
                 return "Данный Email не был зарегистрирован ранее. Пройдите процедуру регистрации.";
             }
         }
-#endregion
+        #endregion
 
         [HttpGet]
         public IActionResult Index()
