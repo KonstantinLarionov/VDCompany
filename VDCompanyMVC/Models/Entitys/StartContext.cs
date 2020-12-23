@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VDCompany.Models.Interfaces;
-using VDCompany.Models.Objects;
 
-namespace VDCompany.Models.Entitys
+using VDCompanyMVC.Models.Objects;
+
+namespace VDCompanyMVC.Models.Entitys
 {
     public class StartContext : DbContext
     {
 
         public DbSet<Admin> Admins { get; set; }
+         
         public DbSet<Case> Cases { get; set; }
         public DbSet<Doc> Docs { get; set; }
         public DbSet<Dialog> Dialogs { get; set; }

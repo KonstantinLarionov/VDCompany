@@ -1,5 +1,5 @@
 ﻿@{ Layout = "_LayoutAdmin"; }
-@model VDCompany.Models.DTO.IndexDTO
+@model VDCompanyMVC.Models.DTO.IndexDTO
  <!--MAINPAGE-->
 <div class="content content-fixed">
     <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
@@ -7,17 +7,17 @@
             <div>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                        <li class="breadcrumb-item"><a href="#">Главная страница</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Мониторинг пользователей</li>
+                        <li class="breadcrumb-item"><a href="#">Кабинет администратора</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Общая статистика</li>
                     </ol>
                 </nav>
                 <h4 class="mg-b-0 tx-spacing--1">Все пользователи</h4>
             </div>
             <div class="d-none d-md-block">
-                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
+                <a href="/Admin/Lawyers" class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
                     <i data-feather="file"
                        class="wd-10 mg-r-5"></i> Посмотреть юристов
-                </button>
+                </a>
             </div>
         </div>
 
@@ -93,7 +93,7 @@
             <div class="col-lg">
                 <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
                     <div class="table-responsive">
-                        <table class="table table-primary table-hover table-striped mg-b-0">
+                        <table class="table table-sm table-primary table-hover table-striped mg-b-0">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -108,23 +108,23 @@
                             <tbody id="userTable">
                                 @if (Model.Users.Count != 0)
                                 {
-
-
-                                @for (int i = 0; i < Model.Users.Count; i++)
-                                {
-                                    <tr>
-                                        <th scope="row">@Model.Users[i].Id</th>
-                                        <td>@Model.Users[i].Name</td>
-                                        <td>@Model.Users[i].DateReg</td>
-                                        <td>@Model.Users[i].Cases.Count</td>
-                                        <td>@Model.Users[i].Email</td>
-                                        <Td>
-                                            <a href='#modal_@Model.Users[i].Id' onclick="ShowModal('modal_@Model.Users[i].Id')" data-toggle="modal" class="btn  btn-primary">Выставить счет</a>
-                                            <a class="btn  btn-primary">Дела</a>
-                                            <a class="btn  btn-danger">ЧС</a>
-                                        </Td>
-                                    </tr>
-                                }
+                                    @for (int i = 0; i < Model.Users.Count; i++)
+                                    {
+                                        <tr>
+                                            <th style="vertical-align:middle;" scope="row">@Model.Users[i].Id</th>
+                                            <td style="vertical-align:middle;">@Model.Users[i].Name</td>
+                                            <td style="vertical-align:middle;">@Model.Users[i].DateReg</td>
+                                            <td style="vertical-align:middle;">@Model.Users[i].Cases.Count</td>
+                                            <td style="vertical-align:middle;">@Model.Users[i].Email</td>
+                                            <Td style="vertical-align:middle;">
+                                                <div style="display: flex;">
+                                                    <a class="btn btn-info btn-sm m-1" href='#modal_@Model.Users[i].Id' onclick="ShowModal('modal_@Model.Users[i].Id')" data-toggle="modal">Выставить счет</a>
+                                                    <a class="btn btn-primary btn-sm m-1" href='#'>Дела</a>
+                                                    <a class="btn btn-danger btn-sm m-1" href='#'>ЧС</a>
+                                                </div>
+                                            </Td>
+                                        </tr>
+                                    }
                                 }
                             </tbody>
                         </table>
@@ -169,23 +169,23 @@
                                 @for (int i = 0; i < Model.Cases.Count; i++)
                                 {
                                     <tr>
-                                        <th scope="row">@Model.Cases[i].Id</th>
-                                        <td>@Model.Cases[i].Name</td>
-                                        <td>@Model.Cases[i].Type</td>
-                                        <td>@Model.Cases[i].DateStart</td>
-                                        <td>@if (Model.Cases[i].Lawyers.Count != 0) { @Model.Cases[i].Lawyers[0].Login; }</td>
-                                        <td>
+                                        <th style="vertical-align:middle;" scope="row">@Model.Cases[i].Id</th>
+                                        <td style="vertical-align:middle;">@Model.Cases[i].Name</td>
+                                        <td style="vertical-align:middle;">@Model.Cases[i].Type</td>
+                                        <td style="vertical-align:middle;">@Model.Cases[i].DateStart</td>
+                                        <td style="vertical-align:middle;">@if (Model.Cases[i].Lawyers.Count != 0) { @Model.Cases[i].Lawyers[0].Login; }</td>
+                                        <td style="vertical-align:middle;">
                                             @switch (@Model.Cases[i].Status)
                                             {
-                                                case VDCompany.Models.Objects.TypeCase.Close:
+                                                case VDCompanyMVC.Models.Objects.TypeCase.Close:
                                                     var str = "Закрыто";
                                                     @str;
                                                     break;
-                                                case VDCompany.Models.Objects.TypeCase.Open:
+                                                case VDCompanyMVC.Models.Objects.TypeCase.Open:
                                                     var str2 = "Открыто";
                                                     @str2;
                                                     break;
-                                                case VDCompany.Models.Objects.TypeCase.InProcess:
+                                                case VDCompanyMVC.Models.Objects.TypeCase.InProcess:
                                                     var str3 = "В процессе";
                                                     @str3;
                                                     break;
@@ -193,9 +193,11 @@
                                                     break;
                                             }
                                         </td>
-                                        <Td>
-                                            <button type="button" class="btn  btn-primary">Посмотреть</button>
-                                            <a href="#modal_case_@Model.Cases[i].Id" data-toggle="modal" data-animation="effect-flip-horizontal" type="button" class="btn  btn-danger">Назначить</a>
+                                        <Td style="vertical-align:middle;">
+                                            <div style="display:flex;">
+                                                <button type="button" class="btn btn-sm btn-primary m-1">Посмотреть</button>
+                                                <a href="#modal_case_@Model.Cases[i].Id" data-toggle="modal" data-animation="effect-flip-horizontal" type="button" class="btn btn-sm btn-info m-1">Назначить</a>
+                                            </div>
                                         </Td>
                                     </tr>
                                 }

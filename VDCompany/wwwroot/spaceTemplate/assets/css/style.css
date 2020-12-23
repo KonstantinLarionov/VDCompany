@@ -1,0 +1,28 @@
+.toggled-left{
+    left: -100%;
+    transition: 0.5s;
+}
+.toggled-right{
+    right: -100%;
+    transition: 0.5s;
+}
+.contentleft{
+    left: 0;
+}
+.contentright{
+    right: 0;
+}
+.delete{
+    display: none;
+    cursor: pointer;
+}
+.media{
+    cursor: default;
+}
+.file{
+    cursor: pointer;
+}
+.media:hover > .delete {
+    display: block;
+}
+

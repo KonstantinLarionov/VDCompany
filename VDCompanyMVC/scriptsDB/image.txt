@@ -1,4 +1,0 @@
-----------------------------
-INSERT INTO `vdcompany`.`image` (`URL`, `About`, `LawyerId`) VALUES ('afclogo.png', 'ekj1il2jil3j1l2ij', '1');
-
-----------------------------

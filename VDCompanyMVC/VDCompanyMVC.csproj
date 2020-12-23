@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>2e09fd0e-8673-4fb5-a00b-84018910efcc</UserSecretsId>
   </PropertyGroup>
 
 
@@ -14,6 +15,11 @@
     </PackageReference>
     <PackageReference Include="MimeKit" Version="2.6.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.0.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>

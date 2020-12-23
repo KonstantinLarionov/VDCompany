@@ -1,4 +1,0 @@
-------------------------
-INSERT INTO `vdcompany`.`lawyers` (`Login`, `Password`, `Phone`, `Email`, `About`, `Speciality`, `PersonalCode`, `DateCreate`) VALUES ('davidov@vdcompany.ru', '333222', '988905226526', 'davidov@vdcompany.ru', 'This test row ind database onyoure pcasdasdaasd asdawljwfjefkjk j', 'Судопроизводство', '123jkjdfgjij4', '01.07.2020');
-
-------------------------

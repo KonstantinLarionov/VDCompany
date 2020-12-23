@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace VDCompany.Models.Objects
+namespace VDCompanyMVC.Models.Objects
 {
     public enum TypeCase 
     {
-        Close, Open, InProcess
+        Open, InProcess, Close
     }
     public class Case
     {

@@ -5,17 +5,17 @@ $(function(){
   $('[data-toggle="tooltip"]').tooltip()
 
   // chat sidebar body scrollbar
-  new PerfectScrollbar('.chat-sidebar-body', {
-    suppressScrollX: true
-  });
-
-  // chat content body scrollbar
   new PerfectScrollbar('.chat-content-body', {
     suppressScrollX: true
   });
 
+  // chat content body scrollbar
+  new PerfectScrollbar('#listmembers', {
+    suppressScrollX: true
+  });
+
   // chat sidebar right scrollbar
-  new PerfectScrollbar('.chat-sidebar-right', {
+  new PerfectScrollbar('#listdocs', {
     suppressScrollX: true
   });
 

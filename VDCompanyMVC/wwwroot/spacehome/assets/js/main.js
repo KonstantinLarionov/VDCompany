@@ -1,4 +1,66 @@
-$(document).ready(function($) {
+$('#SendFeedBack').click(function () {
+    var name = $('#name').val();
+    var email = $('#email').val();
+    var message = $('#message').val();
+    if (name === "") {
+        swal({
+            title: "Упс...",
+            text: "Кажется поле \"Ваше имя\" не заполнено",
+            icon: "error",
+            button: "Сейчас исправлю"
+        });
+        return;
+    }
+    if (email === "") {
+        swal({
+            title: "Упс...",
+            text: "Кажется поле \"Ваш Email (для ответа)\" не заполнено",
+            icon: "error",
+            button: "Сейчас исправлю"
+        });
+        return;
+    }
+    if (message === "") {
+        swal({
+            title: "Упс...",
+            text: "Кажется поле \"Сообщение\" не заполнено",
+            icon: "error",
+            button: "Сейчас исправлю"
+        });
+        return;
+    }
+    $.ajax({
+        url: '/Home/SendFeedBack',
+        method: 'post',  
+        data: { name: name, email: email, message: message },   
+        success: function (data) {
+            var info = JSON.parse(data);
+            if (info.status === "success") {
+                swal({
+                    title: "Успешно",
+                    text: "Ваше сообщение успешно отправлено",
+                    icon: "success",
+                    button: "Ок"
+                });
+                $('#name').val('');
+                $('#email').val('');
+                $('#message').val('');
+            }
+            else {
+                swal({
+                    title: "Ошибка",
+                    text: "Сообщение не отправлено, проверьте данные, повторите попытку",
+                    icon: "error",
+                    button: "Ок"
+                });
+            }
+        }
+    });
+    
+});
+
+
+$(document).ready(function ($) {
 
 	"use strict";
 
@@ -55,11 +117,11 @@ $(document).ready(function($) {
 	// slick sliders
 	var slickSliders = function() {
 		$('.single-item').slick({
-			slidesToShow: 1,
-		  slidesToScroll: 1,
-		  dots: true,
-		  infinite: true,
-		  autoplay: false,
+	    slidesToShow: 1,
+		slidesToScroll: 1,
+		dots: true,
+        infinite: true,
+		autoplay: false,
 	  	autoplaySpeed: 2000,
 	  	nextArrow: '<span class="next"><i class="ion-ios-arrow-right"></i></span>',
 	  	prevArrow: '<span class="prev"><i class="ion-ios-arrow-left"></i></span>',

@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VDCompany.Models.Secur
+namespace VDCompanyMVC.Models.Secur
 {
     public class Coder
     {

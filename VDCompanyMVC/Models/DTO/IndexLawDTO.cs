@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VDCompany.Models.Objects;
+using VDCompanyMVC.Models.Objects;
 
-namespace VDCompany.Models.DTO
+namespace VDCompanyMVC.Models.DTO
 {
     public class IndexLawDTO
     {

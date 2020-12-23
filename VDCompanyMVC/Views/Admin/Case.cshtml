@@ -1,5 +1,5 @@
 ﻿@{ Layout = "_LayoutAdmin";}
-@model VDCompany.Models.DTO.MyCaseDTO
+@model VDCompanyMVC.Models.DTO.MyCaseDTO
 <div class="content content-fixed">
     <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
         <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
@@ -21,13 +21,13 @@
                     @{string res = "";
                         switch (Model.Case.Status)
                         {
-                            case VDCompany.Models.Objects.TypeCase.Close:
+                            case VDCompanyMVC.Models.Objects.TypeCase.Close:
                                 res = "Закрыто";
                                 break;
-                            case VDCompany.Models.Objects.TypeCase.Open:
+                            case VDCompanyMVC.Models.Objects.TypeCase.Open:
                                 res = "Открыто";
                                 break;
-                            case VDCompany.Models.Objects.TypeCase.InProcess:
+                            case VDCompanyMVC.Models.Objects.TypeCase.InProcess:
                                 res = "Обсуждение";
                                 break;
                             default:
@@ -237,24 +237,24 @@
                                     string type = "";
                                     switch (Model.Case.Docs[i].Type)
                                     {
-                                        case VDCompany.Models.Objects.TypeDoc.NONE:
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.NONE:
                                             break;
-                                        case VDCompany.Models.Objects.TypeDoc.IMG:
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.IMG:
                                             type = "image";
                                             break;
-                                        case VDCompany.Models.Objects.TypeDoc.XLC:
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.XLC:
                                             type = "excel";
                                             break;
-                                        case VDCompany.Models.Objects.TypeDoc.WORD:
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.WORD:
                                             type = "word";
                                             break;
-                                        case VDCompany.Models.Objects.TypeDoc.PDF:
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.PDF:
                                             type = "pdf";
                                             break;
-                                        case VDCompany.Models.Objects.TypeDoc.AUDIO:
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.AUDIO:
                                             type = "mp3";
                                             break;
-                                        case VDCompany.Models.Objects.TypeDoc.VIDEO:
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.VIDEO:
                                             type = "video";
                                             break;
                                         default:

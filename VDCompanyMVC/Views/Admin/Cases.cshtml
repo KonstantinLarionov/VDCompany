@@ -1,5 +1,5 @@
 ﻿@{ Layout = "_LayoutAdmin"; }
-@model List<VDCompany.Models.Objects.Case>
+@model VDCompanyMVC.Models.Pages.ModelAdminCases
 <!--MAINPAGE-->
 <div class="content content-fixed">
     <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
@@ -13,16 +13,13 @@
                 </nav>
                 <h4 class="mg-b-0 tx-spacing--1">Все дела компании</h4>
             </div>
-            <div class="d-none d-md-block">
+            <!--<div class="d-none d-md-block">
                 <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
                     <i data-feather="check"
                        class="wd-10 mg-r-5"></i> Добавить нового юриста
                 </button>
-            </div>
+            </div>-->
         </div>
-
-        <div class="space1row"></div>
-        <h4 class="mg-b-0 tx-spacing--1">Таблица всех дел</h4>
         <div class="row row-xs">
             <div class="col-lg">
                 <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
@@ -34,78 +31,73 @@
                                     <th scope="col">Название</th>
                                     <th scope="col">Тип дела</th>
                                     <th scope="col">Дата старта</th>
-                                    <th scope="col">Юрист</th>
                                     <th scope="col">Статус</th>
+                                    <th scope="col">Юристы</th>
                                     <th scope="col">Действия</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @for (int i = 0; Model != null && i < Model.Count; i++)
+                                @for (int i = 0; Model != null && i < Model.Cases.Count; i++)
                                 {
-                                <tr>
-                                    <th scope="row">@Model[i].Id</th>
-                                    <td>@Model[i].Name</td>
-                                    <td>@Model[i].Type</td>
-                                    <td>@Model[i].DateStart</td>
-                                    <td>@Model[i].Lawyers[0]</td>
-                                    <td>
-                                   @{
-                                        string status = "";
-                                        switch (@Model[i].Status)
-                                        {
-                                            case VDCompany.Models.Objects.TypeCase.Close:
-                                                status = "Закрыто";
-                                                break;
-                                            case VDCompany.Models.Objects.TypeCase.Open:
-                                                status = "Открыто";
-                                                break;
-                                            case VDCompany.Models.Objects.TypeCase.InProcess:
-                                                status = "В процессе";
-                                                break;
-                                            default:
-                                                break;
-                                        }
-
-                                    }
-                                    @status
-                                    </td>
-                                    <Td>
-                                        <button type="button" class="btn  btn-primary">Посмотреть</button>
-                                        <button type="button" class="btn  btn-danger">
-                                            Назначить
-                                        </button>
-                                    </Td>
-                                </tr>
-                                        }
+                                    <tr>
+                                        <th scope="row">@Model.Cases[i].Id</th>
+                                        <td>@Model.Cases[i].Name</td>
+                                        <td>@Model.Cases[i].Type</td>
+                                        <td>@Model.Cases[i].DateStart</td>
+                                        <td>
+                                            @{
+                                                string status = "";
+                                                switch (@Model.Cases[i].Status)
+                                                {
+                                                    case VDCompanyMVC.Models.Objects.TypeCase.Close:
+                                                        status = "Закрыто";
+                                                        break;
+                                                    case VDCompanyMVC.Models.Objects.TypeCase.Open:
+                                                        status = "Открыто";
+                                                        break;
+                                                    case VDCompanyMVC.Models.Objects.TypeCase.InProcess:
+                                                        status = "В процессе";
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+                                            @status
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn  btn-danger" onclick="getmembers(@Model.Cases[i].Id);">Управление</button>
+                                        </td>
+                                        <Td>
+                                            <button type="button" class="btn  btn-primary">Перейти</button>
+                                        </Td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                         @*<nav aria-label="Page navigation example">
-                            <ul class="pagination mg-b-0">
-                                <li class="page-item disabled">
-                                    <a class="page-link page-link-icon" href="#">
-                                        <i data-feather="chevron-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link page-link-icon" href="#">
-                                        <i data-feather="chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>*@
+                                <ul class="pagination mg-b-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link page-link-icon" href="#">
+                                            <i data-feather="chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link page-link-icon" href="#">
+                                            <i data-feather="chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>*@
                     </div>
                 </div>
             </div>
         </div>
     </div><!-- container -->
 </div><!-- content -->
-
-@for (int i = 0; Model != null && i < Model.Count; i++)
-{
-<div class="modal fade" id="modal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel7"
+<!--<div class="modal fade" id="modal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel7"
      style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content tx-14">
@@ -169,5 +161,33 @@
             </div>
         </div>
     </div>
+</div>-->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content tx-14">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Управленеи участниками</h6>
+                <button type="button" class="close" onclick="closemodal()">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="lawyersincase">
+                    <label>Участники дела</label>
+                    <table id="tablemembers" class="table table-bordered">
+                        
+                    </table>
+                </div>
+                <label>Добавить участника (выберите из списка)</label>
+                <select id="id_adv" class="form-control">
+                    
+                </select>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-sm tx-13" onclick="closemodal()">Закрыть</button>
+                <button type="button" class="btn btn-primary tx-13"onclick="addLawyer()" >Добавить</button>
+            </div>
+        </div>
+    </div>
 </div>
-}

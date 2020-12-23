@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace VDCompany.Models.Secur
+namespace VDCompanyMVC.Models.Secur
 {
     static public class Mailler
     {
@@ -21,7 +21,7 @@ namespace VDCompany.Models.Secur
             };
             using (var client = new SmtpClient())
             {
-                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                //client.ServerCertificateValidationCallback = (s, c, h, e) => true;
                 await client.ConnectAsync("smtp.yandex.ru", 587, false);
                 await client.AuthenticateAsync("companyvd@yandex.ru", "4Thehorde!!!!");
                 await client.SendAsync(emailMessage);

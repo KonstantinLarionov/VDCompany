@@ -5,19 +5,20 @@ using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Net;
-using VDCompany.Models.Entitys;
+using VDCompanyMVC.Models.Entitys;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
-using VDCompany.Models.Objects;
+using VDCompanyMVC.Models.Objects;
 using System.IO;
 
-namespace VDCompany.Hubs
+namespace VDCompanyMVC.Hubs
 {
     public class CaseHub : Hub
     {
         private StartContext database = new StartContext(new DbContextOptions<StartContext>());
-        public async Task TriggerHandle(string login, string password, int idCase, string message, List<IFormFile> files = null)
+        public async Task SendMessage(string login, string password, int idCase, string message)
         {
+            List<IFormFile> files = null;
             #region TakeAuth
             var userRes = AuthUser(login, password);
             var adminRes = AuthAdmin(login, password);
@@ -28,13 +29,13 @@ namespace VDCompany.Hubs
             if (userRes.Item2)
             {
                 var user = userRes.Item1;
-                var userCase = database.Cases.Where(@case => @case.Id == idCase).FirstOrDefault();
+                var userCase = database.Cases.Where(@case => @case.Id == idCase).Include(d => d.Dialog.Messages).Include(h => h.ClientsHub).FirstOrDefault();
                 //Наличие дела у пользователя
                 if (userCase != null)
                 {
                     //Если подключенного пользователя нет в списке пиров по делу добавляем его в список
                     AddHubConnectToCase(userCase);
-                    string urlImage = string.Empty;
+                    string urlImage = "";
                     urlImage = LoadingFileReturnFirstImage(files, userCase);
                     if (message != string.Empty)
                     {
@@ -42,8 +43,10 @@ namespace VDCompany.Hubs
                     }
                     var clientsHub = userCase.ClientsHub.Select(ch => ch.ConnectionId).ToList();
                     database.SaveChanges();
+                    var obj = new CallBack(user.Name, null, null, message, DateTime.Now);
+                    var msg = JsonSerializer.Serialize(obj);
                     await Clients.Clients(clientsHub)
-                        .SendAsync("TriggerHandle", JsonSerializer.Serialize(new TriggerHandleDTO(user, null, null, message, urlImage, DateTime.Now)));
+                        .SendAsync("ReceiveMessage", msg);
                 }
             }
             #endregion
@@ -66,7 +69,7 @@ namespace VDCompany.Hubs
                     var clientsHub = adminCase.ClientsHub.Select(ch => ch.ConnectionId).ToList();
                     database.SaveChanges();
                     await Clients.Clients(clientsHub)
-                        .SendAsync("TriggerHandle", JsonSerializer.Serialize(new TriggerHandleDTO(null, admin, null, message, urlImage, DateTime.Now)));
+                        .SendAsync("ReceiveMessage", JsonSerializer.Serialize(new TriggerHandleDTO(null, admin, null, message, urlImage, DateTime.Now)));
                 }
             }
             #endregion
@@ -89,17 +92,45 @@ namespace VDCompany.Hubs
                     var clientsHub = lawyerCase.ClientsHub.Select(ch => ch.ConnectionId).ToList();
                     database.SaveChanges();
                     await Clients.Clients(clientsHub)
-                        .SendAsync("TriggerHandle", JsonSerializer.Serialize(new TriggerHandleDTO(null, null, lawyer, message, urlImage, DateTime.Now)));
+                        .SendAsync("ReceiveMessage", JsonSerializer.Serialize(new TriggerHandleDTO(null, null, lawyer, message, urlImage, DateTime.Now)));
                 }
             }
             #endregion
             else { return; }
         }
+        public async Task GetHistory(string login, string password, int idCase)
+        {
+            if (idCase <= 0) return;
 
+            var userRes = AuthUser(login, password);
+            var adminRes = AuthAdmin(login, password);
+            var lawyerRes = AuthLawyer(login, password);
+
+            if (userRes.Item2 || adminRes.Item2 || lawyerRes.Item2)
+            {
+                var list = new List<CallBack>();
+                var userCase = database.Cases.Where(@case => @case.Id == idCase).Include(d => d.Dialog.Messages).FirstOrDefault();
+                foreach (var item in userCase.Dialog.Messages)
+                {
+                    list.Add(new CallBack()
+                    {
+                        User = !(item.User is null) ? item.User.Name : null,
+                        Admin = !(item.Admin is null) ? item.Admin.FIO : null,
+                        Lawyer = !(item.Lawyer is null) ? item.Lawyer.FIO : null,
+                        Message = item.Text,
+                        Date = item.Date
+                    });
+                }
+                var history = JsonSerializer.Serialize(list);
+                await Clients.Caller
+                        .SendAsync("SendHistory", history);
+            }
+            else return;
+        }
         private static string LoadingFileReturnFirstImage(List<IFormFile> files, Case userCase)
         {
-            string urlImage = string.Empty;
-            if (files != null && files.Count != 0)
+            string urlImage = "";
+            if (files != null)
             {
                 files.ForEach(file =>
                 {
@@ -114,14 +145,11 @@ namespace VDCompany.Hubs
 
             return urlImage;
         }
-
-
-
         #region Helpers
         private static TypeDoc TypeFile(IFormFile file)
         {
             TypeDoc typeFile;
-            switch (file.FileName.Split('.')[1])
+            switch (file.FileName.Split('.').Last())
             {
                 case "mp3":
                     typeFile = TypeDoc.AUDIO;
@@ -199,7 +227,7 @@ namespace VDCompany.Hubs
             }
             
         }
-        private (User?, bool) AuthUser(string login, string password)
+        private (User? user, bool result) AuthUser(string login, string password)
         {
             var user = database.Users.Where(u => u.Email == login && u.Password == password).FirstOrDefault();
             return user == null ? (null, false) : (user, true); 
@@ -216,9 +244,10 @@ namespace VDCompany.Hubs
         }
         private void AddHubConnectToCase(Case userCase)
         {
-            if (userCase.ClientsHub == null || userCase.ClientsHub.Any(ch => ch.ConnectionId != Context.UserIdentifier))
+            var d = Context;
+            if (userCase.ClientsHub.Count == 0 || !userCase.ClientsHub.Any(ch => ch.ConnectionId == Context.ConnectionId))
             {
-                userCase.ClientsHub.Add(new ClientHub() { ConnectionId = Context.UserIdentifier, LastNotify = DateTime.Now });
+                userCase.ClientsHub.Add(new ClientHub() { ConnectionId = Context.ConnectionId, LastNotify = DateTime.Now });
             }
         }
         #endregion
@@ -241,5 +270,25 @@ namespace VDCompany.Hubs
         public string Message { get; set; }
         public string Image { get; set; }
         public DateTime Date { get; set; }
+    }
+    public class CallBack
+    { 
+        public string? User { get; set; }
+        public string? Admin { get; set; }
+        public string? Lawyer { get; set; }
+        public string Message { get; set; }
+        public DateTime Date { get; set; }
+        public CallBack()
+        { 
+        
+        }
+        public CallBack(string? user, string? admin, string? laywer, string message, DateTime date)
+        {
+            User = user;
+            Admin = admin;
+            Lawyer = laywer;
+            Message = message;
+            Date = date;
+        }
     }
 }

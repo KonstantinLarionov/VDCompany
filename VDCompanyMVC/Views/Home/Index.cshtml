@@ -50,7 +50,7 @@
                     <li class="nav-item"><a class="nav-link" href="#section-testimonials">Отзывы</a></li>
                     <li class="nav-item"><a class="nav-link" href="#section-contact">Контакты</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/User/Login" title="Скоро будет доступно!">
+                        <a class="nav-link" href="/User" title="Уже доступно!">
                             Личный
                             кабинет
                         </a>
@@ -547,7 +547,7 @@
 
             <div class="row">
                 <div class="col-md-8 pr-md-5 pr-sm-0 mb-4">
-                    <form action="server/Mainpage/Email" method="post">
+                    <form action="Home/SendFeedBack" method="post" onsubmit="return false;">
                         <div class="row">
                             <div class="col-md">
                                 <div class="form-group">
@@ -568,9 +568,7 @@
                             <textarea cols="30" rows="10" class="form-control p-3 rounded-0" id="message" name="message"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="submit"
-                                   class="btn pb_outline-light pb_font-13 pb_letter-spacing-2 p-3 rounded-0 text-white"
-                                   value="Отправить">
+                            <input type="submit" value="Отправить" id="SendFeedBack" class="btn pb_outline-light pb_font-13 pb_letter-spacing-2 p-3 rounded-0">
                         </div>
                     </form>
                 </div>
@@ -636,14 +634,12 @@
 
 
     <script src="~/spacehome/assets/js/jquery.min.js"></script>
-
     <script src="~/spacehome/assets/js/popper.min.js"></script>
     <script src="~/spacehome/assets/js/bootstrap.min.js"></script>
     <script src="~/spacehome/assets/js/slick.min.js"></script>
-
     <script src="~/spacehome/assets/js/jquery.waypoints.min.js"></script>
     <script src="~/spacehome/assets/js/jquery.easing.1.3.js"></script>
-
+    <script src="~/spacehome/assets/js/SweetAlert.js"></script>
     <script src="~/spacehome/assets/js/main.js"></script>
 </body>
 

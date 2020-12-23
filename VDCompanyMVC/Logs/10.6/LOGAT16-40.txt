@@ -1,2 +1,0 @@
-System.NullReferenceException: Object reference not set to an instance of an object.
-   at VDCompany.Controllers.Core.UserCore.UserDigger.CreateCase(CaseDTO caseDTO) in D:\repos\DavidovFront\VDCompany\VDCompany\Controllers\Core\UserCore\UserDigger.cs:line 106

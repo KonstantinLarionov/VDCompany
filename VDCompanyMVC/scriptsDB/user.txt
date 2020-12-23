@@ -1,3 +1,0 @@
---------------------------
-INSERT INTO `vdcompany`.`users` (`Login`, `Name`, `Number`, `RefCode`, `FromeRef`, `Email`, `LASTLOGIN`, `DateReg`, `Password`) VALUES ('kostya12277@yandex.ru', 'kostya12277@yandex.ru', '890484854', 'kostya12277@yandex.ru', 'kostya12277@yandex.ru', 'kostya12277@yandex.ru', '01.07.2020', '01.07.2020', '123');
---------------------------

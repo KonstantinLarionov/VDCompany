@@ -11,9 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using VDCompany.Hubs;
-using VDCompany.Models;
-using VDCompany.Models.Entitys;
+using VDCompanyMVC.Hubs;
+using VDCompanyMVC.Models;
+using VDCompanyMVC.Models.Entitys;
 
 namespace VDCompanyMVC
 {
@@ -85,6 +85,7 @@ namespace VDCompanyMVC
     }
     public class Startup
     {
+        private static readonly StartContext db = new StartContext(new DbContextOptions<StartContext>());
         internal static Action<string> Logs = null;
         public Startup(IConfiguration configuration)
         {
@@ -142,6 +143,7 @@ namespace VDCompanyMVC
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -153,6 +155,7 @@ namespace VDCompanyMVC
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<CaseHub>("/caseHub");
+                endpoints.MapHub<MyHub>("/MyHub");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

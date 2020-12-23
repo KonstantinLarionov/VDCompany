@@ -3,33 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using VDCompany.Controllers.Core.UserCore;
 using Microsoft.EntityFrameworkCore;
-using VDCompany.Models.Secur;
+
 using System.Data.Entity.Validation;
 using Microsoft.AspNetCore.Http;
-using VDCompany.Testings;
-using VDCompany.Models.DTO;
-using VDCompany.Models;
-using VDCompany.Models.Entitys;
-using VDCompany.Models.Objects;
+
+using VDCompanyMVC.Models.DTO;
+using VDCompanyMVC.Models.Pages;
+using VDCompanyMVC.Models.Entitys;
+using VDCompanyMVC.Models.Objects;
+using VDCompanyMVC.Models.Secur;
 
 namespace VDCompany.Controllers
 {
     public class UserController : Controller
     {
         #region AUTHLOGIN
-        private static StartContext db = new StartContext(new DbContextOptions<StartContext>());
-        public IActionResult Login()
+        private static readonly StartContext db = new StartContext(new DbContextOptions<StartContext>());
+        private (string login, string password) userinfo = (null, null);
+        private IQueryable curruser = null;
+        public bool Auth()
         {
-            return View();
+            try
+            {
+                var login = HttpContext.Session.GetString("login");
+                var password = HttpContext.Session.GetString("password");
+                userinfo = (login, password);
+                curruser = db.Users.Where(f => f.Login == login && f.Password == password);
+                return db.Users.Any(f => f.Email == login && f.Password == password);
+            }
+            catch
+            {
+                return false;
+            }
         }
         public IActionResult Reg()
         {
             return View();
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
         [HttpPost]
-
         public IActionResult Reg(string email, string name)
         {
             if (db.Users.Any(x => x.Email == email))
@@ -38,54 +54,75 @@ namespace VDCompany.Controllers
             }
             else
             {
-                Random rnd0 = new Random();
-                string hashPassword = Coder.EncryptAES(name + email + rnd0.Next(0, 10000000).ToString() + DateTime.Now.ToString() + "solty256", "TrashINCODEJUSTUNOTSEEthisn0w").Substring(6, 16);
-                User user = new User();
-                user.Email = email;
-                user.DateReg = DateTime.Now;
-                user.Name = name;
                 string referal = "";
-
+                string psw = GenNewPsw(10);
+                string message =  $"Добро пожаловать в VDCompany! <br> Ваш логин: <strong> { email } </strong> <br> Ваш пароль: <strong> { psw } </strong>";
+                Mailler.SendEmailAsync(email, "VDCOMPANY", "Регистрация на сервисе", message).GetAwaiter().GetResult();
                 do
                 {
                     Random RNDREF = new Random();
-                    referal = "referal:" + RNDREF.Next(1000000, 9999999).ToString();
+                    referal = RNDREF.Next(1000000, 9999999).ToString();
                 }
                 while (db.Users.Any(x => x.RefCode == referal));
-
-                user.RefCode = referal;
-                user.Password = hashPassword;
-                db.Users.Add(user);
+                db.Users.Add(new User
+                { 
+                    Email = email,
+                    Login = email,
+                    Name = name,
+                    DateReg = DateTime.Now,
+                    RefCode = $"referal:{ referal }",
+                    Password = psw
+                });
                 db.SaveChanges();
-                Mailler.SendEmailAsync(email, "VDCOMPANY", "Регистрация на сервисе", "Добро пожаловать в VDCompany! <br> Ваш логин: <strong>" + email + "</strong> <br> Ваш пароль: <strong>" + user.Password + "</strong>").GetAwaiter().GetResult();
-
-                return View("Login");
+                return Redirect("Login");
             }
         }
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
-            if (email == null && password == null)
-            {
-                email = HttpContext.Session.GetString("login");
-                password = HttpContext.Session.GetString("password");
-            }
-            var user = db.Users.Where(u => u.Email == email && u.Password == password).FirstOrDefault();
+            User user = null;
+            Admin admin = null;
+            Lawyer lawyer = null;
+
+            user = db.Users.Where(u => u.Login == email && u.Password == password).FirstOrDefault();
             if (user != null)
             {
-                HttpContext.Request.Cookies.Append(new KeyValuePair<string, string>("login", email));
-                HttpContext.Request.Cookies.Append(new KeyValuePair<string, string>("password", password));
                 HttpContext.Session.SetString("login", email);
                 HttpContext.Session.SetString("password", password);
-                return View("Index");
+                HttpContext.Response.Cookies.Append("login", email);
+                HttpContext.Response.Cookies.Append("password", password);
+                return RedirectToRoute(new { controller = "User", action = "Cases" });
             }
-            else
+            else 
             {
-                return View("Login");
-            }
+                lawyer = db.Lawyers.Where(u => u.Login == email && u.Password == password).FirstOrDefault();
+                if (lawyer != null)
+                {
+                    HttpContext.Session.SetString("login", email);
+                    HttpContext.Session.SetString("password", password);
+                    HttpContext.Response.Cookies.Append("login", email);
+                    HttpContext.Response.Cookies.Append("password", password);
+                    return RedirectToRoute(new { controller = "Lawyer", action = "Index" });
+                }
+                else 
+                {
+                    admin = db.Admins.Where(u => u.Login == email && u.Password == password).FirstOrDefault();
+                    if (admin != null)
+                    {
+                        HttpContext.Session.SetString("login", email);
+                        HttpContext.Session.SetString("password", password);
+                        HttpContext.Response.Cookies.Append("login", email);
+                        HttpContext.Response.Cookies.Append("password", password);
+                        return RedirectToRoute(new { controller = "Admin", action = "Index" });
+                    }
+                    else 
+                    {
+                        return RedirectToRoute(new { controller = "User", action = "Login" });
+                    }
+                }
+            }            
         }
         [HttpPost]
-
         public string Reset([FromBody] RegDTO userDTO)
         {
             if (db.Users.Any(x => x.Email == userDTO.Email))
@@ -100,38 +137,33 @@ namespace VDCompany.Controllers
                 return "Данный Email не был зарегистрирован ранее. Пройдите процедуру регистрации.";
             }
         }
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToRoute(new { controller = "User", action = "Login" });
+        }
         #endregion
-
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            if(!Auth())
+                return RedirectToRoute(new { controller = "User", action = "Login" });
+            
+            return RedirectToRoute(new {controller = "User", action = "Cases"} );
         }
-        [HttpGet]
-        public IActionResult CreateCase()
-        {
-            return View();
-        }
-        [HttpGet]
-        public IActionResult Bills()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult Lawyers()
-        {
-            return View(HttpContext.SendToUser(u => u.GetLawyers()));
-        }
+        
+        
+        
         [HttpGet]
         public IActionResult Contacts()
         {
-            ContactsDTO contacts = new ContactsDTO
+            /*ContactsDTO contacts = new ContactsDTO
                 (
                     HttpContext.SendToUser(u => u.GetLawyers()),
                     HttpContext.SendToUser(u => u.GetContacts())
-                );
-            return View(contacts);
+                );*/
+            return View();
         }
         [HttpGet]
         public IActionResult PDN()
@@ -139,50 +171,128 @@ namespace VDCompany.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult MyCase(int idCase)
+        public IActionResult Case(int Id)
         {
+
+            if (!Auth())
+                return RedirectToRoute(new { controller = "User", action = "Login" });
+            var _case = db.Cases.Where(f => f.Id == Id).FirstOrDefault();
+            var user = db.Users.Where(f => f.Login == userinfo.login && f.Password == userinfo.password).FirstOrDefault();
             MyCaseDTO myCaseDTO = new MyCaseDTO
                 (
-                    HttpContext.SendToUser(u => u.GetCase(idCase)),
-                    HttpContext.SendToUser(u => u.GetMe())
+                    _case,
+                    user
                 );
             return View(myCaseDTO);
         }
-
-
-        [HttpPost]
-      
-        public List<Models.Objects.Bill> GetBills()
+        #region BILLS
+        [HttpGet]
+        public IActionResult Bills()
         {
-            return HttpContext.SendToUser(u=>u.GetBills());
-        }
+            if (!Auth())
+                return RedirectToRoute(new { controller = "User", action = "Login" });
+            var userwithbills = db.Users.Where(f => f.Login == userinfo.login && f.Password == userinfo.password).Include(f => f.Bills).FirstOrDefault();
 
+            var model = new ModelUserBills
+            {
+                Bills = userwithbills.Bills
+            };
+            return View(model);
+        }
+        #endregion
+        #region CASES
+        [HttpGet]
+        public IActionResult CreateCase()
+        {
+            if (!Auth())
+                return RedirectToRoute(new { controller = "User", action = "Login" });
+            return View();
+        }
         [HttpPost]
-       
         public string CreateCase([FromBody] CaseDTO newcase)
         {
-            return HttpContext.SendToUser(u=> u.CreateCase(newcase)) ? MessagesUser.MessageCaseOk : MessagesUser.MessageCaseFail ;
+            if (!Auth())
+                return "{\"info\":\"unauthorized\"}";
+            var userwithcases = db.Users.Where(f => f.Login == userinfo.login && f.Password == userinfo.password).Include(x => x.Cases).FirstOrDefault();
+            Case new_case = new Case();
+            try
+            {
+                new_case.Name = newcase.Name;
+                new_case.Type = newcase.Type;
+                new_case.Dialog = new Dialog() { DateCreate = DateTime.Now, Admins = new List<Admin>(), Lawyers = new List<Lawyer>(), Messages = new List<Message>(), Users = new List<User>() { userwithcases } };
+                new_case.Description = newcase.Description;
+                new_case.DateStart = DateTime.Now;
+                userwithcases.Cases.Add(new_case);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return "{\"info\":\"error\"}";
+            }
+            try
+            {
+                Mailler.SendEmailAsync(userinfo.login, "VDCOMPANY", "Создание нового дела",
+                    $"Вы создали новое дело на сервисе VDCOMPANY! <br><br> Наименование вашего дела: {new_case.Name} <br> Тип вашего дела: {new_case.Type} <br> Дата создания: {new_case.DateStart} <br><br> После регистрации, дело появится в вашем личном кабинете в списке дел и вам будет назначен подходящий специалист.<br><br> <span style=\"color:red;\">По всем вопросам: companyvd@yandex.ru</span>").GetAwaiter().GetResult();
+            }
+            catch 
+            {
+            
+            }
+                return "{\"info\":\"success\"}";
         }
-
-        [HttpPost(Name = "ChangeStatus")]
-     
+        [HttpGet]
+        public IActionResult Cases()
+        {
+            if (!Auth())
+                return RedirectToRoute(new { controller = "User", action = "Login" });
+            var userwithcases = db.Users.Where(f => f.Email == userinfo.login && f.Password == userinfo.password).Include(x => x.Cases).FirstOrDefault();
+            var model = new ModelUserCases
+            {
+                Cases = userwithcases.Cases
+            };
+            return View(model);
+        }
+        #endregion
+        /*[HttpPost(Name = "ChangeStatus")]
         public object[] ChangeStatus([FromBody] ChangerBillDTO CBD )
         {
             return new object[] { HttpContext.SendToUser(u => u.ChangeStateBill(CBD.Id)), CBD.Id };
         }
-
         [HttpPost(Name = "GetCases")]
-      
         public List<Models.Objects.Case> GetCases()
         {
             return HttpContext.SendToUser(u => u.GetCases());
         }
-
         [HttpPost(Name = "GetLawyers")]
         public List<Models.Objects.Lawyer> GetLawyers()
         {
             return HttpContext.SendToUser(u => u.GetLawyers());
+        }*/
+        #region Helpers
+        private string GetHash(string data, int length = 0)
+        {
+            var tmpSource = System.Text.ASCIIEncoding.ASCII.GetBytes(data);
+            byte[] tmpNewHash = null;
+            string h = "";
+            using (var crypto = new System.Security.Cryptography.SHA256CryptoServiceProvider())
+            {
+                tmpNewHash = crypto.ComputeHash(tmpSource);
+            }
+            for (int i = 0; i < tmpNewHash.Length; i++)
+            {
+                h += tmpNewHash[i].ToString("X2");
+            }
+            return length > 0 ? h.Remove(length) : h;
         }
-
+        private string GenNewPsw(int length, string s = "zaq1xsw2cde3vfr4bgt5nhy6mju7ki8lo9p0")
+        {
+            string g = "";
+            for (int i = 0; i < length; i++)
+            {
+                g += s[new Random().Next(s.Length)];
+            }
+            return g;
+        }
+        #endregion
     }
 }
