@@ -176,13 +176,21 @@ namespace VDCompany.Controllers
 
             if (!Auth())
                 return RedirectToRoute(new { controller = "User", action = "Login" });
-            var _case = db.Cases.Where(f => f.Id == Id).FirstOrDefault();
+            var _case = db.Cases.Where(f => f.Id == Id).Include(d => d.Docs).FirstOrDefault();
             var user = db.Users.Where(f => f.Login == userinfo.login && f.Password == userinfo.password).FirstOrDefault();
+            var index_lawyers = db.LawyersCases.Where(f => f.CaseId == Id).ToList();
+            var lawyers_in_case = new List<Lawyer>();
+            foreach (var item in index_lawyers)
+            {
+                var l = db.Lawyers.Where(f => f.Id == item.LawyerId).FirstOrDefault();
+                lawyers_in_case.Add(l);
+            }
             MyCaseDTO myCaseDTO = new MyCaseDTO
                 (
                     _case,
                     user
                 );
+            myCaseDTO.Lawyers = lawyers_in_case;
             return View(myCaseDTO);
         }
         #region BILLS

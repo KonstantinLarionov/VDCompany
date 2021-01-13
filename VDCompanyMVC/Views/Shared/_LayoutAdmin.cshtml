@@ -14,14 +14,15 @@
     <title>Личный кабинет администратора</title>
 
     <!-- vendor css -->
-    <link href="~/spaceadmin/lib/fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="~/spaceadmin/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="~/spaceadmin/lib/jqvmap/jqvmap.min.css" rel="stylesheet">
+    <link href="~/spaceuser/lib/fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="~/spaceuser/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="~/spaceuser/lib/jqvmap/jqvmap.min.css" rel="stylesheet">
 
     <!-- DashForge CSS -->
-    <link rel="stylesheet" href="~/spaceadmin/assets/css/dashforge.css">
-    <link rel="stylesheet" href="~/spaceadmin/assets/css/style.css">
-    <link rel="stylesheet" href="~/spaceadmin/assets/css/dashforge.dashboard.css">
+    <link rel="stylesheet" href="~/spaceuser/assets/css/dashforge.css">
+    <link rel="stylesheet" href="~/spaceuser/assets/css/dashforge.dashboard.css">
+    <link rel="stylesheet" href="~/spaceuser/assets/css/dashforge.chat.css">
+    <link rel="stylesheet" href="~/spaceuser/assets/css/style.css">
 </head>
 
 <body class="page-profile">
@@ -47,7 +48,7 @@
                     <a href="/Admin/Users" class="nav-link"> Пользователи</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/Admin/Contacts" class="nav-link"> Контакты</a>
+                    <a href="#" class="nav-link"> Контакты</a>
                 </li>
                 <li class="nav-item">
                     <a href="/Admin/PDN" class="nav-link"> Политика ПДН</a>
@@ -56,30 +57,30 @@
         </div><!-- navbar-menu-wrapper -->
         <div class="navbar-right">
             @*<div class="dropdown dropdown-message">
-            <a class="dropdown-link new-indicator" data-toggle="dropdown">
-                <i data-feather="message-square"></i>
-                <span>?</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-header">Ваши уведомления</div>
-                <a href="" class="dropdown-item">
-                    <div class="media">
-                        <div class="media-body mg-l-15">
-                            <strong>Заголовок уведомления</strong>
-                            <p>Описание уведомления</p>
-                            <span>Дата уведомления</span>
-                        </div><!-- media-body -->
-                    </div><!-- media -->
-                </a>
-            </div><!-- dropdown-menu -->
-        </div><!-- dropdown -->*@
+                    <a class="dropdown-link new-indicator" data-toggle="dropdown">
+                        <i data-feather="message-square"></i>
+                        <span>?</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-header">Ваши уведомления</div>
+                        <a href="" class="dropdown-item">
+                            <div class="media">
+                                <div class="media-body mg-l-15">
+                                    <strong>Заголовок уведомления</strong>
+                                    <p>Описание уведомления</p>
+                                    <span>Дата уведомления</span>
+                                </div><!-- media-body -->
+                            </div><!-- media -->
+                        </a>
+                    </div><!-- dropdown-menu -->
+                </div><!-- dropdown -->*@
             <a href="/User/Logout" class="btn btn-outline-primary ml-3" title="Выход из личного кабинета">Выход</a>
         </div><!-- navbar-right -->
     </header><!-- navbar -->
 
     @RenderBody()
 
-    <script src="~/spaceadmin/lib/jquery/jquery.min.js"></script>
+    <!--<script src="~/spaceadmin/lib/jquery/jquery.min.js"></script>
     <script src="~/spaceadmin/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/spaceadmin/lib/feather-icons/feather.min.js"></script>
     <script src="~/spaceadmin/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -91,12 +92,11 @@
     <script src="~/spaceadmin/lib/jqvmap/maps/jquery.vmap.usa.js"></script>
 
     <script src="~/spaceadmin/assets/js/dashforge.js"></script>
-    <script src="~/spaceadmin/assets/js/dashforge.sampledata.js"></script>
-
-    <!-- append theme customizer -->
+    <script src="~/spaceadmin/assets/js/dashforge.sampledata.js"></script>-->
+    <!-- append theme customizer
     <script src="~/spaceadmin/lib/js-cookie/js.cookie.js"></script>
     <script src="~/spaceadmin/assets/js/dashforge.settings.js"></script>
-    <script src="~/spaceadmin/assets/js/main.js"></script>
+    <script src="~/spaceadmin/assets/js/main.js"></script>-->
 </body>
 
 </html>

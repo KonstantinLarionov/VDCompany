@@ -1,0 +1,337 @@
+﻿@{ Layout = "_LayoutLaw";}
+@model VDCompanyMVC.Models.DTO.MyCaseDTO
+<div class="content content-fixed">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                        <li class="breadcrumb-item"><a href="#">Личный кабинет</a></li>
+                        <li class="breadcrumb-item"><a href="#">Мои дела</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Просмотр дела</li>
+                    </ol>
+                </nav>
+                <h4 class="mg-b-0 tx-spacing--1">@Model.Case.Type от @Model.Case.DateStart</h4>
+            </div>
+            <div class="d-none d-md-block">
+                Статус:
+                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
+                    <i data-feather="compass" class="wd-10 mg-r-5"></i>
+                    @{string res = "";
+                        switch (Model.Case.Status)
+                        {
+                            case VDCompanyMVC.Models.Objects.TypeCase.Close:
+                                res = "Закрыто";
+                                break;
+                            case VDCompanyMVC.Models.Objects.TypeCase.Open:
+                                res = "Открыто";
+                                break;
+                            case VDCompanyMVC.Models.Objects.TypeCase.InProcess:
+                                res = "Обсуждение";
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    @res
+                </button>
+            </div>
+        </div>
+
+        <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
+
+            <div class="chat-wrapper" style="background-color: white; top: 160px;">
+
+                <!-- chat-navleft -->
+
+                <div class="chat-sidebar">
+                    <div class="chat-sidebar-header" style="border-top: 1px solid rgba(72, 94, 144, 0.16);
+                        border-left: 1px solid rgba(72, 94, 144, 0.16);">
+                        <a href="#" data-toggle="dropdown" class="dropdown-link">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar avatar-sm mg-r-8">
+                                    <span class="avatar-initial rounded-circle">VD</span>
+                                </div>
+                                <span class="tx-color-01 tx-semibold">Все участники дела</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <!-- start sidebar body -->
+                    <div class="chat-sidebar-body ps ps--active-y" style="
+                        border-left: 1px solid rgba(72, 94, 144, 0.16);">
+
+
+
+                        <div class="flex-fill pd-y-20 pd-x-10 bd-t">
+
+                            <div id="chatDirectMsg" class="chat-msg-list">
+                                @*for (int i = 0; Model.Case.Lawyers.Count != 0 && i < Model.Case.Lawyers.Count; i++)
+                                {*@
+                                    <a href="#" class="media">
+                                        <div class="avatar avatar-sm avatar-online">
+                                            <span class="avatar-initial bg-indigo rounded-circle">@*Model.Case.Lawyers[i].Email[0]*@</span>
+                                        </div>
+                                        <div class="media-body mg-l-10">
+                                            <h6 class="mg-b-0">@*Model.Case.Lawyers[i].Login*@</h6>
+                                            <small class="d-block tx-color-04">online</small>
+                                        </div><!-- media-body -->
+                                    </a><!-- media -->
+                               @*}*@
+                            </div><!-- media-list -->
+                        </div>
+                        <div class="ps__rail-x" style="left: 0px; top: 0px;">
+                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 0px; height: 768px; right: 0px;">
+                            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 760px;"></div>
+                        </div>
+                    </div><!-- chat-sidebar-body -->
+
+                    <div class="chat-sidebar-footer"
+                         style="
+                        border-left: 1px solid rgba(72, 94, 144, 0.16); border-bottom: 1px solid rgba(72, 94, 144, 0.16);">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-sm avatar-online">
+                                <span class="avatar-initial bg-success rounded-circle"> @Model.User.Email[0]</span>
+                            </div>
+                            <h6 class="tx-semibold mg-b-0"> &nbsp @Model.User.Email</h6>
+                        </div>
+
+                    </div><!-- chat-sidebar-footer -->
+
+                </div><!-- chat-sidebar -->
+
+                <div class="chat-content" style="border-top: 1px solid rgba(72, 94, 144, 0.16);
+                    border-right: 1px solid rgba(72, 94, 144, 0.16);">
+                    <div class="chat-content-header">
+                        <h6 id="channelTitle" class="mg-b-0">Диалог с dfbot</h6>
+                        <div id="directTitle" class="">
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-sm pd-x-15 btn-success btn-uppercase mg-l-5"
+                                        onclick="OpenPanelRight();">
+                                    Документы
+                                </button>
+                            </div>
+                        </div>
+
+                    </div><!-- chat-content-header -->
+
+                    <div class="chat-content-body ps">
+                        <div class="chat-group">
+
+                            <div class="chat-group-divider">February 20, 2019</div>
+                            <div class="media">
+                                <div class="avatar avatar-sm avatar-online">
+                                    <span class="avatar-initial rounded-circle">k</span>
+                                </div>
+                                <div class="media-body">
+                                    <h6>katherine <small>Today at 1:30am</small></h6>
+
+                                    <p>Hello everyone, this is my first message to this channel</p>
+                                    <p>anybody here?</p>
+                                </div><!-- media-body -->
+                            </div><!-- media -->
+                            <div class="chat-group-divider">February 21, 2019</div>
+                            <div class="media">
+                                <div class="avatar avatar-sm avatar-online">
+                                    <span class="avatar-initial rounded-circle">k</span>
+                                </div>
+                                <div class="media-body">
+                                    <h6>katherine <small>Yesterday at 4:10am</small></h6>
+
+                                    <p>I'm back once again!!</p>
+                                    <p>
+                                        It is a long established fact that a reader will be distracted by the
+                                        readable
+                                        content of a page when looking at its layout.
+                                    </p>
+                                    <p>
+                                        There are many variations of passages of Lorem Ipsum available, but the
+                                        majority
+                                        have suffered alteration in some form, by injected humour, or randomised
+                                        words
+                                        which don't look even slightly believable.
+                                    </p>
+                                </div><!-- media-body -->
+                            </div><!-- media -->
+                            <div class="media">
+                                <div class="avatar avatar-sm avatar-online">
+                                    <img src="../https://via.placeholder.com/350" class="rounded-circle" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <h6>situmay <small>Yesterday at 4:15am</small></h6>
+
+                                    <p>Excepteur sint occaecat cupidatat non proident</p>
+                                    <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse...</p>
+                                </div><!-- media-body -->
+                            </div><!-- media -->
+                            <div class="chat-group-divider">February 22, 2019</div>
+                            <div class="media">
+                                <div class="avatar avatar-sm avatar-offline">
+                                    <img src="../https://via.placeholder.com/500" class="rounded-circle" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <h6>rlabares <small>Today at 9:40am</small></h6>
+
+                                    <p>Nam libero tempore, cum soluta nobis</p>
+                                </div><!-- media-body -->
+                            </div><!-- media -->
+                            <div class="media">
+                                <div class="avatar avatar-sm avatar-online">
+                                    <span class="avatar-initial rounded-circle">k</span>
+                                </div>
+                                <div class="media-body">
+                                    <h6>katherine <small>Today at 10:05am</small></h6>
+
+                                    <p>I'm back once again!!</p>
+                                    <p>Et harum quidem rerum facilis est et expedita distinctio.</p>
+                                    <p>
+                                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
+                                        quo
+                                        minus id quod maxime placeat facere possimus.
+                                    </p>
+                                </div><!-- media-body -->
+                            </div><!-- media -->
+                        </div>
+                        <div class="ps__rail-x" style="left: 0px; top: 0px;">
+                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                        </div>
+                    </div><!-- chat-content-body -->
+
+                    <div class="chat-sidebar-right ps" id="rightPanel">
+                        <div class="pd-y-20 pd-x-10">
+                            <div class="tx-10 tx-uppercase tx-medium tx-color-03 tx-sans tx-spacing-1 pd-l-10">
+                                Ваш юрист
+                            </div>
+                            <div class="chat-member-list">
+                                <a href="#" class="media">
+                                    <div class="avatar avatar-sm avatar-online">
+                                        <span class="avatar-initial rounded-circle">b</span>
+                                    </div>
+                                    <div class="media-body mg-l-10">
+                                        <h6 class="mg-b-0">@*Model.Case.Lawyers[0].Email*@</h6>
+                                    </div><!-- media-body -->
+                                </a><!-- media -->
+                                <a href="#" class="media">
+                                    Тел: @*Model.Case.Lawyers[0].Phone*@
+                                </a><!-- media -->
+                                <a href="#" class="media">
+                                    Почта ген.дир: davidov@davidov.ru
+                                </a><!-- media -->
+
+                            </div><!-- chat-msg-list -->
+                        </div>
+                        <div class="pd-y-20 pd-x-10">
+                            <div class="tx-10 tx-uppercase tx-medium tx-color-03 tx-sans tx-spacing-1 pd-l-10">
+                                Документы дела
+                            </div>
+                            <div class="chat-member-list">
+                                @for (int i = 0; Model.Case.Docs.Count != 0 && i < Model.Case.Docs.Count; i++)
+                                {
+                                    string type = "";
+                                    switch (Model.Case.Docs[i].Type)
+                                    {
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.NONE:
+                                            break;
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.IMG:
+                                            type = "image";
+                                            break;
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.XLC:
+                                            type = "excel";
+                                            break;
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.WORD:
+                                            type = "word";
+                                            break;
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.PDF:
+                                            type = "pdf";
+                                            break;
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.AUDIO:
+                                            type = "mp3";
+                                            break;
+                                        case VDCompanyMVC.Models.Objects.TypeDoc.VIDEO:
+                                            type = "video";
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    <a href="~/spaceuser/docs/cases/@Model.Case.Id/@Model.Case.Docs[i].URL" class="media">
+                                        <div class="card-file-thumb tx-danger">
+                                            <i class="far fa-file-@type"></i>
+                                        </div>
+                                        <div class="media-body mg-l-10">
+                                            <h6 class="mg-b-0">Документ от @Model.Case.Docs[i].DateAdd</h6>
+                                            <h7 class="mg-b-0">@Model.Case.Docs[i].URL</h7>
+                                        </div><!-- media-body -->
+                                    </a><!-- media -->
+                                }
+                            </div><!-- chat-msg-list -->
+                        </div>
+                        <div class="ps__rail-x" style="left: 0px; top: 0px;">
+                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                        </div>
+                    </div><!-- chat-sidebar-right -->
+
+                    <div class="chat-content-footer" style="border-bottom: 1px solid rgba(72, 94, 144, 0.16);">
+
+                        <input type="text" class="form-control align-self-center bd-0"
+                               placeholder="Введите текст сообщения">
+                        <nav>
+                            <a href="" data-toggle="tooltip" title="" data-original-title="Add GIF">
+                                <i data-feather="file"></i>
+                            </a>
+                            <a href="" data-toggle="tooltip" title="" data-original-title="Add Gift"></a>
+                            <a href="" data-toggle="tooltip" title="" data-original-title="Add Smiley">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-smile">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                    <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                                    <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                                </svg>
+                            </a>
+                        </nav>
+                    </div><!-- chat-content-footer -->
+                </div><!-- chat-content -->
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/feather-icons/feather.min.js"></script>
+    <script src="lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="lib/jquery.flot/jquery.flot.js"></script>
+    <script src="lib/jquery.flot/jquery.flot.stack.js"></script>
+    <script src="lib/jquery.flot/jquery.flot.resize.js"></script>
+    <script src="lib/chart.js/Chart.bundle.min.js"></script>
+    <script src="lib/jqvmap/jquery.vmap.min.js"></script>
+    <script src="lib/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+    <script src="assets/js/dashforge.js"></script>
+    <script src="assets/js/dashforge.sampledata.js"></script>
+
+    <!-- append theme customizer -->
+    <script src="lib/js-cookie/js.cookie.js"></script>
+    <script src="assets/js/dashforge.settings.js"></script>
+    <script>
+        function OpenPanelRight() {
+            if ($("#rightPanel").css('display') === "none") {
+                $("#rightPanel").css('display', 'block');
+            } else {
+                $("#rightPanel").css('display', 'none');
+            }
+        }
+    </script>

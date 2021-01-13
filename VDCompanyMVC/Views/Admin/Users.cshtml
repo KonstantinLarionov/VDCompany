@@ -1,5 +1,5 @@
 ﻿@{ Layout = "_LayoutAdmin"; }
-@model List<VDCompanyMVC.Models.Objects.Case>
+@model VDCompanyMVC.Models.Pages.ModelAdminUsers;
 <!--MAINPAGE-->
 <div class="content content-fixed">
     <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
@@ -8,21 +8,13 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                         <li class="breadcrumb-item"><a href="#">Главная страница</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Мониторинг юристов</li>
+                        <li class="breadcrumb-item active" aria-current="page">Клиенты</li>
                     </ol>
                 </nav>
-                <h4 class="mg-b-0 tx-spacing--1">Все дела компании</h4>
-            </div>
-            <div class="d-none d-md-block">
-                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
-                    <i data-feather="check"
-                       class="wd-10 mg-r-5"></i> Добавить нового юриста
-                </button>
             </div>
         </div>
 
-        <div class="space1row"></div>
-        <h4 class="mg-b-0 tx-spacing--1">Таблица всех дел</h4>
+        <h4 class="mg-b-0 tx-spacing--1">Таблица всех клиентов</h4>
         <div class="row row-xs">
             <div class="col-lg">
                 <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
@@ -31,71 +23,31 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Название</th>
-                                    <th scope="col">Тип дела</th>
-                                    <th scope="col">Дата старта</th>
-                                    <th scope="col">Юрист</th>
-                                    <th scope="col">Статус</th>
+                                    <th scope="col">ФИО</th>
+                                    <th scope="col">Login</th>
+                                    <th scope="col">Password</th>
                                     <th scope="col">Действия</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @for (int i = 0; Model != null && i < Model.Count; i++)
+                                @foreach (var item in Model.Users)
                                 {
-                                <tr>
-                                    <th scope="row">@Model[i].Id</th>
-                                    <td>@Model[i].Name</td>
-                                    <td>@Model[i].Type</td>
-                                    <td>@Model[i].DateStart</td>
-                                    <td>@Model[i].Lawyers[0]</td>
-                                    <td>
-                                   @{
-                                        string status = "";
-                                        switch (@Model[i].Status)
-                                        {
-                                            case VDCompanyMVC.Models.Objects.TypeCase.Close:
-                                                status = "Закрыто";
-                                                break;
-                                            case VDCompanyMVC.Models.Objects.TypeCase.Open:
-                                                status = "Открыто";
-                                                break;
-                                            case VDCompanyMVC.Models.Objects.TypeCase.InProcess:
-                                                status = "В процессе";
-                                                break;
-                                            default:
-                                                break;
-                                        }
-
-                                    }
-                                    @status
-                                    </td>
-                                    <Td>
-                                        <button type="button" class="btn  btn-primary">Посмотреть</button>
-                                        <button type="button" class="btn  btn-danger">
-                                            Назначить
-                                        </button>
-                                    </Td>
-                                </tr>
-                                        }
+                                    <tr>
+                                        <th scope="row">@item.Id</th>
+                                        <td>@item.Name</td>
+                                        <td>@item.Login</td>
+                                        <td>@item.Password</td>
+                                        <Td>
+                                            <div class="btn-group w-100" role="group">
+                                                <button type="button" class="btn btn-outline-secondary" onclick="edituser(@item.Id)">Редакт.</button>
+                                                <button type="button" class="btn btn-outline-success" onclick="billsuser(@item.Id)">Счета</button>
+                                                <button type="button" class="btn btn-outline-primary" onclick="casesuser(@item.Id)">Дела</button>
+                                            </div>
+                                        </Td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
-                        @*<nav aria-label="Page navigation example">
-                            <ul class="pagination mg-b-0">
-                                <li class="page-item disabled">
-                                    <a class="page-link page-link-icon" href="#">
-                                        <i data-feather="chevron-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link page-link-icon" href="#">
-                                        <i data-feather="chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>*@
                     </div>
                 </div>
             </div>
@@ -103,71 +55,183 @@
     </div><!-- container -->
 </div><!-- content -->
 
-@for (int i = 0; Model != null && i < Model.Count; i++)
-{
-<div class="modal fade" id="modal7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel7"
+<div class="modal fade" id="modaluseredit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content tx-14">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel7">Выставить счет</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h6 class="modal-title" id="exampleModalLabel">Редактирование клиента</h6>
+                <button type="button" class="close" onclick="$('#modaluseredit').modal('hide');">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-dark table-hover table-striped mg-b-0">
-                    <thead>
-                        <tr>
-                            <th scope="col">Название</th>
-                            <th scope="col">Значение</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Кто выставляет счет?</td>
-                            <td>
-                                <input type="text" name="who" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Название дела</td>
-                            <td>
-                                <input type="text" name="nameCase"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Сумма</td>
-                            <td>
-                                <input type="text" name="amount"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Реквизит (куда должна придти оплата)</td>
-                            <td>
-                                <input type="text" name="requzit"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Дата создание счета</td>
-                            <td>
-                                <input type="datetime" name="dateCreate"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>До какого числа действителен</td>
-                            <td>
-                                <input type="datetime" name="dateEnd"/>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="form-group">
+                    <label for="fio">ФИО</label>
+                    <input type="text" class="form-control" id="fio">
+                    <small id="fioHelp" class="form-text text-muted">Будет отображаться для клиентов</small>
+                </div>
+                <div class="form-group">
+                    <label for="log">Login</label>
+                    <input type="text" class="form-control" id="log">
+                    <small id="loginHelp" class="form-text text-muted">Логин для входа в кабинет</small>
+                </div>
+                <div class="form-group">
+                    <label for="psw">Password</label>
+                    <input type="text" class="form-control" id="psw">
+                    <small id="pswHelp" class="form-text text-muted">Пароль для входа в кабинет</small>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm tx-13" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary tx-13" data-dismiss="modal">Выставить</button>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-primary tx-13" onclick="Edit_User()">Сохранить</button>
             </div>
         </div>
     </div>
 </div>
-}
+
+<div class="modal fade" id="modaluserbills" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px;">
+        <div class="modal-content tx-14">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Счета клиента</h6>
+                <button type="button" class="close" onclick="$('#modaluserbills').modal('hide');">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="userbills">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Название</th>
+                                <th>Сумма (₽)</th>
+                                <th>Реквизит</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bills">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-success tx-13" onclick="addbill();">&#10010; Новый счет</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalusercases" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px;">
+        <div class="modal-content tx-14">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Редактирование клиента</h6>
+                <button type="button" class="close" onclick="$('#modalusercases').modal('hide');">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="userbills">
+                    <label>Счета клиента</label>
+                    <table id="tablemembers" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Дело</th>
+                                <th scope="col">Сумма (₽)</th>
+                                <th scope="col">Реквизит</th>
+                                <th scope="col">Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>1</th>
+                                <td>Дело123</td>
+                                <td>123321</td>
+                                <td>444444444</td>
+                                <td>йцукен</td>
+                            </tr>
+                            <tr>
+                                <th>1</th>
+                                <td>Дело123</td>
+                                <td>123321</td>
+                                <td>444444444</td>
+                                <td>йцукен</td>
+                            </tr>
+                            <tr>
+                                <th>1</th>
+                                <td>Дело123</td>
+                                <td>123321</td>
+                                <td>444444444</td>
+                                <td>йцукен</td>
+                            </tr>
+                            <tr>
+                                <th>1</th>
+                                <td>Дело123</td>
+                                <td>123321</td>
+                                <td>444444444</td>
+                                <td>йцукен</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-primary tx-13" onclick="Edit_User()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalnewbill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content tx-14">
+            <div class="modal-header">
+                <h6 class="modal-title" id="ModalLabel">Выставление нового счета</h6>
+                <button type="button" class="close" onclick="$('#modalnewbill').modal('hide');">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="name">Название счета</label>
+                    <input type="text" class="form-control" id="name">
+                    <small id="nameHelp" class="form-text text-muted">Описание счета, напр. "Оплата дела №7"</small>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Сумма (₽)</label>
+                    <input type="text" class="form-control" id="amount">
+                    <small id="amountHelp" class="form-text text-muted">Сумма оплаты счета в рублях</small>
+                </div>
+                <div class="form-group">
+                    <label for="req">Реквизит оплаты</label>
+                    <input type="text" class="form-control" id="req">
+                    <small id="reqHelp" class="form-text text-muted">Номер кошелька, счета, карты, доп. сведения</small>
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button id="newlawyer" type="button" class="btn btn-primary tx-13" onclick="Add_bill()">Выставить счет</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/spaceuser/lib/jquery/jquery.min.js"></script>
+<script src="~/spaceuser/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/spaceuser/lib/feather-icons/feather.min.js"></script>
+<script src="~/spaceuser/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/spaceuser/lib/jquery.flot/jquery.flot.js"></script>
+<script src="~/spaceuser/lib/jquery.flot/jquery.flot.stack.js"></script>
+<script src="~/spaceuser/lib/jquery.flot/jquery.flot.resize.js"></script>
+<script src="~/spaceuser/lib/chart.js/Chart.bundle.min.js"></script>
+<script src="~/spaceuser/lib/jqvmap/jquery.vmap.min.js"></script>
+<script src="~/spaceuser/lib/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="~/spaceuser/assets/js/dashforge.chat.js"></script>
+<script src="~/spaceuser/assets/js/signalr.min.js"></script>
+<script src="~/spaceuser/assets/js/jquerry.cookie.js"></script>
+<script src="~/spaceuser/assets/js/main.js"></script>
+<script src="~/spaceadmin/assets/js/main.js"></script>

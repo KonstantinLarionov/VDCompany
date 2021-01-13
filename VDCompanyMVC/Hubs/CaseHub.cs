@@ -54,7 +54,7 @@ namespace VDCompanyMVC.Hubs
             else if (adminRes.Item2)
             {
                 var admin = adminRes.Item1;
-                var adminCase = database.Cases.Where(@case => @case.Id == idCase).FirstOrDefault();
+                var adminCase = database.Cases.Where(@case => @case.Id == idCase).Include(d => d.Dialog.Messages).Include(h => h.ClientsHub).FirstOrDefault();
                 //Наличие дела у пользователя
                 if (adminCase != null)
                 {
@@ -68,8 +68,10 @@ namespace VDCompanyMVC.Hubs
                     }
                     var clientsHub = adminCase.ClientsHub.Select(ch => ch.ConnectionId).ToList();
                     database.SaveChanges();
+                    var obj = new CallBack(null, admin.FIO, null, message, DateTime.Now);
+                    var msg = JsonSerializer.Serialize(obj);
                     await Clients.Clients(clientsHub)
-                        .SendAsync("ReceiveMessage", JsonSerializer.Serialize(new TriggerHandleDTO(null, admin, null, message, urlImage, DateTime.Now)));
+                        .SendAsync("ReceiveMessage", msg);
                 }
             }
             #endregion
@@ -77,7 +79,7 @@ namespace VDCompanyMVC.Hubs
             else if (lawyerRes.Item2)
             {
                 var lawyer = lawyerRes.Item1;
-                var lawyerCase = database.Cases.Where(@case => @case.Id == idCase).FirstOrDefault();
+                var lawyerCase = database.Cases.Where(@case => @case.Id == idCase).Include(d => d.Dialog.Messages).Include(h => h.ClientsHub).FirstOrDefault();
                 //Наличие дела у пользователя
                 if (lawyerCase != null)
                 {
@@ -91,8 +93,10 @@ namespace VDCompanyMVC.Hubs
                     }
                     var clientsHub = lawyerCase.ClientsHub.Select(ch => ch.ConnectionId).ToList();
                     database.SaveChanges();
+                    var obj = new CallBack(null, null, lawyer.FIO, message, DateTime.Now);
+                    var msg = JsonSerializer.Serialize(obj);
                     await Clients.Clients(clientsHub)
-                        .SendAsync("ReceiveMessage", JsonSerializer.Serialize(new TriggerHandleDTO(null, null, lawyer, message, urlImage, DateTime.Now)));
+                        .SendAsync("ReceiveMessage", msg);
                 }
             }
             #endregion
@@ -109,18 +113,25 @@ namespace VDCompanyMVC.Hubs
             if (userRes.Item2 || adminRes.Item2 || lawyerRes.Item2)
             {
                 var list = new List<CallBack>();
-                var userCase = database.Cases.Where(@case => @case.Id == idCase).Include(d => d.Dialog.Messages).FirstOrDefault();
-                foreach (var item in userCase.Dialog.Messages)
+                var userCase = database.Cases.Where(@case => @case.Id == idCase).Include(d => d.Dialog).FirstOrDefault();
+                var messages = database.Messages.Where(f => f.DialogId == userCase.Dialog.Id)
+                    .Include(a => a.Admin)
+                    .Include(u => u.User)
+                    .Include(l => l.Lawyer)
+                    .ToList();
+                foreach (var item in messages)
                 {
                     list.Add(new CallBack()
                     {
-                        User = !(item.User is null) ? item.User.Name : null,
-                        Admin = !(item.Admin is null) ? item.Admin.FIO : null,
-                        Lawyer = !(item.Lawyer is null) ? item.Lawyer.FIO : null,
+                        User = item.User != null ? item.User.Name : null,
+                        Admin = item.Admin != null ? item.Admin.FIO : null,
+                        Lawyer = item.Lawyer != null ? item.Lawyer.FIO : null,
                         Message = item.Text,
                         Date = item.Date
                     });
                 }
+                AddHubConnectToCase(userCase);
+                
                 var history = JsonSerializer.Serialize(list);
                 await Clients.Caller
                         .SendAsync("SendHistory", history);
@@ -229,26 +240,26 @@ namespace VDCompanyMVC.Hubs
         }
         private (User? user, bool result) AuthUser(string login, string password)
         {
-            var user = database.Users.Where(u => u.Email == login && u.Password == password).FirstOrDefault();
+            var user = database.Users.Where(u => u.Login == login && u.Password == password).FirstOrDefault();
             return user == null ? (null, false) : (user, true); 
         }
         private (Admin?, bool) AuthAdmin(string login, string password)
         {
-            var admin = database.Admins.Where(u => u.Email == login && u.Password == password).FirstOrDefault();
+            var admin = database.Admins.Where(u => u.Login == login && u.Password == password).FirstOrDefault();
             return admin == null ? (null, false) : (admin, true);
         }
         private (Lawyer?, bool) AuthLawyer(string login, string password)
         {
-            var lawyer = database.Lawyers.Where(u => u.Email == login && u.Password == password).FirstOrDefault();
+            var lawyer = database.Lawyers.Where(u => u.Login == login && u.Password == password).FirstOrDefault();
             return lawyer == null ? (null, false) : (lawyer, true);
         }
         private void AddHubConnectToCase(Case userCase)
         {
-            var d = Context;
             if (userCase.ClientsHub.Count == 0 || !userCase.ClientsHub.Any(ch => ch.ConnectionId == Context.ConnectionId))
             {
                 userCase.ClientsHub.Add(new ClientHub() { ConnectionId = Context.ConnectionId, LastNotify = DateTime.Now });
             }
+            database.SaveChanges();
         }
         #endregion
     }

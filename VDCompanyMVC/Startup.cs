@@ -90,7 +90,7 @@ namespace VDCompanyMVC
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Logs += Loger;
+            //Logs += Loger;
         }
         public void Loger(string message)
         {
@@ -123,6 +123,13 @@ namespace VDCompanyMVC
                      mySqlOptions.ServerVersion(new Version(5, 6, 45), ServerType.MySql);
                  }
            ));
+            services.AddDbContextPool<ChatContext>(
+            options => options.UseMySql(Conf.DBChat,
+                mySqlOptions =>
+                {
+                    mySqlOptions.ServerVersion(new Version(5, 6, 45), ServerType.MySql);
+                }
+        ));
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
@@ -145,6 +152,7 @@ namespace VDCompanyMVC
             }
 
             app.UseSession();
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -154,6 +162,7 @@ namespace VDCompanyMVC
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapHub<CaseHub>("/caseHub");
                 endpoints.MapHub<MyHub>("/MyHub");
                 endpoints.MapControllerRoute(

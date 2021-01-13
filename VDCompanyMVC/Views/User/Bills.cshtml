@@ -1,66 +1,79 @@
 ﻿@{ Layout = "_LayoutUser";}
+@using VDCompanyMVC.Models.Objects;
 @model VDCompanyMVC.Models.Pages.ModelUserBills;
-<div class="content content-fixed">
-    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
-        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
-            <div>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                        <li class="breadcrumb-item"><a href="#">Личный кабинет</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Мои счета</li>
-                    </ol>
-                </nav>
-                <h4 class="mg-b-0 tx-spacing--1">Просмотр счетов</h4>
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Личный кабинет</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Мои счета</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-0 tx-spacing--1">Просмотр счетов</h4>
+                </div>
+            </div>
+
+            <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
+                <div class="table-responsive">
+                    <table class="table table-primary table-hover table-striped mg-b-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Название</th>
+                                <th scope="col">Сумма</th>
+                                <th scope="col">Реквизит</th>
+                                <th scope="col">Дата выставления</th>
+                                <th scope="col">Дата оплаты</th>
+                                <th scope="col">Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Bills)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.NameCase</td>
+                                    <td>@item.Amount</td>
+                                    <td>@item.Requizit</td>
+                                    <td>@item.DateCreate</td>
+                                    <td>@(item.Status != StatusBill.Paid ? "-" : item.DatePay.ToString())</td>
+                                    <td>
+                                        @if (item.Status == StatusBill.InProcess)
+                                        {
+                                            <span class="badge badge-warning">В процессе</span>
+                                        }
+                                        @if (item.Status == StatusBill.NotPaid)
+                                        {
+                                            <span class="badge badge-danger">Отклонен</span>
+                                        }
+                                        @if (item.Status == StatusBill.Paid)
+                                        {
+                                            <span class="badge badge-success">Оплачен</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
-            <div class="table-responsive">
-                <table class="table table-primary table-hover table-striped mg-b-0">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Дело</th>
-                            <th scope="col">Сумма</th>
-                            <th scope="col">Реквизит</th>
-                            <th scope="col">Дата выставления</th>
-                            <th scope="col">Дата оплаты</th>
-                            <th scope="col">Действие</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Bills)
-                        {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.NameCase</td>
-                            <td>@item.Amount</td>
-                            <td>@item.Requizit</td>
-                            <td>@item.DateCreate</td>
-                            <td>@item.DatePay</td>
-                            <td>@item.Status</td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    
-    <script src="lib/jquery/jquery.min.js"></script>
-    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/feather-icons/feather.min.js"></script>
-    <script src="lib/perfect-scrollbar/perfect-scrollbar.min.js"></script> 
-    <script src="lib/jquery.flot/jquery.flot.js"></script>
-    <script src="lib/jquery.flot/jquery.flot.stack.js"></script>
-    <script src="lib/jquery.flot/jquery.flot.resize.js"></script>
-    <script src="lib/chart.js/Chart.bundle.min.js"></script>
-    <script src="lib/jqvmap/jquery.vmap.min.js"></script>
-    <script src="lib/jqvmap/maps/jquery.vmap.usa.js"></script>
-
-    <script src="assets/js/dashforge.js"></script>
-    <script src="assets/js/dashforge.sampledata.js"></script>
-
-    <!-- append theme customizer -->
-    <script src="lib/js-cookie/js.cookie.js"></script>
-    <script src="assets/js/dashforge.settings.js"></script>
+        <script src="~/spaceuser/lib/jquery/jquery.min.js"></script>
+        <script src="~/spaceuser/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/spaceuser/lib/feather-icons/feather.min.js"></script>
+        <script src="~/spaceuser/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script src="~/spaceuser/lib/jquery.flot/jquery.flot.js"></script>
+        <script src="~/spaceuser/lib/jquery.flot/jquery.flot.stack.js"></script>
+        <script src="~/spaceuser/lib/jquery.flot/jquery.flot.resize.js"></script>
+        <script src="~/spaceuser/lib/chart.js/Chart.bundle.min.js"></script>
+        <script src="~/spaceuser/lib/jqvmap/jquery.vmap.min.js"></script>
+        <script src="~/spaceuser/lib/jqvmap/maps/jquery.vmap.usa.js"></script>
+        <script src="~/spaceuser/assets/js/dashforge.chat.js"></script>
+        <script src="~/spaceuser/assets/js/signalr.min.js"></script>
+        <script src="~/spaceuser/assets/js/jquerry.cookie.js"></script>
+        <script src="~/spaceuser/assets/js/main.js"></script>
+        <script src="~/spaceadmin/assets/js/main.js"></script>
+       

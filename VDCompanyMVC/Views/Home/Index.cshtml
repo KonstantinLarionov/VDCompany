@@ -25,6 +25,8 @@
 
     <link rel="stylesheet" href="~/spacehome/assets/css/helpers.css">
     <link rel="stylesheet" href="~/spacehome/assets/css/style.css">
+    <link rel="stylesheet" href="~/chat/perfect-scrollbar.min.css">
+    <link rel="stylesheet" href="~/chat/style.css">
 </head>
 
 <body data-spy="scroll" data-target="#pb-navbar" data-offset="200" class="darkRed textWhite">
@@ -628,9 +630,32 @@
 
     <!-- loader -->
     <!-- <div id="pb_loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
                 stroke="#FDA04F" /></svg></div> -->
+
+    <div id="chat" class="col-12 p-1" style="max-width: 450px; position: fixed; bottom: 5px; right: 5px; display: none; z-index: 999; color: black;">
+        <div class="chat-div rounded shadow-6dp" style="border: 1px gray solid;">
+            <div class="p-0">
+                <div class="p-1" style="display: flex; position: relative;">
+                    <strong class="center">Чат поддержки</strong>
+                    <button id="close-chat" class="btn btn-outline-danger p-1 pl-2 pr-2 pointer" style="position: absolute; right: 3px;" title="Чат можно времено закрыть">✕</button>
+                </div>
+                <div id="chat_list" class="m-1 pr-3 p-1 chat-list">
+                    <div id="messages">
+                        <div class="msg-admin">
+                            Задайте свой вопрос - мы ответим как можно скорее (не покидайте страницу, чтобы этот диалог сохранился)
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-send" style="display: flex;">
+                    <textarea id="chat_message" class="rounded chat-mymessage p-1" rows="3" title="Напишите ваше сообщение здесь"></textarea>
+                    <button class="rounded chat-button pointer" onclick="Send();" title="Нажмите, чтобы отправить ваше вообщение"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="icon-chat" class="notifi pointer shadow-6dp" title="Откройте чат - напишите нам"></div>
 
 
     <script src="~/spacehome/assets/js/jquery.min.js"></script>
@@ -641,6 +666,58 @@
     <script src="~/spacehome/assets/js/jquery.easing.1.3.js"></script>
     <script src="~/spacehome/assets/js/SweetAlert.js"></script>
     <script src="~/spacehome/assets/js/main.js"></script>
+    <script src="~/chat/perfect-scrollbar.min.js"></script>
+    <script src="~/chat/signalr.min.js"></script>
+    <script>
+        $('#chat_list').perfectScrollbar();
+        $('#icon-chat').on('click', function () {
+            $('#icon-chat').hide();
+            $('#chat').show();
+        });
+        $('#close-chat').on('click', function () {
+            $('#icon-chat').show();
+            $('#chat').hide();
+        });
+        const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
+        hubConnection.serverTimeoutInMilliseconds = 1000 * 60 * 30;
+        hubConnection.on("Send", function (msg) {
+            var result = JSON.parse(msg);
+            console.log(result);
+            if (result.Item1 !== "admin") {
+                add_clientmessage(result.Item2);
+            } else {
+                add_adminmessage(result.Item2);
+            }
+        });
+        hubConnection.start();
+        function Send() {
+            let message = $('#chat_message').val();
+            if (message !== "") {
+                $('#chat_message').val('');
+                hubConnection.invoke("Send", message, "-", "-", "-", "-");
+            }
+        };
+        $(document).keydown(function (e) {
+            if (e.keyCode === 13) {
+                Send();
+            }
+        });
+        function add_clientmessage(message) {
+            //var dt = new Date();
+            //var time = (dt.getHours() + "").padStart(2, "0") + ":" + (dt.getMinutes() + "").padStart(2, "0");
+            $('#messages').append('<div class="msg-client">' + message + /*'<br><span style=" color: #858585; text-align: right;">' + time + '</span>*/'</div>');
+            $("#chat_list").scrollTop( $( "#chat_list" ).prop( "scrollHeight" ) );
+            $("#chat_list").perfectScrollbar('update');
+        };         // Добавление сообщения от клиента
+        function add_adminmessage(message) {
+            //var dt = new Date();
+            //var time = (dt.getHours() + "").padStart(2, "0") + ":" + (dt.getMinutes() + "").padStart(2, "0");
+            $('#messages').append('<div class="msg-admin">' + message + /*'<br><span style=" color: #858585; text-align: right;">' + time + '</span>*/'</div>');
+            $('#messages').scrollTop($('#chat_list').prop('scrollHeight'));
+            $("#chat_list").scrollTop( $( "#chat_list" ).prop( "scrollHeight" ) );
+            $("#chat_list").perfectScrollbar('update');
+        }; 
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
-﻿@{ Layout = "_LayoutUser";}
-@model VDCompanyMVC.Models.DTO.UserCasesDTO
+﻿@{ Layout = "_LayoutLaw";}
+@model VDCompanyMVC.Models.Pages.ModelLawyerCases
 <div class="content content-fixed">
     <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
         <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
@@ -12,22 +12,14 @@
                 </nav>
                 <h4 class="mg-b-0 tx-spacing--1">Просмотр всех дел аккаунта</h4>
             </div>
-            <div class="d-none d-md-block">
-                <button class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">
-                    <i data-feather="clipboard"
-                       class="wd-10 mg-r-5"></i> Мои счета
-                </button>
-            </div>
         </div>
-
-
         <div class=" ht-100p d-flex flex-column justify-content-between align-items-center">
             <div class="table-responsive">
                 <table class="table table-primary table-hover table-striped mg-b-0">
                     <thead>
                         <tr>
                             <td style="vertical-align:middle;" scope="col">ID</td>
-                            <td style="vertical-align:middle;" scope="col">Имя/Ник</td>
+                            <td style="vertical-align:middle;" scope="col">Название</td>
                             <td style="vertical-align:middle;" scope="col">Тип дела</td>
                             <td style="vertical-align:middle;" scope="col">Статус дела</td>
                             <td style="vertical-align:middle;" scope="col">Дата открытия</td>
@@ -62,7 +54,7 @@
                                     </td>
                                     <td style="vertical-align:middle;">@Model.Cases[i].DateStart</td>
 
-                                    <td style="vertical-align:middle;"><a  href="/User/Case?id=@Model.Cases[i].Id" class="btn btn-primary">Посмотреть</a></td>
+                                    <td style="vertical-align:middle;"><a  href="/Lawyer/Case?id=@Model.Cases[i].Id" class="btn btn-primary">Перейти</a></td>
                                 </tr>
 
                             }

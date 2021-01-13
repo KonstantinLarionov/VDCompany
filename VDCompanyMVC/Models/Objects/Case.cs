@@ -17,7 +17,6 @@ namespace VDCompanyMVC.Models.Objects
         public string Type { get; set; }
         public List<ClientHub> ClientsHub { get; set; } = new List<ClientHub>();
         public List<Doc> Docs { get; set; } = new List<Doc>();
-        public List<Lawyer> Lawyers { get; set; } = new List<Lawyer>();
         public Dialog Dialog { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }

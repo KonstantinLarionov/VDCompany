@@ -21,10 +21,10 @@
                     <thead>
                         <tr>
                             <td style="vertical-align:middle;" scope="col">ID</td>
-                            <td style="vertical-align:middle;" scope="col">Имя/Ник</td>
-                            <td style="vertical-align:middle;" scope="col">Тип дела</td> 
+                            <td style="vertical-align:middle;" scope="col">Название</td>
+                            <td style="vertical-align:middle;" scope="col">Тип дела</td>
                             <td style="vertical-align:middle;" scope="col">Статус дела</td>
-                            <td style="vertical-align:middle;" scope="col">Дата открытия</td>
+                            <td style="vertical-align:middle;" scope="col">Дата создания</td>
                             <td style="vertical-align:middle;" scope="col">Действие</td>
                         </tr>
                     </thead>
@@ -38,12 +38,13 @@
                                     <td style="vertical-align:middle;" scope="row">@Model.Cases[i].Id</td>
                                     <td style="vertical-align:middle;">@Model.Cases[i].Name</td>
                                     <td style="vertical-align:middle;">@Model.Cases[i].Type</td>
-                                    <td style="vertical-align:middle;">@{ string state = "Закрыто"; }
+                                    <td style="vertical-align:middle;">
+                                        @{ string state = "Закрыто"; }
                                     @if (Model.Cases[i].Status == VDCompanyMVC.Models.Objects.TypeCase.Close)
                                     {
                                         @state
                                     }
-                                    else if(Model.Cases[i].Status == VDCompanyMVC.Models.Objects.TypeCase.InProcess)
+                                    else if (Model.Cases[i].Status == VDCompanyMVC.Models.Objects.TypeCase.InProcess)
                                     {
                                         state = "В процессе";
                                         @state;
@@ -53,13 +54,13 @@
                                         state = "Открыто";
                                         @state;
                                     }
-                                    </td>
-                                    <td style="vertical-align:middle;">@Model.Cases[i].DateStart</td>
+                                </td>
+                                <td style="vertical-align:middle;">@Model.Cases[i].DateStart</td>
 
-                                    <td style="vertical-align:middle;"><a  href="/User/Case?id=@Model.Cases[i].Id" class="btn btn-primary">Перейти</a></td>
-                                </tr>
+                                <td style="vertical-align:middle;"><a href="/User/Case?id=@Model.Cases[i].Id" class="btn btn-primary">Перейти</a></td>
+                            </tr>
 
-                            }
+                        }
                         }
 
                     </tbody>
@@ -68,3 +69,19 @@
         </div>
     </div>
 </div>
+<script src="~/spaceuser/lib/jquery/jquery.min.js"></script>
+<script src="~/spaceuser/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/spaceuser/lib/feather-icons/feather.min.js"></script>
+<script src="~/spaceuser/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/spaceuser/lib/jquery.flot/jquery.flot.js"></script>
+<script src="~/spaceuser/lib/jquery.flot/jquery.flot.stack.js"></script>
+<script src="~/spaceuser/lib/jquery.flot/jquery.flot.resize.js"></script>
+<script src="~/spaceuser/lib/chart.js/Chart.bundle.min.js"></script>
+<script src="~/spaceuser/lib/jqvmap/jquery.vmap.min.js"></script>
+<script src="~/spaceuser/lib/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="~/spaceuser/assets/js/dashforge.chat.js"></script>
+<script src="~/spaceuser/assets/js/signalr.min.js"></script>
+<script src="~/spaceuser/assets/js/jquerry.cookie.js"></script>
+<script src="~/spaceuser/assets/js/main.js"></script>
+<script src="~/spaceadmin/assets/js/main.js"></script>
+

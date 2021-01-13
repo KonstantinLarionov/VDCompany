@@ -12,7 +12,7 @@ namespace VDCompanyMVC.Models.DTO
         public User User = new User();
         public Admin Admin = new Admin();
         public Lawyer Lawyer = new Lawyer();
-
+        public List<Lawyer> Lawyers = new List<Lawyer>();
 
         public MyCaseDTO(Case @case, User user)
         {

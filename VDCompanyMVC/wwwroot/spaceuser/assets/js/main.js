@@ -12,6 +12,7 @@ hubConnection.serverTimeoutInMilliseconds = 1000 * 60 * 10;
 
 hubConnection.on("ReceiveMessage", function (msg) {
     var a = JSON.parse(msg);
+    console.log(a);
     var u = "undefined";
     if (a.Admin != null) u = a.Admin;
     if (a.Lawyer != null) u = a.Lawyer;
@@ -23,6 +24,7 @@ hubConnection.on("ReceiveMessage", function (msg) {
 hubConnection.on("SendHistory", function (msg) {
     chatclear();
     var a = JSON.parse(msg);
+    console.log(a);
     a.forEach(function (item) {
         var u = "unnnamed";
         if (item.Admin != null) u = item.Admin;
