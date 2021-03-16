@@ -290,7 +290,7 @@ namespace VDCompany.Controllers
             var user = db.Users.Where(f => f.Id == id).Include(g => g.Bills).FirstOrDefault();
             if (user != null)
             {
-                return "{\"status\":\"success\", \"data\":" + JsonSerializer.Serialize(user.Bills) + "}";
+                return "{\"status\":\"success\", \"data\":" + JsonSerializer.Serialize(user.Bills) + ", \"user\":\"" + user.Name + "\"}";
             }
             return "{\"status\":\"error\", \"data\":\"not found user with id = " + id + "\"}";
         }

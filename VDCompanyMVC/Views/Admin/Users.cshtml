@@ -60,7 +60,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content tx-14">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Редактирование клиента</h6>
+                <h6 class="modal-title" id="ModalEditUser">Редактирование клиента</h6>
                 <button type="button" class="close" onclick="$('#modaluseredit').modal('hide');">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -94,7 +94,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px;">
         <div class="modal-content tx-14">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Счета клиента</h6>
+                <h6 class="modal-title" id="ModalBills">Счета клиента</h6>
                 <button type="button" class="close" onclick="$('#modaluserbills').modal('hide');">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -123,74 +123,12 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalusercases" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px;">
-        <div class="modal-content tx-14">
-            <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">Редактирование клиента</h6>
-                <button type="button" class="close" onclick="$('#modalusercases').modal('hide');">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="userbills">
-                    <label>Счета клиента</label>
-                    <table id="tablemembers" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Дело</th>
-                                <th scope="col">Сумма (₽)</th>
-                                <th scope="col">Реквизит</th>
-                                <th scope="col">Статус</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>Дело123</td>
-                                <td>123321</td>
-                                <td>444444444</td>
-                                <td>йцукен</td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>Дело123</td>
-                                <td>123321</td>
-                                <td>444444444</td>
-                                <td>йцукен</td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>Дело123</td>
-                                <td>123321</td>
-                                <td>444444444</td>
-                                <td>йцукен</td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>Дело123</td>
-                                <td>123321</td>
-                                <td>444444444</td>
-                                <td>йцукен</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-primary tx-13" onclick="Edit_User()">Сохранить</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="modalnewbill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content tx-14">
             <div class="modal-header">
-                <h6 class="modal-title" id="ModalLabel">Выставление нового счета</h6>
+                <h6 class="modal-title" id="ModalNewBill">Выставление нового счета</h6>
                 <button type="button" class="close" onclick="$('#modalnewbill').modal('hide');">
                     <span aria-hidden="true">×</span>
                 </button>

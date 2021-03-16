@@ -96,7 +96,6 @@ function getmembers(id_case) {
 var id_lawyer = 0;
 function editlawyer(id) {
     id_lawyer = id;
-    $('#ModalLabel').text('Редактирование данных юриста id = ' + id)
     $('#newlawyer').hide();
     $('#editlawyer').show();
     $.ajax({
@@ -114,6 +113,7 @@ function editlawyer(id) {
                 $('#fio').val(a.data.FIO);
                 $('#log').val(a.data.Login);
                 $('#psw').val(a.data.Password);
+                $('#ModalLabel').text('Редактирование данных юриста «' + a.data.FIO + '»');
                 $('#modal').modal('show');
             }
             if (a.status == "error") {
@@ -219,6 +219,7 @@ function Remove_Lawyer(id) {
 /*                  */
 
 var id_user = 0;
+var username = '';
 function edituser(id) {
     id_user = id;
     $.ajax({
@@ -235,6 +236,7 @@ function edituser(id) {
                 $('#fio').val(a.data.Name);
                 $('#log').val(a.data.Login);
                 $('#psw').val(a.data.Password);
+                $('#ModalEditUser').text('Редактирование пользователя «' + a.data.Name + '»');
                 $('#modaluseredit').modal('show');
             }
             if (a.status == "error") {
@@ -284,6 +286,8 @@ function billsuser(id) {
             }
             if (a.status == "success") {
                 $('#bills').empty();
+                $('#ModalBills').text('Счета клиента «' + a.user + '»');
+                username = a.user;
                 a.data.forEach(function (item) {                
                     var row = '<tr>' +
                         '<th>' + item.Id + '</th>' +
@@ -332,6 +336,7 @@ function addbill() {
     $('#name').val('');
     $('#amount').val('');
     $('#req').val('');
+    $('#ModalNewBill').text('Создание нового счета для «' + username + '»');
     $('#modalnewbill').modal('show');
 }
 function Add_bill() {
